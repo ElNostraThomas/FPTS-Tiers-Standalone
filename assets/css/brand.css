@@ -1,0 +1,551 @@
+/* ════════════════════════════════════════════════════════════════════════
+   FPTS brand.css — canonical brand-level styles for every page.
+   ════════════════════════════════════════════════════════════════════════
+
+   ───────────────────────────────────────────────────────────────────────
+   THE BRANDING HARD RULES (read this before changing color anywhere)
+   ───────────────────────────────────────────────────────────────────────
+
+   1. BLACK TEXT (#111111) ON EVERY BRIGHT-COLORED FILL — NO EXCEPTIONS.
+      Every surface that uses a vibrant brand-color fill (--pos-qb-bg,
+      --pos-rb-bg, --pos-wr-bg, --pos-te-bg, --pos-k-bg, --pos-pick-bg,
+      --red, --green, --yellow, --orange) uses `color: #111111` for text
+      inside (or `var(--pos-qb)` / `var(--pos-rb)` etc. — those tokens now
+      resolve to #111111 in both themes). Includes: pos pills, tier badges,
+      heat tints (.rk-min/.rk-max), icon-btn active states, mvs-vol-hot/warm,
+      hm-flash-label, lg-trigger, every "*.active" button on every page.
+      The only exception is when the fill is itself white/muted/surface —
+      then theme-aware var(--white) text is correct (light in dark mode,
+      dark in light mode). Inverted from the prior "WHITE on bright"
+      doctrine on 2026-05-20 because white text washed out on the lighter
+      pill colors (TE/yellow, WR/blue most visibly).
+
+   2. NEVER USE `opacity:` ON A PARENT THAT CONTAINS COLORED CHILDREN.
+      CSS opacity COMPOUNDS down to children and cannot be overridden by
+      `opacity: 1` on the child. If a parent has a pill, badge, or any
+      colored visual element inside, do NOT set opacity on the parent.
+      Instead, fade the text directly with `color: rgba(17,17,17,X)` on
+      bright fills, or `color: rgba(255,255,255,X)` on dark surfaces.
+      Leaf text-only elements (placeholders, footnotes, labels with no
+      colored children) MAY use `opacity:` — but prefer rgba alpha as the
+      house style so we never hit the compounding bug.
+
+   3. SOURCE OF TRUTH IS THIS FILE.
+      Color tokens (--pos-*-bg, --pos-*, --red, --green, --yellow, --orange)
+      are defined here. Inline duplicates in HTML pages must match exactly.
+      Never hardcode position hex values in CSS rules — always reference
+      the token. Never hardcode `color: var(--white)` on a bright fill —
+      use `#111111` literal. Hardcoded white text bypasses rule #1 and
+      makes the surface unreadable when the lighter pill colors are used.
+
+   4. VIBRANT BY DEFAULT.
+      Muted styling is reserved for genuinely secondary info (column
+      labels, footnotes, helper text) and is achieved with rgba alpha on
+      the text color, NEVER by opacity on a container. If a surface looks
+      "grey" or "dim" when it shouldn't, the cause is one of: (a) opacity
+      compounding from a parent, (b) hardcoded var(--white) text on a
+      lighter bright fill (now banned per rule #1), or (c) referencing
+      --pos-X text token via a hardcoded value rather than the variable.
+
+   5. CHECK SCRIPT.
+      `python scripts/check-colors.py` must print CLEAN after any change.
+      Extend BRAND_HEXES if you add a new brand color.
+
+   ───────────────────────────────────────────────────────────────────────
+   THE MOBILE-FIRST RULES (read this before adding ANY mobile @media block)
+   ───────────────────────────────────────────────────────────────────────
+
+   The site is currently desktop-first with mobile patches layered on via
+   @media (max-width: ...) blocks. Going forward, every NEW mobile block
+   should be designed from a 390px iPhone viewport baseline as if no desktop
+   layout existed, then sit underneath the existing desktop rules untouched.
+   The desktop CSS rules above the media query are sacred — never modified
+   to "make mobile work better."
+
+   1. ONE BREAKPOINT — 768px.
+      Mobile = `@media (max-width: 768px)`. No 700px, no 480px. All legacy
+      700px usage across brand.css / legend.css / heatmap.css / player-panel.css
+      and the 7 HTML pages was swept to 768px in the Phase 0 foundation pass.
+      A few 480px sub-breakpoints remain in player-panel.css and heatmap.css
+      pending Phase 1 cleanup; once removed, 768px will be the only mobile
+      breakpoint in the entire codebase.
+
+   2. MOBILE BLOCKS ARE SELF-CONTAINED DESIGNS, NOT PATCHES.
+      A mobile @media block should read like a from-scratch layout for a
+      touch viewport, not a series of overrides flipping desktop properties.
+      If a mobile rule is just `flex-direction: column !important;` undoing
+      a desktop `flex-direction: row`, the design isn't mobile-first — it's
+      a band-aid. Rewrite the block as: explicit grid/flex with the mobile
+      layout in mind, not "the desktop layout with mobile changes."
+
+   3. MINIMAL !important.
+      Mobile blocks today rely heavily on !important to defeat desktop
+      cascade specificity (97 instances in player-panel.css mobile section
+      alone). A mobile-first block should NOT need !important to express
+      its intent. Use selector specificity instead. The exception: when
+      defeating an inline `style="..."` attribute from JS — that legitimately
+      requires !important.
+
+   4. NO DESKTOP-PIXEL REFERENCES IN MOBILE BLOCKS.
+      Don't reference desktop widths (1100px, 1500px, 1360px, 1440px) inside
+      a mobile @media block. If the mobile design needs a constraint, derive
+      it from the mobile viewport (e.g. `width: 100%`, `max-width: 100vw`,
+      `min-width: 0`).
+
+   5. DESKTOP CSS NEVER CHANGES.
+      Every mobile-first edit is gated behind `@media (max-width: 768px)`.
+      Desktop visual output stays byte-equivalent. This is the load-bearing
+      constraint of the entire mobile-first refactor.
+
+   6. RECIPES.
+      Common mobile-first conversions live in CLAUDE.md ("Mobile-first
+      recipes" section):
+        - Table → card mode (rankings, my-leagues roster, etc.)
+        - Side drawer → bottom sheet (player panel on mobile)
+        - Multi-column grid → swipeable carousel (adp-tool Box view)
+        - Hover state → tap state (no :hover-only interactions)
+      Use the recipes instead of inventing new patterns.
+
+   ───────────────────────────────────────────────────────────────────────
+
+   PURPOSE
+     Single source of truth for:
+       - Brand color variables (--red is the dynasty-orange #ED810C accent)
+       - Dark/light theme tokens
+       - Self-hosted brand fonts (Kanit ExtraBold Italic + Mulish variable)
+       - The top nav (identical across all 5 existing pages)
+       - Shared position pills (.pos-pill family with QB/RB/WR/TE/K/DEF/PICK/RDP)
+       - Generic page chrome (.page, .page-header, .page-title, .page-subtitle)
+       - Shared "stat-pill" and "team-pill" widget styles
+
+   USAGE
+     <link rel="stylesheet" href="assets/css/brand.css?v=...">
+
+   WHAT'S NOT HERE
+     Page-specific UI (ADP controls bar, list table, box grid, etc.) stays
+     in each page. Component modules (player-panel.css, heatmap.css,
+     mvs-extras.css, legend.css) are loaded separately.
+
+   MIGRATION NOTE
+     The existing 5 pages still carry inline copies of most of this CSS as
+     part of their `<style>` blocks — they will continue to work unchanged.
+     New pages can simply link to this file and skip the duplication. When
+     an existing page is next touched, its inline copy can be removed and
+     replaced with this link.
+   ════════════════════════════════════════════════════════════════════════ */
+
+@font-face {
+  font-family: 'Kanit';
+  src: url('../fonts/Kanit-ExtraBoldItalic.ttf') format('truetype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Mulish';
+  src: url('../fonts/Mulish-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ════════════════════════════════════════════════════════════════════════
+   COLOR USAGE RULE — every page must follow this hierarchy.
+   Never hardcode hex; always reference the brand vars below.
+   ════════════════════════════════════════════════════════════════════════
+
+   1. PRIMARY ACCENT (orange #ED810C)
+        var(--red)               → solid accent (active buttons, badges, sort arrows)
+        var(--red-bg)            → 10% subtle tint (row highlights, soft callouts)
+        var(--red-bg-soft)       → 6% extra-subtle tint
+        rgba(237,129,12, 0.20..0.55)  → stronger tint where needed (heatmap mid, alert cells)
+        rgba(237,129,12, 0.60..1.00)  → saturated (heatmap peak, primary CTA)
+        ERROR / ALERT backgrounds (e.g. "Data load failed" banners) MUST use
+        var(--pos-qb-bg) (#e05252 brand vivid red — semantic alarm color
+        distinct from the dynasty orange primary accent).
+
+   2. SECONDARY GREEN (background #4caf6e)
+        var(--green)             → solid green (buy chips, "best" indicators)
+        var(--green-bg)          → 10% subtle tint
+        rgba(76, 175, 110, 0.20..0.55) → stronger tint (paired with red-bg variants)
+        ⚠ NEVER use #66dd84 as a background — that hue is reserved for the
+        .trend.up foreground arrow color (see §5 below).
+
+   3. POSITION PILLS
+        var(--pos-{qb,rb,wr,te,k,pick}-bg)  → fills
+        var(--pos-{qb,rb,wr,te,k,pick})     → text (always dark #111 in dark mode for contrast)
+
+   4. ACTIVE BUTTON / TAB
+        Background: var(--red)
+        Text:       #111  (dark for high contrast on orange — see .icon-btn.active,
+                           .controls-btn.active in adp-tool.html:108)
+
+   5. TREND BADGE — text indicators ▲ ▼ ●
+        .trend.up:   color #66dd84      ← LITERAL EXCEPTION, foreground only
+        .trend.down: color var(--red)
+        .trend.flat: color #ffffff
+        Pair with text-shadow black stroke (see .trend rule below) for
+        legibility on colored backgrounds.
+        Other "trend-up" text surfaces (.pp-value-trend.up in player-panel.css,
+        .mvs-extras-diff.up in mvs-extras.css, ad-hoc .up classes in per-page
+        MVS displays) MUST use this same #66dd84 literal so every "up"
+        indicator across the site shares the exact same brand-bright green.
+
+   6. HEATMAP — per-cell intensity gradient (one hue)
+        Monochrome var(--red) at varying opacity (0.06 .. 1.00)
+        Reference: heatmap.css .hm-legend-bar uses
+                   rgba(237,129,12, 0.06) → rgba(237,129,12, 1.0)
+
+   7. BIPOLAR HIGHLIGHTS — per-row min/max, like analyst-cell highlights
+        Use SOLID brand colors with WHITE text (same standard as the
+        position pills, .icon-btn.active, tier badges, and every other
+        bright-fill surface — see THE WHITE-TEXT RULE block below).
+        Half-opacity tints (rgba at 0.20-0.55) over dark surfaces read as
+        muddy — avoid them for emphasis. Reserve opacity tints for SUBTLE
+        row stripes (use --green-bg / --red-bg at 10% for those).
+            "Best" / lowest / improved → background: var(--green);  color: #111111
+            "Worst" / highest / slipped → background: var(--red);   color: #111111
+            Hover: opacity: .92  (matches .icon-btn.active:hover)
+        Reference: rankings.html .rk-table td.rk-min / .rk-max (analyst mode)
+
+   8. SURFACE / BORDERS
+        Panel backgrounds:        var(--surface) (#1a1a1a)
+        Button inactive bg:       var(--surface) or var(--surface2)
+        Borders:                  var(--border) (#2a2a2a) or var(--border2) (#333)
+
+   When adding a new visual surface: pick the closest pattern above. If you
+   need something new, add a token here (do NOT inline a hex). The 5 legacy
+   pages still carry inline copies of these vars in their <style> blocks —
+   those duplicates are fine; the goal is no new drift.
+   ════════════════════════════════════════════════════════════════════════ */
+:root {
+  --black: #111111; --white: #ffffff; --red: #ED810C;
+  --surface: #1a1a1a; --surface2: #222222;
+  --border: #2a2a2a; --border2: #333333;
+  --green: #4caf6e;
+  --yellow: #f0c040;
+  --orange: #e8732a;
+  --red-bg: rgba(237,129,12,.10);
+  --red-bg-soft: rgba(237,129,12,.06);
+  --green-bg: rgba(76,175,110,.10);
+  --pos-wr-bg:#5b9bd5; --pos-wr:#111111;
+  --pos-rb-bg:#4caf6e; --pos-rb:#111111;
+  --pos-qb-bg:#e05252; --pos-qb:#111111;
+  --pos-te-bg:#e09a30; --pos-te:#111111;
+  --pos-k-bg:#9b91d4;  --pos-k:#111111;
+  --pos-pick-bg:#9b91d4; --pos-pick:#111111;
+  --nav-bg: #111111; --page-bg: #111111;
+  --muted: var(--white);
+  --muted2: var(--white);
+  --color-scheme: dark;
+}
+[data-theme="light"] {
+  --black: #f0f0f0; --white: #111111;
+  --surface: #e8e8e8; --surface2: #dedede;
+  --border: #cccccc; --border2: #bbbbbb;
+  --pos-wr-bg:#5b9bd5; --pos-wr:#111111;
+  --pos-rb-bg:#4caf6e; --pos-rb:#111111;
+  --pos-qb-bg:#e05252; --pos-qb:#111111;
+  --pos-te-bg:#e09a30; --pos-te:#111111;
+  --pos-k-bg:#9b91d4;  --pos-k:#111111;
+  --pos-pick-bg:#9b91d4; --pos-pick:#111111;
+  --nav-bg: #f0f0f0; --page-bg: #f0f0f0;
+  --color-scheme: light;
+}
+
+html { background: var(--page-bg); transition: background .3s; overflow-y: scroll; }
+body { color-scheme: var(--color-scheme); color: var(--white); font-family: 'Mulish', sans-serif; min-height: 100vh; background: var(--page-bg); }
+html, body { overflow-x: hidden !important; }
+/* Desktop: release the horizontal-scroll lock so wide surfaces (ADP Box grid,
+   live-draft board, etc.) can scroll sideways. Mobile keeps the lock — its
+   layouts are designed to fit the viewport. */
+@media (min-width: 769px) {
+  html, body { overflow-x: auto !important; }
+  /* Lift the 1440px content cap so wide layouts use the full viewport instead
+     of leaving large empty side gutters at 2x zoom. Targets every wrapper that
+     auto-centers at 1440px — topnav, page body, footer. html-prefixed selector
+     beats inline duplicates via specificity (0,1,1 vs 0,1,0). padding-inline
+     preserves existing top/bottom padding (footer keeps 20px vertical, .page
+     keeps 60px bottom). 32px CSS = 64px visual at zoom 2 — content never
+     kisses the viewport edge. */
+  html .topnav, html .page, html footer {
+    max-width: none;
+    padding-inline: 32px;
+  }
+  /* Topnav: aggressively tight at desktop so the entire nav list + right-side
+     controls fit within the viewport even at the highest zoom (1.75). The
+     base values are sized to fit at viewport ~1600 CSS px. As the adaptive
+     body zoom steps down at narrower viewports, the topnav fits even better.
+     html-prefixed selectors beat inline duplicates in 5 pages via specificity
+     (0,1,1 vs 0,0,1 / 0,1,0). Explicit background defends against any case
+     where the parent .topnav-wrap inline-style fails to paint. */
+  html .topnav { height: 44px; gap: 8px; background: var(--nav-bg); }
+  html .topnav .wordmark svg { height: 20px; }
+  html .topnav .wordmark-group { gap: 8px; }
+  html .topnav .wordmark-tag { font-size: 18px; }
+  html .topnav .nav-link { font-size: 10px; padding: 0 6px; height: 44px; }
+  html .topnav .nav-right { gap: 8px; }
+  html .topnav .nav-stat { font-size: 9px; }
+  html .topnav .nav-badge { font-size: 9px; padding: 2px 6px; }
+}
+/* Topnav adaptive content-hiding — as the viewport narrows and the body zoom
+   steps down, drop non-essential topnav items + shrink the logo SVG so what
+   remains always fits. The "must-keep" set at any desktop width is: logo SVG
+   + 9 nav links (or dropdown at the narrowest band) + season badge + theme
+   toggle. FRONT OFFICE tag and Updated stamp are the first to go; below
+   1099px the inline nav-links collapse into the existing mobile-nav-select
+   dropdown so the topnav reads cleanly even at small desktop windows. */
+@media (min-width: 769px) and (max-width: 1599px) {
+  html .topnav .wordmark-tag { display: none; }
+  html .topnav .wordmark svg { height: 18px; }
+}
+@media (min-width: 769px) and (max-width: 1299px) {
+  html .topnav .nav-stat { display: none; }
+  html .topnav .nav-link { font-size: 9px; padding: 0 5px; }
+  html .topnav .wordmark svg { height: 16px; }
+}
+@media (min-width: 769px) and (max-width: 1099px) {
+  /* Collapse to mobile-style dropdown — !important defeats the legacy
+     per-page inline duplicates that set .nav-links { display: flex } and
+     .mobile-nav-select { display: none } in their <style> blocks. */
+  html .topnav .nav-links { display: none !important; }
+  html .topnav .mobile-nav-select { display: inline-block !important; min-height: 32px; }
+}
+
+/* Site-wide 1.25x layout zoom — the long-standing default that matches the
+   pre-overhaul feel for at-monitor viewing. At narrow desktop (≤1099 CSS px)
+   the zoom steps down to 1.0 so wide layouts always fit. Print + mobile
+   (≤768px) also reset to 1.0. OBS Browser Source still benefits from the
+   lifted side gutters + tightened topnav from session 11 — those changes
+   are independent of the zoom value. */
+body { zoom: 1.25; }
+@media (max-width: 1099px) { body { zoom: 1.0; } }
+@media print { body { zoom: 1; } }
+@media (max-width: 768px) { body { zoom: 1; } }
+
+/* ── NAV ──────────────────────────────────────────────────────────────── */
+.topnav { max-width:1440px; margin:0 auto; padding:0 16px; display:flex; align-items:center; gap:20px; height:60px; }
+.wordmark { display:flex; align-items:center; flex-shrink:0; }
+.wordmark svg { height:28px; width:auto; }
+.wordmark-group { display:flex; align-items:center; gap:16px; flex-shrink:0; min-width:0; }
+.wordmark-tag { font-family:'Kanit',sans-serif; font-weight:800; font-style:italic; font-size:38px; line-height:1; letter-spacing:-.01em; text-transform:uppercase; color:var(--white); white-space:nowrap; }
+@media (max-width: 1280px) { .wordmark-tag { font-size: 32px; } }
+@media (max-width: 1100px) { .wordmark-tag { font-size: 24px; } }
+@media (max-width: 940px)  { .wordmark-tag { display: none; } }
+.nav-links { display:flex; gap:0; margin-left:4px; }
+.nav-link { font-family:'Mulish',sans-serif; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--white); opacity:1; padding:0 12px; height:60px; display:flex; align-items:center; text-decoration:none; border-bottom:2px solid transparent; margin-bottom:-2px; transition:opacity .15s; white-space:nowrap; }
+.nav-link:hover { opacity:1; }
+.nav-link.active { opacity: 1; border-bottom-color: transparent; }
+.nav-right { margin-left:auto; display:flex; align-items:center; gap:16px; }
+.nav-stat { font-family:'Mulish',sans-serif; font-size:11px; color:var(--white); opacity:1; white-space:nowrap; }
+.nav-badge { background:var(--red); color:#111111; font-family:'Kanit',sans-serif; font-weight:800; font-style:italic; font-size:11px; padding:3px 10px; letter-spacing:.04em; }
+/* Mobile page-jumper select — desktop hidden, mobile shows as a polished
+   button with a chevron. !important on visual props so this rule wins over
+   the legacy per-page inline duplicates without having to delete them all. */
+.mobile-nav-select {
+  display: none;
+  background: var(--surface2) !important;
+  color: var(--white) !important;
+  border: 1px solid var(--border2) !important;
+  font-family: 'Kanit', sans-serif !important;
+  font-weight: 800 !important;
+  font-style: italic !important;
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  letter-spacing: .04em !important;
+  padding: 6px 26px 6px 10px !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  cursor: pointer !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23ED810C'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 8px center !important;
+  border-radius: 2px !important;
+  white-space: nowrap;
+  min-height: 32px;
+}
+/* ── ADMIN-GATED UI ───────────────────────────────────────────────────────
+   The Formulas top-nav link + the Legend drawer floating button
+   (`.lg-trigger`, mounted by legend.js) are admin-only as of 2026-05-23.
+   Both hide by default; both show when `html.fpts-admin` is set.
+
+   The `html.fpts-admin` class is added by admin-tiers.js at the top of
+   its IIFE (runs in <head>, before <body> renders → no flash of admin
+   chrome on non-admin loads). The mobile-nav-select <option value=
+   "formulas.html"> can't be hidden via CSS (browsers ignore display:none
+   on <option>); admin-tiers.js strips it from the DOM when admin is off.
+
+   `!important` is doctrine-legitimate here — `.lg-trigger` is mounted
+   programmatically and the default browser display would otherwise win
+   over an unmarked rule. The `.nav-link` selector likewise needs to beat
+   the existing `.nav-link { display: flex }` rule above.
+   ──────────────────────────────────────────────────────────────────── */
+.lg-trigger,
+.nav-link[href="formulas.html"] {
+  display: none !important;
+}
+html.fpts-admin .lg-trigger {
+  display: inline-flex !important;
+}
+html.fpts-admin .nav-link[href="formulas.html"] {
+  display: flex !important;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   MOBILE — topnav on a 390px touch viewport.
+   Authored as canonical defaults so new pages inherit a working mobile
+   topnav from brand.css alone. The 7 existing pages still inline-duplicate
+   most of these rules in their own <style> blocks (predates this section);
+   when next touched, those duplicates can drop. New pages: don't re-write
+   these in your page's <style>; just link brand.css.
+   ════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Compact topnav */
+  .topnav { padding: 0 10px; gap: 8px; height: 48px; }
+  .wordmark svg { height: 20px; }
+  .wordmark-tag { display: none; }
+
+  /* Desktop nav-links hidden; mobile-nav-select revealed */
+  .nav-links { display: none !important; }
+  .nav-stat  { display: none !important; }
+  .mobile-nav-select { display: inline-block !important; min-height: 36px; }
+
+  /* Right side: tighter gap, smaller badge */
+  .nav-right { gap: 8px; }
+  .nav-badge { font-size: 9px; padding: 2px 6px; }
+
+  /* Page chrome scales down */
+  .page         { padding: 0 8px; max-width: 100vw; }
+  .page-header  { flex-direction: column; align-items: flex-start; padding: 14px 0 12px; gap: 8px; }
+  .page-title   { font-size: 22px; }
+  .page-subtitle { font-size: 11px; }
+
+  /* Bottom safe-area for notched phones */
+  body { padding-bottom: max(20px, env(safe-area-inset-bottom)); }
+}
+
+/* ── PAGE CHROME ───────────────────────────────────────────────────────── */
+.page { max-width:1440px; margin:0 auto; padding:0 16px 60px; }
+.page-header { padding:32px 0 18px; display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.page-title { font-family:'Kanit',sans-serif; font-weight:800; font-style:italic; font-size:36px; color:var(--white); text-transform:uppercase; line-height:1; }
+.page-title span { color:var(--red); }
+.page-subtitle { font-family:'Mulish',sans-serif; font-size:13px; color:var(--white); opacity:.7; margin-top:6px; }
+
+/* ── SHARED PILLS ─────────────────────────────────────────────────────── */
+.pos-pill { display:inline-block; padding:3px 9px; font-family:'Kanit',sans-serif; font-weight:800; font-style:italic; font-size:11px; letter-spacing:.04em; }
+.pos-pill.QB { background:var(--pos-qb-bg); color:var(--pos-qb); }
+.pos-pill.RB { background:var(--pos-rb-bg); color:var(--pos-rb); }
+.pos-pill.WR { background:var(--pos-wr-bg); color:var(--pos-wr); }
+.pos-pill.TE { background:var(--pos-te-bg); color:var(--pos-te); }
+.pos-pill.K  { background:var(--pos-k-bg);  color:var(--pos-k); }
+.pos-pill.DEF, .pos-pill.PICK, .pos-pill.RDP { background:var(--pos-pick-bg); color:var(--pos-pick); }
+
+.team-pill { display:inline-block; padding:3px 8px; background:var(--surface2); border:1px solid var(--border2); font-family:'Mulish',sans-serif; font-weight:700; font-size:10px; letter-spacing:.05em; color:var(--white); }
+.stat-pill { display:inline-block; background:var(--surface2); border:1px solid var(--border2); padding:3px 10px; font-family:'Kanit',sans-serif; font-weight:800; font-style:italic; font-size:12px; color:var(--white); min-width:36px; text-align:center; }
+
+.icon-btn { display:inline-flex; align-items:center; gap:6px; padding:8px 14px; border:1px solid var(--border2); background:var(--surface); color:var(--white); font-family:'Mulish',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; cursor:pointer; transition:all .12s; }
+.icon-btn:hover { border-color:var(--red); color:var(--red); }
+.icon-btn.active { background:var(--red); color:#111111; border-color:var(--red); }
+.icon-btn.active:hover { color:var(--white); opacity:.92; }
+
+/* ── TREND BADGE ──────────────────────────────────────────────────────── */
+/* Black text-stroke instead of a chip background so the arrow + delta reads
+   on every position-coloured card. */
+.trend { display:inline-flex; align-items:center; gap:2px; font-family:'Kanit',sans-serif; font-weight:800; font-style:italic; font-size:11px; padding:0 2px; letter-spacing:.04em; margin-left:4px; background:transparent; border:none;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000, 1px 0 0 #000;
+  -webkit-text-stroke: 0.5px #000; }
+.trend.up   { color:#66dd84; }
+.trend.down { color:var(--red); }
+.trend.flat { color:#ffffff; }
+
+/* ── LOADING OVERLAY (used by all pages while data hydrates) ──────────── */
+#_fp-loading {
+  position: fixed; inset: 0;
+  background: var(--black); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Kanit', sans-serif; font-weight: 800; font-style: italic;
+  font-size: 28px; text-transform: uppercase; letter-spacing: .06em;
+  z-index: 9999;
+}
+
+/* ── NFL TEAM LOGOS ──────────────────────────────────────────────────────
+   See assets/js/team-helpers.js for the helpers that emit this markup.
+   Logos are served from sleepercdn.com (same CDN as player headshots),
+   transparent-background PNGs that work on both dark + light themes. */
+
+/* Inline replacement for team-abbreviation text. Sized to match adjacent text. */
+.team-logo { height:14px; width:auto; vertical-align:middle; object-fit:contain; display:inline-block; filter: drop-shadow(0 1px 2px rgba(0,0,0,.55)); }
+.team-logo--lg { height:22px; }
+.team-logo--xl { height:32px; }
+/* Light circular backdrop for chip-context logos that sit on bright pos-pill colors.
+   Isolates the logo so team color can't blend with pill color. Use via
+   TeamHelpers.logoImg(team, { size, coin: true }). Box-card uses its own coin
+   (.card-team-logo); ADP list-view sits inside .team-pill and is left bare. */
+.team-logo--coin {
+  background:rgba(0,0,0,.22);
+  border:none;
+  border-radius:50%;
+  padding:2px;
+  filter:none;
+  box-shadow:0 1px 2px rgba(0,0,0,.4);
+  box-sizing:content-box;
+}
+/* Fallback rendered by onerror if the image fails to load. Mirrors original team-text look. */
+.team-logo-fallback {
+  display:inline-block; vertical-align:middle;
+  font-family:'Mulish',sans-serif; font-size:11px; font-weight:700;
+  letter-spacing:.05em; text-transform:uppercase; color:var(--white);
+}
+
+/* Player-headshot wrapper that hosts a team-logo badge in the bottom-right.
+   Keeps the existing headshot markup intact — the wrapper just establishes
+   a positioning context for the .player-hs-team img. */
+.player-hs-wrap { position:relative; display:inline-block; line-height:0; }
+.player-hs-team {
+  position:absolute; bottom:-2px; right:-2px;
+  width:14px; height:14px; border-radius:50%;
+  background:var(--surface);
+  border:1.5px solid var(--surface);
+  padding:1px;
+  box-shadow:0 1px 3px rgba(0,0,0,.4);
+  object-fit:contain;
+  pointer-events:none;
+  z-index:2;
+}
+.player-hs-team--md { width:18px; height:18px; }   /* for 34-40px headshots */
+.player-hs-team--lg { width:24px; height:24px; }   /* for 60-80px headshots */
+.player-hs-team--xl { width:28px; height:28px; bottom:0; right:0; }  /* for 96px modal hero */
+
+/* ────────────────────────────────────────────────────────────────────────
+   SITE-WIDE HEADSHOT-FALLBACK RULE
+   ────────────────────────────────────────────────────────────────────────
+   Whenever a player headshot can't be rendered (Sleeper's CDN returns
+   403/404 for unphotographed rookies, no sleeperId is resolvable, etc.),
+   the page MUST show a neutral silhouette — NEVER the player's name
+   initials. This rule covers every legacy fallback class that already
+   exists across the 5 pages, plus the canonical `.fpts-hs-fallback`
+   class for any new surface.
+
+   How it works: the markup may include initial-letter text inside the
+   span (for accessibility / DOM introspection / legacy code), but we
+   hide it visually with `color:transparent` + `font-size:0` and paint
+   a generic silhouette as the background image.
+
+   New surfaces: add `class="fpts-hs-fallback"` to your fallback span/div
+   and this rule applies automatically. `!important` flags are present
+   so per-page inline styles can't accidentally re-enable initials. */
+.hs-fallback,
+.card-hs-fallback,
+.pp-hs-fallback,
+.cc-hs-fallback,
+.ml-pd-avatar-initials,
+.fpts-hs-fallback {
+  color: transparent !important;
+  font-size: 0 !important;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="22" r="10" fill="%23ffffff" opacity=".5"/><path d="M14 60 Q14 36 32 36 Q50 36 50 60 L14 60 Z" fill="%23ffffff" opacity=".5"/></svg>') !important;
+  background-size: 75% 75% !important;
+  background-position: center 60% !important;
+  background-repeat: no-repeat !important;
+}

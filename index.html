@@ -1,0 +1,3171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>FPTS Tiers</title>
+
+<!-- Brand-level shared styles (loaded BEFORE inline <style> so page overrides win). -->
+<link rel="stylesheet" href="assets/css/brand.css?v=1787500000">
+<!-- iframe scroll fix — only runs when embedded; no-op for direct visitors. -->
+<script src="assets/js/iframe-scroll-fix.js?v=1782100000"></script>
+<!-- OBS zoom controls — only renders when embedded; top-right pill steps body { zoom }. -->
+<script src="assets/js/obs-zoom-controls.js?v=1783800000"></script>
+<!-- Admin-mode tier+B/S/H scratchpad — only renders when ?admin=1 is set. -->
+<script src="assets/js/admin-tiers.js?v=1787600000"></script>
+<!-- Custom <select> wrapper — OBS/CEF compat (native popups don't render in iframes). -->
+<script src="assets/js/custom-select.js?v=1782700000" defer></script>
+
+<style>
+  /* Brand variables (:root + [data-theme="light"]) live in assets/css/brand.css
+     — single source of truth. tiers no longer inline-duplicates them. */
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { background: var(--page-bg); transition: background .3s; overflow-y: scroll; }
+  body { color-scheme: var(--color-scheme); color: var(--white); font-family: 'Mulish', sans-serif; min-height: 100vh; background: var(--page-bg); }
+  html, body { overflow-x: hidden !important; }
+  /* Desktop: unlock horizontal scroll for wide surfaces. */
+  @media (min-width: 769px) {
+    html, body { overflow-x: auto !important; }
+  }
+  /* Site-wide 1.25x layout zoom — see brand.css for the full comment. */
+  body { zoom: 1.25; }
+  @media (max-width: 1099px) { body { zoom: 1.0; } }
+  @media print { body { zoom: 1; } }
+  @media (max-width: 768px) { body { zoom: 1; } }
+
+  @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,800&family=Mulish:wght@400;700;900&display=swap');
+  /* Brand fonts (local TTFs) override the Google Fonts version for the canonical
+     brand weight so on-page text matches the wordmark exactly. */
+  @font-face {
+    font-family: 'Kanit';
+    src: url('assets/fonts/Kanit-ExtraBoldItalic.ttf') format('truetype');
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Mulish';
+    src: url('assets/fonts/Mulish-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 1000;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  /* TOPNAV (matches other pages exactly) */
+  .topnav { max-width:1440px; margin:0 auto; padding:0 16px; display:flex; align-items:center; gap:20px; height:60px; }
+  .wordmark { display:flex; align-items:center; flex-shrink:0; }
+  .wordmark svg { height:28px; width:auto; }
+  .wordmark-group { display:flex; align-items:center; gap:16px; flex-shrink:0; min-width:0; }
+  .wordmark-tag { font-family:'Kanit',sans-serif; font-weight:800; font-style:italic; font-size:38px; line-height:1; letter-spacing:-.01em; text-transform:uppercase; color:var(--white); white-space:nowrap; }
+  @media (max-width: 1280px) { .wordmark-tag { font-size: 32px; } }
+  @media (max-width: 1100px) { .wordmark-tag { font-size: 24px; } }
+  @media (max-width: 940px)  { .wordmark-tag { display: none; } }
+  .nav-links { display:flex; gap:0; margin-left:4px; }
+  .nav-link { font-family:'Mulish',sans-serif; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--white); opacity:1; padding:0 12px; height:60px; display:flex; align-items:center; text-decoration:none; border-bottom:2px solid transparent; margin-bottom:-2px; transition:opacity .15s; white-space:nowrap; }
+  .nav-link:hover { opacity:1; }
+  .nav-link.active { opacity: 1; border-bottom-color: transparent; }
+  .nav-right { margin-left:auto; display:flex; align-items:center; gap:16px; }
+  .nav-stat { font-family:'Mulish',sans-serif; font-size:11px; color:var(--white); opacity:1; white-space:nowrap; }
+  .nav-badge { background:var(--red); color:#111111; font-family:'Kanit',sans-serif; font-weight:800; font-style:italic; font-size:11px; padding:3px 10px; letter-spacing:.04em; }
+  .mobile-nav-select { display: none; background: var(--surface2); color: var(--white); border: 1px solid var(--border2); padding: 4px 22px 4px 8px; font-family: 'Mulish', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; cursor: pointer; }
+
+  /* PAGE */
+  .page { max-width:1440px; margin:0 auto; padding:0 5px; }
+  .page-header { padding:32px 0 24px; display:flex; align-items:flex-end; justify-content:space-between; border-bottom:1px solid var(--border); margin-bottom:28px; flex-wrap:wrap; gap:16px; }
+  .page-title { font-family:'Kanit',sans-serif; font-weight:800; font-style:italic; font-size:36px; color:var(--white); text-transform:uppercase; line-height:1; }
+  .page-title span { color:var(--red); }
+  .page-subtitle { font-family:'Mulish',sans-serif; font-size:13px; color:var(--white); opacity:1; margin-top:6px; }
+  .tiers-updated-editable { border-bottom:1px dashed rgba(255,255,255,0.35); padding:0 2px; cursor:text; outline:none; border-radius:2px; transition:background .15s, border-color .15s; }
+  .tiers-updated-editable:hover { border-bottom-color:var(--red); background:rgba(255,255,255,0.04); }
+  .tiers-updated-editable:focus { border-bottom-color:var(--red); background:rgba(237,129,12,0.12); }
+  .page-stat { text-align:right; font-family:'Mulish',sans-serif; font-size:11px; color:var(--muted); }
+
+  /* CONTROLS — view toggle + filters */
+  .tier-controls { display:flex; gap:10px; align-items:center; margin-bottom:20px; flex-wrap:wrap; padding:12px 14px; background:var(--surface); border:1px solid var(--border); }
+  .tier-control-label { font-family:'Mulish',sans-serif; font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.07em; }
+  .tier-toggle-group { display:flex; gap:0; }
+  .tier-toggle-btn { background:transparent; color:var(--white); border:1px solid var(--border2); font-family:'Kanit',sans-serif; font-weight:800; font-style:italic; font-size:11px; text-transform:uppercase; letter-spacing:.06em; padding:6px 14px; cursor:pointer; transition:all .15s; }
+  .tier-toggle-btn:not(:last-child) { border-right:none; }
+  .tier-toggle-btn:hover { color:var(--red); }
+  .tier-toggle-btn.active { background:var(--red); border-color:var(--red); color:#111111; }
+  .tier-filter-select { font-family:'Mulish',sans-serif; font-size:12px; background:var(--surface2); color:var(--white); border:1px solid var(--border2); padding:6px 22px 6px 10px; cursor:pointer; appearance:none; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M0 0l5 6 5-6z' fill='%23888'/></svg>"); background-repeat:no-repeat; background-position:right 8px center; }
+
+  /* TIER GROUP HEADER */
+  .tier-group { margin-bottom: 24px; }
+  .tier-group-header { background: var(--red); color: #111111; padding: 8px 14px; font-family:'Kanit',sans-serif; font-weight:800; font-style:italic; font-size:13px; text-transform:uppercase; letter-spacing:.06em; display:flex; align-items:center; gap:12px; }
+  .tier-group-letter { background: var(--white); color: var(--red); padding: 2px 10px; font-size:14px; }
+  .tier-group-desc { opacity:.95; font-weight: 700; }
+
+  /* TABLE */
+  .tiers-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; background: var(--surface); border: 1px solid var(--border); }
+  .tiers-table { width: 100%; min-width: 1100px; border-collapse: collapse; font-size: 12px; }
+  .tiers-table thead th { 
+    background: var(--surface2); 
+    color: var(--muted); 
+    font-family: 'Mulish', sans-serif; 
+    font-size: 10px; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    letter-spacing: .06em; 
+    padding: 10px 8px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer; 
+    user-select: none;
+    white-space: nowrap;
+  }
+  .tiers-table thead th:hover { color: var(--white); background: var(--surface); }
+  .tiers-table thead th.sorted { color: var(--red); }
+  .tiers-table thead th .sort-arrow { color: var(--red); margin-left: 4px; font-size: 9px; }
+  .tiers-table td { padding: 8px; border-bottom: 1px solid var(--border); color: var(--white); white-space: nowrap; text-align: center; }
+  .tiers-table tbody tr:hover td { background: var(--surface2); }
+  .tiers-table .col-tier { width: 50px; text-align: center; }
+  .tiers-table .col-name { min-width: 160px; text-align: left; }
+  .tiers-table th[data-col="name"] { text-align: left; }
+  .tiers-table .col-num { text-align: center; }
+
+  /* TIER BADGE */
+  .tier-badge { font-family:'Kanit',sans-serif; font-weight:800; font-style:italic; font-size:12px; padding:3px 8px; display:inline-block; min-width:36px; text-align:center; background: var(--red); color: #111111; }
+  /* Tier-letter badges use brand-bright color spectrum for visual hierarchy.
+     S/A/B/C tiers in vivid brand-aligned hues; D/E/F intentionally grayscale
+     to signal "less valuable" with diminishing saturation. */
+  .tier-badge.t-spp { background: var(--red);         color: #111111; }   /* dynasty orange */
+  .tier-badge.t-sp  { background: var(--pos-qb-bg);   color: #111111; }   /* brand vivid red */
+  .tier-badge.t-s   { background: var(--yellow);      color: #111111; }   /* brand bright gold */
+  .tier-badge.t-ap  { background: var(--orange);      color: #111111; }   /* warm orange */
+  .tier-badge.t-a   { background: var(--pos-rb-bg);   color: #111111; }   /* brand vivid green */
+  .tier-badge.t-am  { background: var(--pos-rb-bg);   color: rgba(17,17,17,0.85); }
+  .tier-badge.t-bp, .tier-badge.t-b, .tier-badge.t-bm { background: var(--pos-wr-bg);   color: #111111; }   /* brand blue */
+  .tier-badge.t-cp, .tier-badge.t-c, .tier-badge.t-cm { background: var(--pos-pick-bg); color: #111111; }   /* brand lavender */
+  .tier-badge.t-dp, .tier-badge.t-d, .tier-badge.t-dm { background: #555; }
+  .tier-badge.t-ep, .tier-badge.t-e, .tier-badge.t-em { background: #444; }
+  .tier-badge.t-fp, .tier-badge.t-f, .tier-badge.t-fm { background: #333; color: var(--muted); }
+
+  /* POS BADGE */
+  .pos-badge { font-family: 'Kanit', sans-serif; font-weight: 800; font-style: italic; font-size: 11px; padding: 2px 7px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; min-width: 28px; }
+  .pos-qb { background: var(--pos-qb-bg); color: var(--pos-qb); }
+  .pos-rb { background: var(--pos-rb-bg); color: var(--pos-rb); }
+  .pos-wr { background: var(--pos-wr-bg); color: var(--pos-wr); }
+  .pos-te { background: var(--pos-te-bg); color: var(--pos-te); }
+  .pos-k  { background: var(--pos-k-bg);  color: var(--pos-k);  }
+
+  /* PLAYER NAME — clickable to open Database player panel */
+  .tier-player-name { font-family: 'Mulish', sans-serif; font-weight: 900; font-size: 13px; color: var(--white); }
+  .tier-player-name.is-pick { color: var(--muted); }
+
+  /* AUCTION dollar value */
+  .tier-auction { font-family: 'Kanit', sans-serif; font-weight: 800; font-style: italic; }
+
+  /* CHANGE column — TD styling. Chip itself + calendar popup are now
+     provided by assets/js/adp-comparator.js (class names .adp-cmp-chip /
+     .adp-cmp-popup / .adp-cmp-trigger / .adp-cmp-cell — all CSS injected
+     by the module on first init). Page-level overrides below set the cell
+     padding for tiers' table cadence. */
+  .tier-trending { text-align: center; padding: 6px 4px !important; }
+  .tier-th-compare { padding-top: 6px !important; padding-bottom: 6px !important; }
+
+  /* Manual trending icon next to player name (rendered by
+     _fptsTrendingIconHtml from the admin-tiers trending dropdown).
+     Up = avatar PNG, down = brand-red CSS chevron. */
+  .tier-trending-icon {
+    display: inline-block; width: 20px; height: 20px;
+    vertical-align: middle; margin-left: 6px;
+    object-fit: contain; border-radius: 50%;
+  }
+  .tier-trending-down {
+    display: inline-block; margin-left: 6px;
+    color: var(--red); font-weight: 900; font-size: 14px;
+    vertical-align: middle; line-height: 1;
+  }
+
+  /* BUY/SELL/HOLD chip */
+  .tier-bsh { font-family: 'Kanit', sans-serif; font-weight: 800; font-style: italic; font-size: 10px; padding: 2px 7px; text-transform: uppercase; letter-spacing: .04em; }
+  .tier-bsh.buying { background: var(--green); color: #111111; }
+  .tier-bsh.checking { background: rgba(76,175,110,0.65); color: #111111; }
+  .tier-bsh.selling { background: var(--red); color: #111111; }
+  .tier-bsh.shopping { background: var(--orange); color: #111111; }
+  .tier-bsh.hold { background: rgba(232,115,42,0.8); color: #111111; }
+
+  /* PRIORITY chip */
+  .tier-priority { font-family: 'Mulish', sans-serif; font-size: 10px; font-weight: 700; padding: 2px 7px; text-transform: uppercase; letter-spacing: .04em; background: var(--surface2); color: var(--white); border: 1px solid var(--border2); }
+
+  /* CONTENDER chip */
+  .tier-contender { font-family: 'Mulish', sans-serif; font-size: 10px; font-weight: 700; padding: 2px 7px; text-transform: uppercase; letter-spacing: .04em; background: var(--surface2); color: var(--white); border: 1px solid var(--border2); }
+
+  /* CROSS-PAGE BUTTONS */
+  .fpts-xpage-btn { font-family:'Kanit',sans-serif; font-weight:800; font-style:italic; font-size:10px; color:var(--white); background:transparent; border:1px solid var(--border2); padding:5px 10px; cursor:pointer; text-transform:uppercase; letter-spacing:.06em; text-decoration:none; display:inline-flex; align-items:center; gap:4px; transition:all .15s; white-space:nowrap; }
+  .fpts-xpage-btn:hover { border-color:var(--red); color:var(--red); }
+  .fpts-xpage-bar { display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .topnav { padding: 0 10px; gap: 8px; height: 48px; }
+    .wordmark svg { height: 20px; }
+    .nav-links { display: none !important; }
+    .nav-stat { display: none !important; }
+    .nav-right { gap: 8px; }
+    .nav-badge { font-size: 9px; padding: 2px 6px; }
+    .mobile-nav-select { display: block !important; }
+    
+    .page { padding: 0 8px !important; max-width: 100vw !important; }
+    .page-header { flex-direction: column; align-items: flex-start; padding: 14px 0 12px; margin-bottom: 16px; }
+    .page-title { font-size: 22px !important; }
+    .page-subtitle { font-size: 11px; }
+
+    .tier-controls { flex-direction: column; align-items: stretch; gap: 8px; }
+    .tier-toggle-btn { padding: 8px 12px; min-height: 36px; font-size: 10px; }
+    .tier-filter-select { width: 100%; min-height: 36px; font-size: 13px; }
+
+    .tiers-table thead th { padding: 8px 6px; font-size: 9px; }
+    .tiers-table td { padding: 6px; font-size: 11px; }
+    .tier-group-header { font-size: 11px; padding: 6px 10px; }
+
+    /* Bottom safe-area */
+    body { padding-bottom: max(20px, env(safe-area-inset-bottom)) !important; }
+    /* (Calendar popup mobile rules now live in adp-comparator.js) */
+  }
+
+  /* ════════════════════════════════════════════════════════════════════════
+     MOBILE PASS v11.5 — bleed prevention, tap targets, safe-area
+     This block runs AFTER all earlier mobile rules and takes precedence.
+     Targets the same 5 problem categories as the other 3 production pages:
+     1. Bottom-tap dead zone (iOS gestures steal taps near screen bottom)
+     2. Horizontal page bleed
+     3. Content overflow within containers
+     4. Tap target sizes
+     5. iOS input-zoom prevention
+     ════════════════════════════════════════════════════════════════════════ */
+  @media (max-width: 768px) {
+
+    /* ─── 1. Bottom safe-area for tap dead zone ─── */
+    body {
+      padding-bottom: max(20px, env(safe-area-inset-bottom)) !important;
+    }
+    .page {
+      padding-bottom: max(24px, calc(env(safe-area-inset-bottom) + 12px)) !important;
+    }
+
+    /* ─── 2. Horizontal bleed prevention (defensive) ─── */
+    html, body {
+      overflow-x: hidden !important;
+      max-width: 100vw !important;
+      width: 100% !important;
+    }
+    .page,
+    .tier-controls,
+    .tier-group,
+    .tier-group-header {
+      max-width: 100% !important;
+      overflow-x: hidden !important;
+    }
+    /* Tiers table opts INTO horizontal scroll inside its wrapper */
+    .tiers-table-wrap {
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch;
+      max-width: 100% !important;
+    }
+
+    /* ─── 3. Content overflow within containers ─── */
+    /* Long player names truncate gracefully */
+    .tier-player-name,
+    .tier-group-desc {
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      min-width: 0;
+    }
+    /* Tier group header lets long descriptions wrap if needed */
+    .tier-group-header { flex-wrap: wrap; gap: 6px; }
+
+    /* ─── 4. Tap targets — minimum 36px height for clickables ─── */
+    .tier-toggle-btn,
+    .tier-filter-select,
+    .fpts-xpage-btn,
+    .nav-link {
+      min-height: 36px !important;
+    }
+    .tier-player-name {
+      padding: 4px 0;
+      display: inline-block;
+    }
+    /* Table rows need vertical breathing room for tap reliability */
+    .tiers-table td {
+      padding-top: 10px !important;
+      padding-bottom: 10px !important;
+    }
+
+    /* ─── 5. Prevent iOS input-zoom on focus ─── */
+    .tier-filter-select { font-size: 14px !important; }
+  }
+
+  /* Extra-narrow phones (≤480px) — additional tightening */
+  @media (max-width: 768px) {
+    .tier-toggle-btn { font-size: 10px !important; padding: 8px 10px !important; }
+    .tier-group-header { padding: 6px 8px !important; }
+    .page-title { font-size: 18px !important; }
+    .tier-group-letter { padding: 2px 6px; font-size: 12px; }
+  }
+
+  /* Player modal CSS removed for standalone — no drawer, no fallback modal.
+     .pos-pill rules live in brand.css; tier-row position pills inherit those. */
+</style>
+<script>window.FPTS_CURRENT_PAGE = 'tiers';</script>
+<!-- Team logo helpers — kept for FP_VALUES.team rendering on tier rows. -->
+<script src="assets/js/team-helpers.js?v=1778680002"></script>
+<!-- Data bootstrap — fetches values/adp/auction/picks, fires 'fpts:data-ready'. -->
+<script src="assets/js/data-bootstrap.js?v=1787600000"></script>
+<!-- Scoring overlay + normalize helpers used by the tier render path. -->
+<script src="assets/js/sleeper-helpers.js?v=1780800000"></script>
+<!-- ADP comparator — shared month-to-month picker module. -->
+<script src="assets/js/adp-comparator.js?v=1783200000"></script>
+</head>
+<body>
+
+<!-- Standalone header — FPTS wordmark + TIERS title + Synced stamp + theme toggle. -->
+<div style="background:var(--nav-bg);border-bottom:2px solid var(--red);position:sticky;top:0;z-index:100"><nav class="topnav" style="border:none;position:static">
+  <div class="wordmark-group">
+  <div class="wordmark" id="wordmark-svg">
+<svg viewBox="0 0 878 90" xmlns="http://www.w3.org/2000/svg" style="fill-rule:evenodd;clip-rule:evenodd">
+      <path d="M508.084,47.801l-8.983,41.534c0,0 -75.276,-0.036 -85.237,-0.002l0.015,-0.067c0,0 2.533,-17.352 5.641,-25.475c3.708,-9.689 16.604,-32.658 16.604,-32.658c12.902,8.212 8.658,21.025 7.099,27.21c11.719,-8.962 11.012,-17.186 11.003,-28.608c-0.006,-7.356 4.797,-23.375 17.858,-28.257c-4.305,14.678 3.971,24.95 7.333,30.494c6.362,10.492 1.397,21.17 1.397,21.17c0,0 9.268,-3.36 8.863,-15.254c-0.117,-3.424 -1.714,-14.283 8.012,-18.422c-0.754,9.397 5.495,18.682 10.395,28.336Z" fill="var(--red)"/>
+      <path d="M19.856,0.761l47.225,0l-3.757,16.803l-22.539,0l-4.159,18.236l19.99,0l-3.757,16.933l-19.99,0l-8.184,36.602l-24.686,0l19.856,-88.573Z" fill="var(--white)" fill-rule="nonzero"/>
+      <path d="M82.991,0.761l28.577,0l-1.207,88.573l-24.954,0l0.939,-14.589l-16.234,0l-5.635,14.589l-19.99,0l38.505,-88.573Zm4.293,58.745l2.147,-34.648l-13.416,34.648l11.27,0Z" fill="var(--white)" fill-rule="nonzero"/>
+      <path d="M135.036,0.761l26.698,0l3.757,47.804l10.733,-47.804l17.709,0l-19.856,88.573l-26.564,0l-3.891,-47.413l-10.599,47.413l-17.844,0l19.856,-88.573Z" fill="var(--white)" fill-rule="nonzero"/>
+      <path d="M211.755,18.215l-15.831,0l3.891,-17.454l55.678,0l-3.891,17.454l-15.295,0l-15.965,71.119l-24.552,0l15.965,-71.119Z" fill="var(--white)" fill-rule="nonzero"/>
+      <path d="M270.166,0.884l28.537,0l-1.206,88.451l-24.92,0l0.938,-14.568l-16.211,0l-5.627,14.568l-19.963,0l38.451,-88.451Zm4.287,58.664l2.144,-34.6l-13.398,34.6l11.254,0Z" fill="var(--white)" fill-rule="nonzero"/>
+      <path d="M316.507,17.764c2.387,-11.843 10.165,-17.764 23.335,-17.764l16.971,0c6.718,0 11.623,1.888 14.717,5.664c3.094,3.776 3.933,8.753 2.519,14.932l-1.989,10.298l-23.865,0l2.387,-10.427c0.707,-3.433 -0.53,-5.149 -3.712,-5.149l-1.326,0c-1.591,0 -2.828,0.365 -3.712,1.094c-0.884,0.729 -1.547,2.038 -1.989,3.926l-1.326,6.05c-0.354,1.802 -0.243,3.24 0.331,4.312c0.575,1.073 1.746,1.995 3.514,2.768l11.933,4.377c5.038,1.974 8.508,4.72 10.408,8.238c1.9,3.518 2.232,7.981 0.994,13.387l-2.652,12.1c-2.387,11.843 -10.209,17.764 -23.468,17.764l-17.369,0c-6.718,0 -11.623,-1.909 -14.717,-5.728c-3.094,-3.819 -3.933,-8.903 -2.519,-15.254l2.254,-10.942l24.263,0l-2.519,11.456c-0.707,3.433 0.486,5.149 3.58,5.149l1.591,0c1.591,0 2.806,-0.386 3.646,-1.159c0.84,-0.772 1.436,-2.06 1.79,-3.862l1.856,-7.723c0.442,-1.888 0.354,-3.347 -0.265,-4.377c-0.619,-1.03 -1.812,-1.931 -3.58,-2.703l-12.198,-4.634c-9.9,-3.776 -13.656,-11.027 -11.27,-21.754l2.387,-10.04Z" fill="var(--white)" fill-rule="nonzero"/>
+      <path d="M411.302,62.129l-6.16,27.043l-25.31,0l6.294,-27.954l-5.223,-60.458l26.382,0l0.536,33.414l15.4,-33.414l20.623,0l-32.542,61.368Z" fill="var(--white)" fill-rule="nonzero"/>
+      <path d="M526.915,0.761l37.555,0c6.861,0 11.828,1.91 14.902,5.731c3.074,3.821 3.853,9.075 2.339,15.761l-3.475,16.933c-1.515,6.513 -4.232,11.311 -8.152,14.393c-3.92,3.083 -9.222,4.624 -15.904,4.624l-15.503,0l-6.95,31.131l-24.591,0l19.78,-88.575Zm21.651,41.291c1.604,0 2.851,-0.369 3.742,-1.107c0.891,-0.738 1.515,-2.062 1.871,-3.973l3.341,-14.849c0.713,-3.474 -0.445,-5.21 -3.475,-5.21l-6.148,0l-5.613,25.14l6.281,0Z" fill="var(--white)" fill-rule="nonzero"/>
+      <path d="M591.621,18.118c2.541,-11.572 10.254,-17.357 23.136,-17.357l17.747,0c6.573,0 11.437,1.893 14.592,5.679c3.155,3.786 3.988,8.87 2.498,15.251l-11.305,50.285c-2.541,11.572 -10.254,17.357 -23.136,17.357l-17.747,0c-6.66,0 -11.524,-1.893 -14.592,-5.679c-3.067,-3.786 -3.9,-8.87 -2.498,-15.251l11.305,-50.285Zm34.047,3.574c0.438,-1.617 0.329,-2.872 -0.329,-3.765c-0.657,-0.893 -1.731,-1.34 -3.221,-1.34l-1.84,0c-3.067,0 -4.952,1.659 -5.653,4.977l-10.517,46.839c-0.351,1.617 -0.175,2.872 0.526,3.765c0.701,0.893 1.753,1.34 3.155,1.34l1.84,0c2.98,0 4.82,-1.659 5.521,-4.977l10.517,-46.839Z" fill="var(--white)" fill-rule="nonzero"/>
+      <path d="M663.756,0.884l24.652,0l-19.829,88.452l-24.652,0l19.829,-88.452Z" fill="var(--white)" fill-rule="nonzero"/>
+      <path d="M697.921,0.884l26.662,0l3.751,47.738l10.718,-47.738l17.685,0l-19.829,88.452l-26.528,0l-3.885,-47.348l-10.584,47.348l-17.819,0l19.829,-88.452Z" fill="var(--white)" fill-rule="nonzero"/>
+      <path d="M774.557,18.314l-15.809,0l3.885,-17.43l55.601,0l-3.885,17.43l-15.274,0l-15.943,71.022l-24.518,0l15.943,-71.022Z" fill="var(--white)" fill-rule="nonzero"/>
+      <path d="M819.769,18.472c2.363,-11.725 10.064,-17.588 23.104,-17.588l16.803,0c6.651,0 11.508,1.869 14.571,5.608c3.063,3.739 3.894,8.667 2.494,14.784l-1.969,10.196l-23.629,0l2.363,-10.324c0.7,-3.399 -0.525,-5.098 -3.676,-5.098l-1.313,0c-1.575,0 -2.801,0.361 -3.676,1.083c-0.875,0.722 -1.532,2.018 -1.969,3.887l-1.313,5.99c-0.35,1.784 -0.241,3.208 0.328,4.27c0.569,1.062 1.728,1.975 3.479,2.74l11.815,4.333c4.988,1.954 8.423,4.673 10.305,8.157c1.882,3.484 2.21,7.902 0.985,13.255l-2.625,11.98c-2.363,11.725 -10.108,17.588 -23.236,17.588l-17.197,0c-6.651,0 -11.508,-1.891 -14.571,-5.672c-3.063,-3.781 -3.894,-8.815 -2.494,-15.103l2.232,-10.833l24.023,0l-2.494,11.343c-0.7,3.399 0.481,5.098 3.544,5.098l1.575,0c1.575,0 2.779,-0.382 3.61,-1.147c0.831,-0.765 1.422,-2.039 1.772,-3.824l1.838,-7.647c0.438,-1.869 0.35,-3.314 -0.263,-4.333c-0.613,-1.02 -1.794,-1.912 -3.544,-2.676l-12.077,-4.588c-9.802,-3.739 -13.521,-10.918 -11.158,-21.539l2.363,-9.941Z" fill="var(--white)" fill-rule="nonzero"/>
+    </svg>
+  </div>
+  <span class="wordmark-tag">Tiers</span>
+  </div>
+  <div class="nav-right">
+    <span class="nav-stat">Synced <strong id="tiers-updated-stat"><!-- TIERS:SYNCED:START -->May 23, 2026 10:53 PM<!-- TIERS:SYNCED:END --></strong></span>
+    <button id="theme-toggle" onclick="toggleTheme()"
+      style="background:none;border:1px solid var(--border2);color:var(--white);font-family:'Kanit',sans-serif;font-weight:800;font-style:italic;font-size:11px;padding:5px 12px;cursor:pointer;transition:all .2s;letter-spacing:.04em;display:flex;align-items:center;gap:6px"
+      onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'"
+      onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--white)'">
+      <span id="theme-icon">☀️</span>
+      <span id="theme-label">LIGHT</span>
+    </button>
+  </div>
+</nav>
+</div>
+
+<div class="page">
+
+  <div class="page-header">
+    <div>
+      <div class="page-title">Dynasty <span>Trade</span> Tiers</div>
+      <div class="page-subtitle">Superflex tier rankings · PPR, 0.5 TEP, 6PT Pass TDs · 10–11 starters · Updated <span id="tiers-updated" class="tiers-updated-editable" contenteditable="true" spellcheck="false" title="Click to edit the Updated date (M/D/YY)">2/15/26</span></div>
+      <div class="fpts-xpage-bar" style="margin-top:10px">
+        <button class="fpts-xpage-btn" onclick="event.stopPropagation();_fptsDownloadTiersCsv()" title="Download the full tier sheet as CSV — all players, all columns, matches the Google Sheet layout">Download CSV ↓</button>
+      </div>
+    </div>
+    <div class="page-stat" id="tiers-stat-count">— players · — tiers</div>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="tier-controls">
+    <span class="tier-control-label">View:</span>
+    <div class="tier-toggle-group">
+      <button class="tier-toggle-btn active" id="view-grouped-btn" onclick="setView('grouped')">Grouped</button>
+      <button class="tier-toggle-btn" id="view-flat-btn" onclick="setView('flat')">Sortable</button>
+    </div>
+    <span class="tier-control-label" style="margin-left:14px">Filter:</span>
+    <select class="tier-filter-select" id="filter-position" onchange="renderTiers()">
+      <option value="all">All positions</option>
+      <option value="QB">QB</option>
+      <option value="RB">RB</option>
+      <option value="WR">WR</option>
+      <option value="TE">TE</option>
+      <option value="PICK">Picks</option>
+    </select>
+    <select class="tier-filter-select" id="filter-tier" onchange="renderTiers()">
+      <option value="all">All tiers</option>
+    </select>
+  </div>
+
+  <!-- BODY (rendered by JS) -->
+  <div id="tiers-body"></div>
+
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════════════════════
+//  EMBEDDED DATA — regenerated by master_update.py from tiers.csv
+//  DO NOT EDIT MANUALLY — your edits will be overwritten on next pipeline run
+// ════════════════════════════════════════════════════════════════════════
+const TIER_UPDATED = "2/15/26";
+const TIER_DESCRIPTIONS = {
+  "S++": "Cornerstone Players (3-4 Base 1sts)",
+  "S+": "Elite + (2.5-3 Base 1sts)",
+  "S": "Elite (2+ Base 1sts)",
+  "A+": "Elite Lite (2 Base 1sts)",
+  "A": "Knocking On The Door (1.75 - 2 base 1sts)",
+  "A-": "Tweener Tier (1.5-2 Base 1sts)",
+  "B+": "High Risk Upside (1.25-1.5 + Base 1sts)",
+  "B": "Upside But Safer (1.25 - 1.5 base 1sts)",
+  "B-": "Interesting Values (1 - 1.25 Base 1sts)",
+  "C+": "Good Players Not Really Values (1 Base 1st)",
+  "C": "Risky and Probably More Expensive Than I Want For 1 Late First",
+  "C-": "Late Firsts I Want To Pay 1 Late First",
+  "D+": "Risky Late First With Upside",
+  "D": "Veterans Worth The Early 2",
+  "D-": "Mid 2nd Veterans",
+  "E+": "Upside Mid 2nd Value With Risk",
+  "E": "Mid 2nd Safety Players",
+  "E-": "Late 2nd Players",
+  "F+": "Early 3rd Players",
+  "F": "Mid 3rd Players",
+  "F-": "Late 3rd"
+};
+
+// TIERS:START -- DO NOT EDIT BY HAND. Regenerated from data/source/tiers/tiers.csv by sync-tiers.py
+const TIER_PLAYERS = [
+  {
+    "tier": "S++",
+    "name": "Josh Allen",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S++",
+    "name": "Bijan Robinson",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S++",
+    "name": "Drake Maye",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S++",
+    "name": "Ja'Marr Chase",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S++",
+    "name": "Jahmyr Gibbs",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S++",
+    "name": "Jaxon Smith-Njigba",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S++",
+    "name": "Brock Bowers",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S++",
+    "name": "Puka Nacua",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S+",
+    "name": "Ashton Jeanty",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S+",
+    "name": "Jayden Daniels",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S+",
+    "name": "Jeremiyah Love",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S+",
+    "name": "Lamar Jackson",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S+",
+    "name": "Malik Nabers",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S",
+    "name": "Amon-Ra St. Brown",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S",
+    "name": "CeeDee Lamb",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S",
+    "name": "Colston Loveland",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S",
+    "name": "Drake London",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S",
+    "name": "Jalen Hurts",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S",
+    "name": "Joe Burrow",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S",
+    "name": "Justin Herbert",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S",
+    "name": "Justin Jefferson",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S",
+    "name": "Patrick Mahomes",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S",
+    "name": "Tetairoa McMillan",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "S",
+    "name": "Trey McBride",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A+",
+    "name": "Caleb Williams",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A+",
+    "name": "Chris Olave",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A+",
+    "name": "De'Von Achane",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A+",
+    "name": "Garrett Wilson",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A+",
+    "name": "George Pickens",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A+",
+    "name": "Jaxson Dart",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A+",
+    "name": "Jonathan Taylor",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A+",
+    "name": "Luther Burden",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A+",
+    "name": "Nico Collins",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A+",
+    "name": "Omarion Hampton",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A+",
+    "name": "Trevor Lawrence",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A",
+    "name": "Brock Purdy",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A",
+    "name": "Carnell Tate",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A",
+    "name": "Christian McCaffrey",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A",
+    "name": "James Cook",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A",
+    "name": "Jordan Love",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A",
+    "name": "Jordyn Tyson",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A",
+    "name": "Kenneth Walker",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A",
+    "name": "Rashee Rice",
+    "trending": "Up 1 Tier",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A",
+    "name": "Tyler Warren",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A-",
+    "name": "A.J. Brown",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A-",
+    "name": "Bo Nix",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A-",
+    "name": "Breece Hall",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A-",
+    "name": "Cam Skattebo",
+    "trending": "Up 1 Tier",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A-",
+    "name": "Chase Brown",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A-",
+    "name": "Dak Prescott",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A-",
+    "name": "DeVonta Smith",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A-",
+    "name": "Emeka Egbuka",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A-",
+    "name": "Fernando Mendoza",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A-",
+    "name": "Makai Lemon",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A-",
+    "name": "Quinshon Judkins",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A-",
+    "name": "Tee Higgins",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A-",
+    "name": "TreVeyon Henderson",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A-",
+    "name": "Tucker Kraft",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "A-",
+    "name": "Zay Flowers",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Baker Mayfield",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Bhayshul Tuten",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Brian Thomas",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Bucky Irving",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Cam Ward",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Harold Fannin",
+    "trending": "Down 1 Tier",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Jadarian Price",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Jameson Williams",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Jared Goff",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Jaylen Waddle",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Josh Jacobs",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "KC Concepcion",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Kyler Murray",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Kyren Williams",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Ladd McConkey",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Marvin Harrison",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Rome Odunze",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Sam Darnold",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Sam LaPorta",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Saquon Barkley",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Travis Etienne",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B+",
+    "name": "Tyler Shough",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B",
+    "name": "Bryce Young",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B",
+    "name": "C.J. Stroud",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B",
+    "name": "Christian Watson",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B",
+    "name": "Daniel Jones",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B",
+    "name": "Derrick Henry",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B",
+    "name": "DJ Moore",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B",
+    "name": "Javonte Williams",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B",
+    "name": "Jordan Addison",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B",
+    "name": "Kenyon Sadiq",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B",
+    "name": "Malik Willis",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B",
+    "name": "Omar Cooper",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B",
+    "name": "Oronde Gadsden",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B",
+    "name": "Ricky Pearsall",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B",
+    "name": "Ty Simpson",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "Alec Pierce",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "D'Andre Swift",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "Davante Adams",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "David Montgomery",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "Denzel Boston",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "DK Metcalf",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "George Kittle",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "Jayden Higgins",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "Jayden Reed",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "Jonah Coleman",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "Josh Downs",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "Kyle Pitts",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "Matthew Golden",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "Matthew Stafford",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "Michael Wilson",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "Mike Evans",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "Parker Washington",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "Rhamondre Stevenson",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "RJ Harvey",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "Travis Hunter",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "B-",
+    "name": "Xavier Worthy",
+    "trending": "Up 1 Tier",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C+",
+    "name": "Antonio Williams",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C+",
+    "name": "Chris Godwin",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C+",
+    "name": "Chuba Hubbard",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C+",
+    "name": "Courtland Sutton",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C+",
+    "name": "Dalton Kincaid",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C+",
+    "name": "Eli Raridon",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C+",
+    "name": "Eli Stowers",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C+",
+    "name": "Germie Bernard",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C+",
+    "name": "Jacory Croskey-Merritt",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C+",
+    "name": "Jake Ferguson",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C+",
+    "name": "Jakobi Meyers",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C+",
+    "name": "Jalen Coker",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C+",
+    "name": "Jaylen Warren",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C+",
+    "name": "Jonathon Brooks",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C+",
+    "name": "Kyle Monangai",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C+",
+    "name": "Michael Pittman",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C+",
+    "name": "Nicholas Singleton",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C+",
+    "name": "Rashid Shaheed",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C+",
+    "name": "Rico Dowdle",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C+",
+    "name": "Terry McLaurin",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Aaron Jones",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Aaron Rodgers",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Blake Corum",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Brandon Aiyuk",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Brenton Strange",
+    "trending": "Down 1 Tier",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Carson Beck",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Chig Okonkwo",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Chris Bell",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Chris Brazzell",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Chris Rodriguez",
+    "trending": "Up 1 Tier",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Dallas Goedert",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "De'Zhaun Stribling",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Deebo Samuel",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Dylan Sampson",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Elijah Sarratt",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Emmett Johnson",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Geno Smith",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Gunnar Helm",
+    "trending": "Up 1 Tier",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Isaiah Likely",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "J.J. McCarthy",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "J.K. Dobbins",
+    "trending": "Down 1 Tier",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Jauan Jennings",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Jordan Mason",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Juwan Johnson",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Kaytron Allen",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Kenneth Gainwell",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Khalil Shakir",
+    "trending": "Down 1 Tier",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Mac Jones",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Mark Andrews",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Max Klare",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Michael Penix",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Mike Washington",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Oscar Delp",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Pat Bryant",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Quentin Johnston",
+    "trending": "Down 1 Tier",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Rachaad White",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Romeo Doubs",
+    "trending": "Down 1 Tier",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "T.J. Hockenson",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Tank Dell",
+    "trending": "Up 1 Tier",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Terrance Ferguson",
+    "trending": "Down 1 Tier",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Tony Pollard",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Tre' Harris",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Tua Tagovailoa",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Tyjae Spears",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Tyrone Tracy",
+    "trending": "Up 1 Tier",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Wan'Dale Robinson",
+    "trending": "Down 1 Tier",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Zach Charbonnet",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C",
+    "name": "Zachariah Branch",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C-",
+    "name": "Braelon Allen",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C-",
+    "name": "Brenen Thompson",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C-",
+    "name": "Deshaun Watson",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C-",
+    "name": "Jack Bech",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C-",
+    "name": "Jacoby Brissett",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C-",
+    "name": "Jalen McMillan",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C-",
+    "name": "Jalen Nailor",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C-",
+    "name": "Justin Joly",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C-",
+    "name": "Kaelon Black",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C-",
+    "name": "Keaton Mitchell",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C-",
+    "name": "Ollie Gordon",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C-",
+    "name": "Sean Tucker",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C-",
+    "name": "Shedeur Sanders",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C-",
+    "name": "Ted Hurst",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C-",
+    "name": "Tyreek Hill",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  },
+  {
+    "tier": "C-",
+    "name": "Woody Marks",
+    "trending": "",
+    "buySell": "",
+    "priority": "",
+    "contender": "",
+    "notes": ""
+  }
+];
+// TIERS:END
+
+const TIER_ORDER = ['S++','S+','S','A+','A','A-','B+','B','B-','C+','C','C-','D+','D','D-','E+','E','E-','F+','F','F-'];
+
+// ════════════════════════════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════════════════════════════
+let tierView = 'grouped';  // 'grouped' | 'flat'
+let tierSortCol = 'tier';
+let tierSortDir = 'asc';
+
+// ADP comparison plumbing — calendar popup + month-index + lazy year-fetch +
+// chip renderer all live in assets/js/adp-comparator.js (loaded above). This
+// page initializes the module in fpts:data-ready below; renderHeaderRow's
+// adpPrevious cell calls AdpComparator.renderTriggerHtml(); the row chip
+// calls AdpComparator.changeChipHtml(); the overlay reads the bucket via
+// AdpComparator.getMonthBucket(AdpComparator.getCurrentMonth()).
+
+// Cross-page handoff helpers stripped for standalone — no Database / Calc / ADP pages.
+
+// Download the FULL tier list as CSV (all 236-ish players, all 17 columns).
+// Output column layout matches the FPTS Google Sheet so the downloaded CSV
+// can be re-imported into the Sheet OR dropped directly into
+// data/source/tiers/tiers.csv as the deploy source (sync-tiers.py reads
+// it via the same HEADER_ALIASES map). Doubles as a recovery path if the
+// Sheet ever gets corrupted/overwritten.
+//
+// Includes any active admin scratchpad overrides (window.AdminTiers /
+// ?admin=1) because the overrides are merged into TIER_PLAYERS at render
+// time and reflect the user's intent. Regular visitors get the canonical
+// Sheet-sourced data.
+function _fptsDownloadTiersCsv() {
+  var cols = [
+    { header: 'Tier',              key: 'tier' },
+    { header: 'Player',            key: 'name' },
+    { header: 'Age',               key: 'age' },
+    { header: 'Position',          key: 'pos' },
+    { header: 'Pos Rank',          key: 'posRank' },
+    { header: 'Team',              key: 'team' },
+    { header: '2026 ADP',          key: 'adp2026' },
+    { header: 'Prior Month ADP',   key: 'adpPrevious' },
+    { header: '2025 ADP',          key: 'adp2025' },
+    { header: 'Auction Value',     key: 'auction' },
+    { header: '2025 PPG',          key: 'ppg2025' },
+    { header: '2024 PPG',          key: 'ppg2024' },
+    { header: 'Trending',          key: 'trending' },
+    { header: 'Buy/Sell/Hold',     key: 'buySell' },
+    { header: 'Priority Level',    key: 'priority' },
+    { header: 'Contender/Rebuild', key: 'contender' },
+    { header: 'Player Notes',      key: 'notes' },
+  ];
+  function esc(v) {
+    var s = (v == null) ? '' : String(v);
+    if (/[",\n\r]/.test(s)) return '"' + s.replace(/"/g, '""') + '"';
+    return s;
+  }
+  var lines = [cols.map(function (c) { return esc(c.header); }).join(',')];
+  // Bare TIER_PLAYERS, not window.TIER_PLAYERS — it's declared `const` at
+  // script top-level, which does NOT create a window property (only `var`
+  // and bare assignments do that). The download function lives inside the
+  // same <script> block, so the bare identifier resolves correctly.
+  var src = (typeof TIER_PLAYERS !== 'undefined') ? TIER_PLAYERS : [];
+  src.forEach(function (p) {
+    if (!p || !p.name) return;
+    lines.push(cols.map(function (c) { return esc(p[c.key]); }).join(','));
+  });
+  var csv = lines.join('\r\n') + '\r\n';
+  var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  var url = URL.createObjectURL(blob);
+  var d = new Date();
+  var dateStr = d.getFullYear() + '-' +
+                String(d.getMonth() + 1).padStart(2, '0') + '-' +
+                String(d.getDate()).padStart(2, '0');
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'fpts-tiers-' + dateStr + '.csv';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function () {
+    URL.revokeObjectURL(url);
+    if (a.parentNode) a.parentNode.removeChild(a);
+  }, 100);
+}
+
+// ════════════════════════════════════════════════════════════════════════
+//  HELPERS
+// ════════════════════════════════════════════════════════════════════════
+function tierBadgeClass(tier) {
+  const m = { 'S++':'spp','S+':'sp','S':'s','A+':'ap','A':'a','A-':'am','B+':'bp','B':'b','B-':'bm','C+':'cp','C':'c','C-':'cm','D+':'dp','D':'d','D-':'dm','E+':'ep','E':'e','E-':'em','F+':'fp','F':'f','F-':'fm' };
+  return 't-' + (m[tier] || 's');
+}
+
+function pc(p) { return 'pos-' + (p||'wr').toLowerCase(); }
+
+function isPick(p) {
+  return (p.name || '').toLowerCase().includes('rookie pick');
+}
+
+function fmtCell(v) {
+  if (v === '' || v === 'N/A' || v == null) return '<span style="color:var(--muted)">—</span>';
+  return v;
+}
+
+function fmtNumeric(v) {
+  if (v === '' || v === 'N/A' || v == null) return '<span style="color:var(--muted)">—</span>';
+  return v;
+}
+
+// Render the manual Trending indicator next to the player name. Codes
+// 'up' / 'down' come from admin-tiers.js TRENDINGS. Legacy values from
+// older TAT imports (📈, 📉, ↑, ▼) also map correctly. Anything else
+// returns empty string -- no icon, no whitespace, byte-identical row
+// to a player without trending data.
+function _fptsTrendingIconHtml(val) {
+  if (!val) return '';
+  const s = String(val).trim();
+  if (s === 'up'   || s === '📈' || s === '↑' || s === '▲') {
+    return ' <img class="tier-trending-icon" src="assets/images/john-cartoon.png" alt="Trending up" title="Trending up">';
+  }
+  if (s === 'down' || s === '📉' || s === '↓' || s === '▼') {
+    return ' <span class="tier-trending-down" title="Trending down">▼</span>';
+  }
+  return '';
+}
+
+function bshChipHtml(val) {
+  if (!val) return '';
+  const v = val.toLowerCase();
+  if (v.includes('buying')) return '<span class="tier-bsh buying">Buying</span>';
+  if (v.includes('checking')) return '<span class="tier-bsh checking">Checking In</span>';
+  if (v.includes('selling')) return '<span class="tier-bsh selling">Selling</span>';
+  if (v.includes('shopping')) return '<span class="tier-bsh shopping">Shopping</span>';
+  if (v.includes('hold')) return '<span class="tier-bsh hold">Temp Hold</span>';
+  return '<span class="tier-bsh">' + val + '</span>';
+}
+
+function priorityChipHtml(val) {
+  if (!val) return '';
+  return '<span class="tier-priority">' + val + '</span>';
+}
+
+function contenderChipHtml(val) {
+  if (!val) return '';
+  return '<span class="tier-contender">' + val + '</span>';
+}
+
+// ════════════════════════════════════════════════════════════════════════
+//  RENDER
+// ════════════════════════════════════════════════════════════════════════
+function applyFilters(players) {
+  const posFilter = document.getElementById('filter-position').value;
+  const tierFilter = document.getElementById('filter-tier').value;
+  return players.filter(p => {
+    if (posFilter !== 'all') {
+      if (posFilter === 'PICK') {
+        if (!isPick(p)) return false;
+      } else if (p.pos !== posFilter) return false;
+    }
+    if (tierFilter !== 'all' && p.tier !== tierFilter) return false;
+    return true;
+  });
+}
+
+function renderRowHtml(p) {
+  const tierBadge = '<span class="tier-badge ' + tierBadgeClass(p.tier) + '">' + p.tier + '</span>';
+  // Admin-mode inline edit pencil (assets/js/admin-tiers.js). Returns ''
+  // when admin mode is off, so production rows are byte-identical.
+  const adminEdit = (window.AdminTiers && window.AdminTiers.editButtonHtml)
+    ? window.AdminTiers.editButtonHtml(p.name)
+    : '';
+  // Override indicator — small dot next to the row when this player's
+  // tier/buySell/trending was edited via the admin scratchpad. Only renders
+  // when an override exists for this player (TIERS_DATA[name]._override).
+  const t = (window.TIERS_DATA || {})[p.name];
+  const overrideDot = (t && t._override)
+    ? '<span class="tier-override-dot" title="Local override (this device only)" style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--red);margin-left:4px;vertical-align:middle"></span>'
+    : '';
+  const posBadge = p.pos && p.pos !== 'N/A' ? '<span class="pos-badge ' + pc(p.pos) + '">' + p.pos + '</span>' : '';
+  const nameHtml = isPick(p)
+    ? '<span class="tier-player-name is-pick">' + p.name + '</span>'
+    : '<span class="tier-player-name">' + p.name + '</span>';
+  // Manual trending indicator (admin-tiers.js trending dropdown). 'up' renders
+  // the assets/img/trending-up.png avatar; 'down' renders a red CSS chevron.
+  // Legacy emoji/text values (📈 / 📉 / Rookie / etc.) are normalized to
+  // up/down/none. Renders inline next to the player name.
+  const trendingIcon = _fptsTrendingIconHtml(p.trending);
+
+  return '<tr>'
+    + '<td class="col-tier">' + tierBadge + adminEdit + overrideDot + '</td>'
+    + '<td class="col-name">' + nameHtml + trendingIcon + '</td>'
+    + '<td class="col-num">' + fmtNumeric(p.age) + '</td>'
+    + '<td>' + posBadge + '</td>'
+    + '<td>' + fmtCell(p.posRank) + '</td>'
+    + '<td>' + ((p.team && window.TeamHelpers) ? window.TeamHelpers.logoImg(p.team, { size: 20, coin: true }) : fmtCell(p.team)) + '</td>'
+    + '<td class="col-num">' + fmtNumeric(p.adp2026) + '</td>'
+    + '<td class="col-num">' + fmtNumeric(p.adpPrevious) + '</td>'
+    + '<td class="tier-trending">' + window.AdpComparator.changeChipHtml(p.adp2026, p.adpPrevious) + '</td>'
+    + '<td class="col-num"><span class="tier-auction">' + fmtNumeric(p.auction) + '</span></td>'
+    + '<td class="col-num">' + fmtNumeric(p.ppg2025) + '</td>'
+    + '<td class="col-num">' + fmtNumeric(p.ppg2024) + '</td>'
+    + '<td>' + bshChipHtml(p.buySell) + '</td>'
+    + '<td>' + priorityChipHtml(p.priority) + '</td>'
+    + '<td>' + contenderChipHtml(p.contender) + '</td>'
+  + '</tr>';
+}
+
+function renderHeaderRow() {
+  const cols = [
+    {key: 'tier', label: 'Tier'},
+    {key: 'name', label: 'Player'},
+    {key: 'age', label: 'Age'},
+    {key: 'pos', label: 'Pos'},
+    {key: 'posRank', label: 'PRK'},
+    {key: 'team', label: 'Team'},
+    {key: 'adp2026', label: 'ADP'},
+    {key: 'adpPrevious', label: 'Previous ADP'},
+    {key: 'change', label: 'Chg'},
+    {key: 'auction', label: 'Auction'},
+    {key: 'ppg2025', label: '2025 PPG'},
+    {key: 'ppg2024', label: '2024 PPG'},
+    {key: 'buySell', label: 'Buy/Sell'},
+    {key: 'priority', label: 'Priority'},
+    {key: 'contender', label: 'Contender'},
+  ];
+  // Previous ADP column: delegate the trigger button + popup to the shared
+  // AdpComparator module. All 21 triggers (one per tier-group <thead>) reference
+  // the SAME popup mounted at body level — no DOM duplication.
+  return '<tr>' + cols.map(c => {
+    if (c.key === 'adpPrevious') {
+      return '<th class="tier-th-compare" data-col="adpPrevious">'
+        + window.AdpComparator.renderTriggerHtml()
+      + '</th>';
+    }
+    const isSorted = tierSortCol === c.key && tierView === 'flat';
+    const arrow = isSorted ? '<span class="sort-arrow">' + (tierSortDir === 'asc' ? '▲' : '▼') + '</span>' : '';
+    return '<th class="' + (isSorted ? 'sorted' : '') + '" onclick="setSortCol(\'' + c.key + '\')" data-col="' + c.key + '">' + c.label + arrow + '</th>';
+  }).join('') + '</tr>';
+}
+
+function setSortCol(col) {
+  if (tierView !== 'flat') return; // sort only works in flat view
+  if (tierSortCol === col) {
+    tierSortDir = tierSortDir === 'asc' ? 'desc' : 'asc';
+  } else {
+    tierSortCol = col;
+    tierSortDir = 'asc';
+  }
+  renderTiers();
+}
+
+function sortPlayers(players) {
+  // numeric vs string detection per col
+  const numericCols = ['age', 'adp2026', 'adpPrevious', 'ppg2025', 'ppg2024'];
+  const tierCol = tierSortCol === 'tier';
+  const numeric = numericCols.includes(tierSortCol);
+  const changeCol = tierSortCol === 'change';
+
+  // CHANGE is computed (current - previous), not stored. Players missing
+  // either reading sort to the bottom (Infinity sentinel) so the populated
+  // rows always group at the top of an ascending sort.
+  function _changeVal(p) {
+    const c = parseFloat(p.adp2026), pr = parseFloat(p.adpPrevious);
+    if (!isFinite(c) || !isFinite(pr)) return tierSortDir === 'asc' ? Infinity : -Infinity;
+    return c - pr;
+  }
+
+  return [...players].sort((a, b) => {
+    let av, bv;
+    if (tierCol) {
+      av = TIER_ORDER.indexOf(a.tier);
+      bv = TIER_ORDER.indexOf(b.tier);
+      if (av === -1) av = 999;
+      if (bv === -1) bv = 999;
+    } else if (changeCol) {
+      av = _changeVal(a);
+      bv = _changeVal(b);
+    } else if (tierSortCol === 'auction') {
+      av = parseFloat((a.auction || '').replace(/[^\d.]/g, '')) || 0;
+      bv = parseFloat((b.auction || '').replace(/[^\d.]/g, '')) || 0;
+    } else if (numeric) {
+      av = parseFloat(a[tierSortCol]) || 0;
+      bv = parseFloat(b[tierSortCol]) || 0;
+    } else {
+      av = (a[tierSortCol] || '').toString().toLowerCase();
+      bv = (b[tierSortCol] || '').toString().toLowerCase();
+    }
+    if (av < bv) return tierSortDir === 'asc' ? -1 : 1;
+    if (av > bv) return tierSortDir === 'asc' ? 1 : -1;
+    return 0;
+  });
+}
+
+function renderTiers() {
+  const filtered = applyFilters(TIER_PLAYERS);
+  const body = document.getElementById('tiers-body');
+  
+  if (tierView === 'grouped') {
+    // Group by tier, render in TIER_ORDER
+    const groups = {};
+    filtered.forEach(p => {
+      if (!groups[p.tier]) groups[p.tier] = [];
+      groups[p.tier].push(p);
+    });
+    
+    let html = '';
+    // Phase 3 — pull tier order + titles from AdminTiers.effectiveTierConfig
+    // when available (it merges window.TIER_CONFIG with admin localStorage
+    // overrides). Falls back to the legacy TIER_ORDER + TIER_DESCRIPTIONS
+    // constants if config or admin-tiers isn't loaded yet.
+    const _eff = (window.AdminTiers && window.AdminTiers.effectiveTierConfig)
+      ? window.AdminTiers.effectiveTierConfig()
+      : TIER_ORDER.map(c => ({ code: c, title: TIER_DESCRIPTIONS[c] || '' }));
+    const _adminOn = (window.AdminTiers && window.AdminTiers.isActive && window.AdminTiers.isActive());
+    _eff.forEach((tcfg, tIdx) => {
+      const t = tcfg.code;
+      if (!groups[t] || !groups[t].length) return;
+      const desc = tcfg.title || '';
+      // Admin tier-divider controls (Phase 3) — pencil to rename + arrows
+      // to reorder the tier *section*. Hidden for non-admin visitors so
+      // production rows are byte-identical. Glyphs are #111111 per the
+      // black-text-on-bright-fill doctrine (the previous var(--red)
+      // disappeared into the red-orange tier-header gradient).
+      const _btnStyle = 'background:rgba(255,255,255,0.85);border:1px solid #111111;color:#111111;cursor:pointer;font-size:14px;font-weight:700;padding:2px 8px;line-height:1;border-radius:4px';
+      const adminCtrls = _adminOn
+        ? ('<span class="tier-group-admin" style="display:inline-flex;gap:6px;margin-left:14px;vertical-align:middle">'
+            + '<button type="button" class="fpts-adm-tier-edit" data-tier="' + t + '" title="Rename tier section header" style="' + _btnStyle + '">✎</button>'
+            + (tIdx > 0 ? '<button type="button" class="fpts-adm-tier-up" data-tier="' + t + '" title="Move tier up" style="' + _btnStyle + '">▲</button>' : '')
+            + (tIdx < _eff.length - 1 ? '<button type="button" class="fpts-adm-tier-down" data-tier="' + t + '" title="Move tier down" style="' + _btnStyle + '">▼</button>' : '')
+          + '</span>')
+        : '';
+      // Phase 4 — apply admin's per-tier player ordering if present.
+      // sortPlayersForTier returns names; we re-fetch the row data from
+      // the original tier bucket so render fields stay intact.
+      var tierRows = groups[t];
+      if (window.AdminTiers && window.AdminTiers.sortPlayersForTier) {
+        const _names = tierRows.map(function (r) { return r.name; });
+        const _ordered = window.AdminTiers.sortPlayersForTier(t, _names);
+        const _byName = {};
+        tierRows.forEach(function (r) { _byName[r.name] = r; });
+        tierRows = _ordered.map(function (n) { return _byName[n]; }).filter(Boolean);
+      }
+      const tbodyAttrs = _adminOn
+        ? ' class="fpts-adm-tier-tbody" data-tier="' + t + '"'
+        : '';
+      const rowsHtml = tierRows.map(function (p) {
+        var rowHtml = renderRowHtml(p);
+        // Inject drag attributes on the <tr> for admin reorder. Escape
+        // the player name for the data attribute (quotes are the main
+        // hazard inside an attr).
+        if (_adminOn) {
+          var safeName = String(p.name).replace(/"/g, '&quot;');
+          rowHtml = rowHtml.replace(
+            '<tr>',
+            '<tr draggable="true" data-player="' + safeName + '" style="cursor:grab">'
+          );
+        }
+        return rowHtml;
+      }).join('');
+      // Phase 5 — when admin is on, the tier header doubles as the drag
+      // handle for whole-section reordering. Each header carries the tier
+      // code + a draggable flag; the IIFE near line ~3110 wires the
+      // dragstart/dragover/drop pipeline and persists via
+      // AdminTiers.setTierOrder.
+      const _headerAttrs = _adminOn
+        ? ' draggable="true" data-tier-code="' + t + '" title="Drag to reorder tier sections" style="cursor:grab"'
+        : '';
+      html += '<div class="tier-group">'
+        + '<div class="tier-group-header"' + _headerAttrs + '>'
+          + (_adminOn ? '<span class="tier-group-drag-handle" aria-hidden="true" style="font-size:13px;opacity:.7;margin-right:2px;cursor:grab">⋮⋮</span>' : '')
+          + '<span class="tier-group-letter">' + t + '</span>'
+          + '<span class="tier-group-desc">' + desc + '</span>'
+          + adminCtrls
+        + '</div>'
+        + '<div class="tiers-table-wrap">'
+          + '<table class="tiers-table">'
+            + '<thead>' + renderHeaderRow() + '</thead>'
+            + '<tbody' + tbodyAttrs + '>' + rowsHtml + '</tbody>'
+          + '</table>'
+        + '</div>'
+      + '</div>';
+    });
+    body.innerHTML = html || '<div style="text-align:center;color:var(--muted);padding:40px">No players match the current filters.</div>';
+  } else {
+    // Flat sortable
+    const sorted = sortPlayers(filtered);
+    body.innerHTML = '<div class="tiers-table-wrap">'
+      + '<table class="tiers-table">'
+        + '<thead>' + renderHeaderRow() + '</thead>'
+        + '<tbody>' + sorted.map(renderRowHtml).join('') + '</tbody>'
+      + '</table>'
+    + '</div>';
+  }
+  
+  document.getElementById('tiers-stat-count').textContent = filtered.length + ' players · ' + Object.keys(TIER_DESCRIPTIONS).length + ' tiers';
+}
+
+function setView(v) {
+  tierView = v;
+  document.getElementById('view-grouped-btn').classList.toggle('active', v === 'grouped');
+  document.getElementById('view-flat-btn').classList.toggle('active', v === 'flat');
+  renderTiers();
+}
+
+// ════════════════════════════════════════════════════════════════════════
+//  THEME (matches other pages)
+// ════════════════════════════════════════════════════════════════════════
+const WORDMARK_DARK = document.getElementById('wordmark-svg').innerHTML;
+const WORDMARK_LIGHT = '';
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const isLight = html.getAttribute('data-theme') === 'light';
+  if (isLight) {
+    html.removeAttribute('data-theme');
+    document.getElementById('theme-icon').textContent = '☀️';
+    document.getElementById('theme-label').textContent = 'LIGHT';
+    document.getElementById('wordmark-svg').innerHTML = WORDMARK_DARK;
+    try { localStorage.setItem('fpts-theme', 'dark'); } catch(e){}
+  } else {
+    html.setAttribute('data-theme', 'light');
+    document.getElementById('theme-icon').textContent = '🌙';
+    document.getElementById('theme-label').textContent = 'DARK';
+    document.getElementById('wordmark-svg').innerHTML = WORDMARK_LIGHT || WORDMARK_DARK;
+    try { localStorage.setItem('fpts-theme', 'light'); } catch(e){}
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════
+//  SLEEPER OVERLAY — mutate TIER_PLAYERS with live age/team/pos/ppg2025
+//  pulled from data/values.json (which sync-fp.py overlays from Sleeper).
+//  The Google Sheet stays the source for tier order, buy/sell, priority,
+//  contender, notes — i.e. anything that's a human judgement call.
+// ════════════════════════════════════════════════════════════════════════
+function _normNameTiers(name) {
+  if (!name) return '';
+  return String(name)
+    .normalize('NFKD').replace(/[̀-ͯ]/g, '')   // strip accents
+    .toLowerCase()
+    .replace(/\b(jr|sr|ii|iii|iv|v)\.?\b/g, '')           // drop suffixes
+    .replace(/[^a-z0-9]/g, '');                            // drop punct/space
+}
+
+function applySleeperOverlay() {
+  // Reads from window globals populated by assets/js/data-bootstrap.js
+  // (which has already fetched values.json / adp.json / auction.json /
+  // mvs.json by the time fpts:data-ready fires). The tier-specific work
+  // here is overlaying that data onto TIER_PLAYERS — synchronous now.
+  try {
+    const values  = window.FP_VALUES       || {};
+    const adp     = window.ADP_PAYLOAD;
+    const auction = window.AUCTION_PAYLOAD;
+    const mvs     = window.MVS_PAYLOAD;
+
+    // ── values overlay (Sleeper-sourced attributes) ──────────────────────
+    if (Object.keys(values).length) {
+      const byKey = {};
+      Object.entries(values).forEach(([name, rec]) => {
+        byKey[_normNameTiers(name)] = rec;
+      });
+      TIER_PLAYERS.forEach(p => {
+        const rec = byKey[_normNameTiers(p.name)];
+        if (!rec) return;
+        if (rec.age       != null) p.age      = String(rec.age);
+        if (rec.team)              p.team     = rec.team;
+        if (rec.pos)               p.pos      = rec.pos;
+        if (rec.posRank)           p.posRank  = rec.posRank;
+        if (rec.ppg       != null) p.ppg2025  = String(rec.ppg);
+        if (rec.ppgPrior  != null) p.ppg2024  = String(rec.ppgPrior);
+        if (rec.injury)            p.injury   = rec.injury;
+      });
+    }
+
+    // ── ADP overlay (sleeper_dynasty_adp pipeline) ───────────────────────
+    // CURRENT ADP comes from data/adp.json's byMonth.ALL aggregate (the
+    // full-history weighted mean). PREVIOUS ADP comes from byMonth["YYYY-MM"]
+    // where YYYY-MM is the user-selected month from the calendar popup. The
+    // bucket is resolved through MONTH_INDEX which merges byMonth keys
+    // across every loaded year payload in YEAR_CACHE. The sheet carries no
+    // ADP data; these columns are entirely overlay-owned.
+    function _applyAdpOverlayFrom(bucket, fieldName) {
+      if (!bucket) return;
+      let _fmt = 'sf';
+      try { const _v = localStorage.getItem('fpts-adp-format'); if (_v === '1qb' || _v === 'sf') _fmt = _v; } catch (e) {}
+      const canonList = bucket[_fmt === '1qb' ? 'startup_1qb' : 'startup_sf'] || [];
+      const fallList  = bucket[_fmt === '1qb' ? 'startup_sf'  : 'startup_1qb'] || [];
+      const canonByKey = {}, fallByKey = {};
+      canonList.forEach(p => { if (p.name) canonByKey[_normNameTiers(p.name)] = p; });
+      fallList .forEach(p => { if (p.name) fallByKey [_normNameTiers(p.name)] = p; });
+      TIER_PLAYERS.forEach(p => {
+        // Clear stale values so players that fall out of the bucket render "—"
+        // rather than retaining a previous month's number.
+        p[fieldName] = '';
+        const rec = canonByKey[_normNameTiers(p.name)] || fallByKey[_normNameTiers(p.name)];
+        if (rec && rec.adp != null) p[fieldName] = String(rec.adp);
+      });
+    }
+
+    if (adp && adp.byMonth && window.applySeasonBadge) window.applySeasonBadge(adp.season);
+    // CURRENT = byMonth.ALL of the current-year payload (the season aggregate).
+    _applyAdpOverlayFrom((adp && adp.byMonth) ? adp.byMonth.ALL : null, 'adp2026');
+    // PREVIOUS = byMonth[tierCompareMonth] resolved through MONTH_INDEX.
+    // Falls through to empty if the dropdown hasn't been populated yet (first
+    // render before fpts:data-ready completes the year-payload merge).
+    const prevBucket = window.AdpComparator
+      ? window.AdpComparator.getMonthBucket(window.AdpComparator.getCurrentMonth())
+      : null;
+    _applyAdpOverlayFrom(prevBucket, 'adpPrevious');
+
+    // ── auction overlay (real dynasty auction prices) ────────────────────
+    // Overwrites sheet's auction column with the median price from real
+    // auctions. Dynasty auctions are overwhelmingly SF (~0 1QB auctions in
+    // the dataset), so try 1QB first then fall back to SF.
+    if (auction && auction.byMonth) {
+      const oneByKey = {}, sfByKey = {};
+      (auction.byMonth?.ALL?.startup_1qb || []).forEach(p => { if (p.name) oneByKey[_normNameTiers(p.name)] = p; });
+      (auction.byMonth?.ALL?.startup_sf  || []).forEach(p => { if (p.name) sfByKey [_normNameTiers(p.name)] = p; });
+      TIER_PLAYERS.forEach(p => {
+        const key = _normNameTiers(p.name);
+        const rec = oneByKey[key] || sfByKey[key];
+        if (!rec || rec.med == null) return;
+        p.auction = '$' + Math.round(rec.med);
+      });
+    }
+
+    // ── MVS overlay (canonical player VALUE) ─────────────────────────────
+    // Wholesale-replaces the value column with MVS, honoring the user's
+    // saved SF/1QB format preference. data-bootstrap.js already did its
+    // own overlay onto FP_VALUES — we re-derive here directly onto
+    // TIER_PLAYERS so the tier table renders without going through FP.
+    if (mvs && mvs.players) {
+      let _fmt = 'sf';
+      try { const _v = localStorage.getItem('fpts-adp-format'); if (_v === '1qb' || _v === 'sf') _fmt = _v; } catch (e) {}
+      const mvsByKey = {};
+      Object.entries(mvs.players).forEach(([name, rec]) => { mvsByKey[_normNameTiers(name)] = rec; });
+      TIER_PLAYERS.forEach(p => {
+        const rec = mvsByKey[_normNameTiers(p.name)];
+        if (!rec) { p.value = 0; return; }
+        p.value    = (_fmt === '1qb') ? rec.value1qb : rec.valueSf;
+        p.valueSf  = rec.valueSf;
+        p.value1qb = rec.value1qb;
+      });
+    }
+  } catch (e) {
+    console.warn('[tiers] sleeper overlay failed:', e && e.message);
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════
+//  Sleeper-API AGE FALLBACK
+// ════════════════════════════════════════════════════════════════════════
+//  For tier players whose age is still missing after applySleeperOverlay()
+//  (i.e. they're not in FP's data/values.json yet — typically fresh
+//  rookies). Looks up sleeperId from data/mvs.json, then fetches the
+//  Sleeper bulk player metadata endpoint (~5MB, cached on window for the
+//  session AND in the browser's HTTP cache for subsequent visits) and
+//  pulls `age` (or computes it from `birth_date` if Sleeper only carries
+//  the latter for that player).
+//
+//  Returns true if at least one player got an age — signalling the caller
+//  to re-render. Silent failures (network, etc.) return false; existing
+//  empty-age cells just stay empty.
+// ════════════════════════════════════════════════════════════════════════
+async function applySleeperApiAgeFallback() {
+  const missing = TIER_PLAYERS.filter(p => (p.age == null || p.age === '') && p.name);
+  if (!missing.length) return false;
+
+  const mvsPlayers = (window.MVS_PAYLOAD && window.MVS_PAYLOAD.players) || {};
+  const mvsByKey = {};
+  Object.entries(mvsPlayers).forEach(([name, rec]) => { mvsByKey[_normNameTiers(name)] = rec; });
+
+  const targets = missing
+    .map(p => ({ p, sid: mvsByKey[_normNameTiers(p.name)]?.sleeperId }))
+    .filter(x => x.sid);
+  if (!targets.length) return false;
+
+  try {
+    if (!window.__SLEEPER_PLAYERS_NFL) {
+      const r = await fetch('https://api.sleeper.app/v1/players/nfl', { cache: 'default' });
+      if (!r.ok) return false;
+      window.__SLEEPER_PLAYERS_NFL = await r.json();
+    }
+    const cache = window.__SLEEPER_PLAYERS_NFL || {};
+    let filled = 0;
+    targets.forEach(({ p, sid }) => {
+      const rec = cache[sid];
+      if (!rec) return;
+      if (rec.age != null) {
+        p.age = String(rec.age);
+        filled++;
+      } else if (rec.birth_date) {
+        const birth = new Date(rec.birth_date);
+        if (!isNaN(birth)) {
+          const today = new Date();
+          let age = today.getFullYear() - birth.getFullYear();
+          const m = today.getMonth() - birth.getMonth();
+          if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+          p.age = String(age);
+          filled++;
+        }
+      }
+    });
+    return filled > 0;
+  } catch (e) {
+    console.warn('[tiers] sleeper age fallback skipped:', e && e.message);
+    return false;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  // Restore theme
+  try {
+    const saved = localStorage.getItem('fpts-theme');
+    if (saved === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+      document.getElementById('theme-icon').textContent = '🌙';
+      document.getElementById('theme-label').textContent = 'DARK';
+      document.getElementById('wordmark-svg').innerHTML = WORDMARK_LIGHT || WORDMARK_DARK;
+    }
+  } catch(e) {}
+
+  // Populate tier filter dropdown
+  const tierSel = document.getElementById('filter-tier');
+  TIER_ORDER.forEach(t => {
+    const seen = TIER_PLAYERS.some(p => p.tier === t);
+    if (!seen) return;
+    const opt = document.createElement('option');
+    opt.value = t;
+    opt.textContent = t;
+    tierSel.appendChild(opt);
+  });
+
+  // Update timestamps. The subtitle "Updated" date is editable inline —
+  // localStorage override wins over the inline TIER_UPDATED constant so the
+  // operator can bump the date without touching code. Blur (click away or
+  // Tab/Enter) persists the new value. Enter blurs instead of inserting a
+  // newline because contenteditable would otherwise accept \n.
+  var _updEl = document.getElementById('tiers-updated');
+  var _storedUpd = null;
+  try { _storedUpd = localStorage.getItem('fpts-tiers-updated-date'); } catch (e) {}
+  _updEl.textContent = (_storedUpd && _storedUpd.trim()) || TIER_UPDATED;
+  _updEl.addEventListener('blur', function () {
+    var v = (_updEl.textContent || '').trim();
+    if (!v) { v = TIER_UPDATED; _updEl.textContent = v; }
+    try { localStorage.setItem('fpts-tiers-updated-date', v); } catch (e) {}
+  });
+  _updEl.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); _updEl.blur(); }
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      _updEl.textContent = (_storedUpd && _storedUpd.trim()) || TIER_UPDATED;
+      _updEl.blur();
+    }
+  });
+  // The header "Synced" stamp stays auto-managed by sync-tiers.py (markers).
+  document.getElementById('tiers-updated-stat').textContent = TIER_UPDATED;
+
+  // First paint immediately (Google-Sheet values, raw) so the page is
+  // never blank. The Sleeper overlay applies after data-bootstrap.js
+  // finishes hydrating window globals — listen for 'fpts:data-ready'.
+  // Then the optional Sleeper-API age fallback for players FP doesn't
+  // have yet (fresh rookies) — re-render only if at least one age
+  // came back.
+  renderTiers();
+});
+
+// Wait for data-bootstrap.js to populate window.FP_VALUES /
+// ADP_PAYLOAD / AUCTION_PAYLOAD / MVS_PAYLOAD, then run the tier-
+// specific overlay onto TIER_PLAYERS and repaint.
+document.addEventListener('fpts:data-ready', () => {
+  // Initialize the shared ADP comparator module. It seeds YEAR_CACHE from
+  // window.ADP_PAYLOAD, restores tierCompareMonth from localStorage, and
+  // lazy-fetches the saved year's payload if it's not the current season
+  // (so the Previous ADP column populates without requiring the user to
+  // open the popup).
+  window.AdpComparator.init({
+    storageKey: 'fpts-tiers-compare-month',
+    onChange: () => { applySleeperOverlay(); renderTiers(); },
+  });
+
+  applySleeperOverlay();
+  renderTiers();
+  applySleeperApiAgeFallback().then(filled => { if (filled) renderTiers(); });
+
+  // Phase 3 — load tier-config.json (titles + canonical order). Falls
+  // back silently to the legacy TIER_DESCRIPTIONS / TIER_ORDER constants
+  // if the fetch fails. Re-renders when ready so the section headers
+  // pick up any admin-published custom titles.
+  const _tcV = '?v=' + (window.__DATA_VERSION || Date.now());
+  fetch('data/source/tiers/tier-config.json' + _tcV)
+    .then(r => r.ok ? r.json() : null)
+    .catch(() => null)
+    .then(j => {
+      if (j && j.tiers && j.tiers.length) {
+        window.TIER_CONFIG = j;
+        renderTiers();
+      }
+    });
+});
+
+// Phase 3 — admin reordered / renamed tiers. effectiveTierConfig() reads
+// fresh values from window.TIER_CONFIG + localStorage; re-render uses
+// them. No data mutation needed here.
+document.addEventListener('fpts:tier-config-changed', () => {
+  renderTiers();
+});
+
+// Phase 4 — drag-and-drop reorder of player rows within a tier.
+// Rows get draggable=true + data-player when admin mode is on (see
+// renderTiers). Drop target is computed by mouse-Y vs the hovered row's
+// midline — drop above puts source above, below puts it below. Source
+// row gets opacity dim during drag; valid drop target gets a thick top
+// or bottom border for the user to see where it'll land. Final order
+// is computed from the tbody's row order after the swap, then handed
+// to AdminTiers.setPlayerOrder which persists + re-renders.
+(function () {
+  let dragSource = null;
+  let lastDropTarget = null;
+  function _clearDropIndicator() {
+    if (lastDropTarget) {
+      lastDropTarget.style.borderTop = '';
+      lastDropTarget.style.borderBottom = '';
+      lastDropTarget = null;
+    }
+  }
+  document.addEventListener('dragstart', (e) => {
+    const tr = e.target.closest && e.target.closest('tr[draggable="true"][data-player]');
+    if (!tr) return;
+    dragSource = tr;
+    tr.style.opacity = '0.4';
+    try {
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', tr.getAttribute('data-player'));
+    } catch (_) {}
+  });
+  document.addEventListener('dragend', (e) => {
+    if (dragSource) dragSource.style.opacity = '';
+    dragSource = null;
+    _clearDropIndicator();
+  });
+  document.addEventListener('dragover', (e) => {
+    const tr = e.target.closest && e.target.closest('tr[draggable="true"][data-player]');
+    if (!tr || !dragSource) return;
+    const sameTbody = tr.parentNode === dragSource.parentNode;
+    if (!sameTbody) return;   // dragging across tiers not supported yet
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    const rect = tr.getBoundingClientRect();
+    const above = (e.clientY - rect.top) < rect.height / 2;
+    if (tr !== lastDropTarget) _clearDropIndicator();
+    tr.style.borderTop = above ? '2px solid var(--red)' : '';
+    tr.style.borderBottom = above ? '' : '2px solid var(--red)';
+    lastDropTarget = tr;
+  });
+  document.addEventListener('drop', (e) => {
+    const tr = e.target.closest && e.target.closest('tr[draggable="true"][data-player]');
+    if (!tr || !dragSource) { _clearDropIndicator(); return; }
+    const tbody = tr.parentNode;
+    if (tbody !== dragSource.parentNode) { _clearDropIndicator(); return; }
+    e.preventDefault();
+    const rect = tr.getBoundingClientRect();
+    const above = (e.clientY - rect.top) < rect.height / 2;
+    // Splice the source row to the new position in the DOM. The actual
+    // persistence comes from reading data-player off each row in order
+    // and passing that list to setPlayerOrder.
+    if (above) tbody.insertBefore(dragSource, tr);
+    else       tbody.insertBefore(dragSource, tr.nextSibling);
+    _clearDropIndicator();
+    const tierCode = tbody.getAttribute('data-tier');
+    const newOrder = Array.from(tbody.querySelectorAll('tr[data-player]'))
+      .map(r => r.getAttribute('data-player'));
+    if (window.AdminTiers && window.AdminTiers.setPlayerOrder) {
+      window.AdminTiers.setPlayerOrder(tierCode, newOrder);
+    }
+  });
+})();
+
+// Phase 5 — drag-and-drop reorder of tier SECTIONS. The .tier-group-header
+// is the drag handle when admin mode is on (see renderTiers). Drop position
+// is computed by mouse-Y vs the hovered header's midline. Source section
+// dims to 0.5 opacity during drag; valid drop target gets a thick red top
+// or bottom border ON THE HEADER. Final order is computed from the DOM
+// after the splice, then handed to AdminTiers.setTierOrder. Keeps the
+// existing ▲/▼ arrow buttons in place — drag is for big reorders, arrows
+// for adjacent swaps.
+(function () {
+  let dragSource = null;        // the .tier-group element being dragged
+  let lastDropTarget = null;    // the .tier-group-header currently highlighted
+  function _clearDropIndicator() {
+    if (lastDropTarget) {
+      lastDropTarget.style.borderTop = '';
+      lastDropTarget.style.borderBottom = '';
+      lastDropTarget = null;
+    }
+  }
+  document.addEventListener('dragstart', (e) => {
+    const hdr = e.target.closest && e.target.closest('.tier-group-header[draggable="true"][data-tier-code]');
+    if (!hdr) return;
+    const group = hdr.closest('.tier-group');
+    if (!group) return;
+    dragSource = group;
+    group.style.opacity = '0.5';
+    try {
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', hdr.getAttribute('data-tier-code') || '');
+    } catch (_) {}
+  });
+  document.addEventListener('dragend', () => {
+    if (dragSource) dragSource.style.opacity = '';
+    dragSource = null;
+    _clearDropIndicator();
+  });
+  document.addEventListener('dragover', (e) => {
+    if (!dragSource) return;
+    const hdr = e.target.closest && e.target.closest('.tier-group-header[draggable="true"][data-tier-code]');
+    if (!hdr) return;
+    const targetGroup = hdr.closest('.tier-group');
+    if (!targetGroup || targetGroup === dragSource) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    const rect = hdr.getBoundingClientRect();
+    const above = (e.clientY - rect.top) < rect.height / 2;
+    if (hdr !== lastDropTarget) _clearDropIndicator();
+    hdr.style.borderTop = above ? '3px solid var(--red)' : '';
+    hdr.style.borderBottom = above ? '' : '3px solid var(--red)';
+    lastDropTarget = hdr;
+  });
+  document.addEventListener('drop', (e) => {
+    if (!dragSource) { _clearDropIndicator(); return; }
+    const hdr = e.target.closest && e.target.closest('.tier-group-header[draggable="true"][data-tier-code]');
+    if (!hdr) { _clearDropIndicator(); return; }
+    const targetGroup = hdr.closest('.tier-group');
+    if (!targetGroup || targetGroup === dragSource) { _clearDropIndicator(); return; }
+    e.preventDefault();
+    const rect = hdr.getBoundingClientRect();
+    const above = (e.clientY - rect.top) < rect.height / 2;
+    const parent = targetGroup.parentNode;
+    if (above) parent.insertBefore(dragSource, targetGroup);
+    else       parent.insertBefore(dragSource, targetGroup.nextSibling);
+    _clearDropIndicator();
+    // Read the new order off the DOM after the splice. Scoping the query
+    // to direct children of parent avoids picking up nested headers if any
+    // sibling structure ever appears above the groups.
+    const newOrder = Array.from(parent.querySelectorAll('.tier-group > .tier-group-header[data-tier-code]'))
+      .map(h => h.getAttribute('data-tier-code'));
+    if (window.AdminTiers && window.AdminTiers.setTierOrder) {
+      window.AdminTiers.setTierOrder(newOrder);
+    }
+  });
+})();
+
+// Phase 3 — delegated click handler for admin tier-divider controls
+// (✎ rename, ▲ up, ▼ down). Only fires when admin mode is active because
+// the buttons themselves are only rendered then.
+document.addEventListener('click', (e) => {
+  const editBtn = e.target.closest && e.target.closest('.fpts-adm-tier-edit');
+  if (editBtn) {
+    e.preventDefault();
+    const tier = editBtn.getAttribute('data-tier');
+    const cfg = window.AdminTiers && window.AdminTiers.effectiveTierConfig
+      ? window.AdminTiers.effectiveTierConfig() : [];
+    const current = (cfg.find(x => x.code === tier) || {}).title || '';
+    const next = window.prompt('Rename tier "' + tier + '" section header:\n\n(Leave blank to clear override and restore the canonical title.)', current);
+    if (next === null) return;
+    window.AdminTiers.setTierTitle(tier, next.trim());
+    return;
+  }
+  const upBtn = e.target.closest && e.target.closest('.fpts-adm-tier-up');
+  if (upBtn) {
+    e.preventDefault();
+    window.AdminTiers.moveTier(upBtn.getAttribute('data-tier'), -1);
+    return;
+  }
+  const downBtn = e.target.closest && e.target.closest('.fpts-adm-tier-down');
+  if (downBtn) {
+    e.preventDefault();
+    window.AdminTiers.moveTier(downBtn.getAttribute('data-tier'), 1);
+    return;
+  }
+});
+
+// Admin-mode tier override saves (assets/js/admin-tiers.js) mutate
+// window.TIERS_DATA in place + fire this event. Re-overlay any matching
+// rows in TIER_PLAYERS so the tiers table reflects the edit immediately,
+// then repaint. No-op for visitors (event only fires when admin mode is
+// active AND the admin actually saves an override).
+document.addEventListener('fpts:tiers-overrides-changed', () => {
+  if (!window.TIERS_DATA) return;
+  // 1) Update existing TIER_PLAYERS from TIERS_DATA (Phase 1 behavior)
+  const existingNames = new Set();
+  TIER_PLAYERS.forEach(p => {
+    existingNames.add(p.name);
+    const t = window.TIERS_DATA[p.name];
+    if (!t) return;
+    if (t.tier      != null) p.tier      = t.tier;
+    if (t.buySell   != null) p.buySell   = t.buySell;
+    if (t.trending  != null) p.trending  = t.trending;
+    if (t.priority  != null) p.priority  = t.priority;
+    if (t.contender != null) p.contender = t.contender;
+    if (t.notes     != null) p.notes     = t.notes;
+  });
+  // 2) Add Phase 2 "newly added" players — TIERS_DATA entries that don't
+  //    yet exist in TIER_PLAYERS. Pull pos/team/age from FP_VALUES if
+  //    available so the row renders with real metadata.
+  Object.keys(window.TIERS_DATA).forEach(name => {
+    if (existingNames.has(name)) return;
+    const t = window.TIERS_DATA[name];
+    if (!t || !t.tier || t._deleted) return;
+    const fp = (window.FP_VALUES || {})[name] || {};
+    TIER_PLAYERS.push({
+      name: name,
+      tier: t.tier,
+      pos: fp.pos || '',
+      posRank: fp.posRank || '',
+      team: fp.team || '',
+      age: fp.age != null ? String(fp.age) : '',
+      buySell: t.buySell || '',
+      priority: t.priority || '',
+      contender: t.contender || '',
+      trending: t.trending || '',
+      notes: t.notes || '',
+    });
+  });
+  // 3) Filter out Phase 2 "removed" players — _deleted=true in the override
+  //    layer. Done by rebuilding the array in place via splice so the
+  //    reference TIER_PLAYERS = stays stable.
+  for (let i = TIER_PLAYERS.length - 1; i >= 0; i--) {
+    const t = window.TIERS_DATA[TIER_PLAYERS[i].name];
+    if (t && t._deleted) TIER_PLAYERS.splice(i, 1);
+  }
+  renderTiers();
+});
+</script>
+
+</body>
+</html>

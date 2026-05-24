@@ -1,0 +1,38 @@
+# Local logs (weekly scrape output)
+logs/
+
+# Secrets / credentials — config JSONs carry PATs / Google Sheets keys.
+# Scripts themselves (scripts/sync-*.py) ARE committed; configs are not.
+.env
+.env.*
+*.key
+*.pem
+credentials*
+secret*
+*.token
+service-account.json
+sync-tiers.config.json
+sync-fp.config.json
+sync-adp.config.json
+
+# API sample files (used to inspect endpoint shapes during dev; not for production)
+*-sample.json
+
+# Project-local data — never push to live site
+# Root-level tiers.csv only (legacy stray exports). The canonical
+# committed tier source lives at data/source/tiers/tiers.csv and IS
+# tracked (see data/source/tiers/README.md for the workflow).
+/tiers.csv
+
+# OS / IDE noise
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.url
+
+# Python (master_update.py cache / compiled)
+__pycache__/
+*.pyc
+*.pyo
