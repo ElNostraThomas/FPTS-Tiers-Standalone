@@ -1,5 +1,5 @@
 {
-  "version": "2026-05-25T05:27:04+00:00",
+  "version": "2026-05-25T05:36:28+00:00",
   "source": "Google Sheet via sync-tiers.py",
   "playerCount": 200,
   "players": {
@@ -283,6 +283,14 @@
       "contender": "",
       "notes": ""
     },
+    "Bo Nix": {
+      "tier": "A",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": ""
+    },
     "Brock Purdy": {
       "tier": "A",
       "trending": "",
@@ -356,14 +364,6 @@
       "notes": ""
     },
     "A.J. Brown": {
-      "tier": "A-",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": ""
-    },
-    "Bo Nix": {
       "tier": "A-",
       "trending": "",
       "buySell": "",
