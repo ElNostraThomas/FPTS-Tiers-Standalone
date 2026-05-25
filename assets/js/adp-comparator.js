@@ -273,12 +273,14 @@
       const classes = ['adp-cmp-cell'];
       const hasData = !!MONTH_INDEX[ym];
       const isActive = (ym === _currentMonth);
-      const isFutureOrNow = nowMonth && ym >= nowMonth;
+      // Disable only TRUE future months — the latest month with data is
+      // selectable (mid-month drafts produce a partial bucket worth viewing).
+      const isFuture = nowMonth && ym > nowMonth;
       let clickAttr = '';
       if (isActive)        classes.push('active');
-      if (isFutureOrNow)   classes.push('disabled');
+      if (isFuture)        classes.push('disabled');
       else if (!hasData)   classes.push('no-data');
-      if (!isFutureOrNow && hasData) {
+      if (!isFuture && hasData) {
         clickAttr = ' onclick="window.AdpComparator._pickMonth(\'' + ym + '\')"';
       }
       html += '<button type="button" class="' + classes.join(' ') + '"' + clickAttr + '>'
