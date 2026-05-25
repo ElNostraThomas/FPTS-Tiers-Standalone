@@ -367,11 +367,15 @@ def compute_pos_ranks(records: list[dict]) -> None:
         info(f"WARN: failed to parse values.json ({e}) -- posRank left blank")
         return
 
-    # Build a case/punctuation-tolerant name → pos lookup. FP names match
-    # sheet names exactly in the common case; we lowercase + strip as a
-    # defensive measure (matches the JS _normNameTiers spirit but simpler).
+    # Build a case/punctuation-tolerant name → pos lookup. FP's values.json
+    # strips Jr/Sr/II/III/IV/V suffixes from names ("Brian Thomas Jr." →
+    # "Brian Thomas"), so we strip those here before alphanum-collapsing
+    # to match. Mirrors the JS _normNameTiers in index.html.
+    _suffix_pat = re.compile(r"\b(jr|sr|ii|iii|iv|v)\.?\b")
     def _norm(s):
-        return "".join(c for c in str(s or "").lower() if c.isalnum())
+        s = str(s or "").lower()
+        s = _suffix_pat.sub("", s)
+        return "".join(c for c in s if c.isalnum())
 
     name_to_pos = {}
     for fp_name, rec in players.items():
