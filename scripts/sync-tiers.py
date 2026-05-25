@@ -61,7 +61,19 @@ KEY_PATH    = REPO_ROOT / "service-account.json"
 FIELDS = [
     "tier", "name",
     "trending", "buySell", "priority", "contender", "notes",
+    # posRank is computed by compute_pos_ranks() below — walks records in
+    # tier-then-row order and assigns "WR1", "WR2", "QB1", ... per position.
+    # Sheet row order = positional rank. FP's PRK no longer touches the page.
+    "posRank",
 ]
+
+# Canonical tier hierarchy for stable cross-tier ordering when computing
+# posRank. Tiers not in this list sort to the end (rank 99).
+POS_RANK_TIER_ORDER = [
+    'S++', 'S+', 'S', 'A+', 'A', 'A-', 'B+', 'B', 'B-',
+    'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E+', 'E', 'E-', 'F+', 'F', 'F-',
+]
+POS_RANK_TIER_INDEX = {t: i for i, t in enumerate(POS_RANK_TIER_ORDER)}
 
 # Maps normalized sheet header text -> internal field key.
 # Aliases cover the FPTS sheet's descriptive column names.
@@ -291,7 +303,8 @@ def map_rows(rows: list[list[str]]) -> list[dict]:
     if not col_to_field:
         die(f"detected header row but matched 0 columns. Header: {header}")
 
-    missing_fields = set(FIELDS) - set(col_to_field.values())
+    # posRank is intentionally computed (not read from Sheet) — don't warn.
+    missing_fields = set(FIELDS) - set(col_to_field.values()) - {"posRank"}
     if missing_fields:
         info(f"WARN: sheet is missing columns for: {sorted(missing_fields)} (will default to empty string)")
 
@@ -329,6 +342,67 @@ def map_rows(rows: list[list[str]]) -> list[dict]:
             f"Adjust MIN_ROWS_SANITY in this script if your list is intentionally small.")
 
     return out
+
+
+def compute_pos_ranks(records: list[dict]) -> None:
+    """Assign posRank to each record by walking tier-then-CSV-row order with
+    per-position counters. Reads each player's position (QB/RB/WR/TE/K) from
+    data/values.json (sync-fp.py output). Mutates `records` in place.
+
+    Tier order: POS_RANK_TIER_ORDER (S++ → F-). Within a tier: input order.
+    So the FIRST WR in your highest tier becomes WR1, the SECOND becomes WR2,
+    etc., regardless of which tier each is in. Sheet/CSV = source of truth.
+
+    If values.json is missing or a player's position can't be resolved, that
+    player's posRank stays blank (page falls back to position pill only)."""
+    values_path = REPO_ROOT / "data" / "values.json"
+    if not values_path.exists():
+        info(f"WARN: no {values_path.relative_to(REPO_ROOT)} found -- posRank left blank "
+             f"(run sync-fp.py first to populate position data)")
+        return
+    try:
+        payload = json.loads(values_path.read_text(encoding="utf-8"))
+        players = payload.get("players", {}) if isinstance(payload, dict) else {}
+    except Exception as e:
+        info(f"WARN: failed to parse values.json ({e}) -- posRank left blank")
+        return
+
+    # Build a case/punctuation-tolerant name → pos lookup. FP names match
+    # sheet names exactly in the common case; we lowercase + strip as a
+    # defensive measure (matches the JS _normNameTiers spirit but simpler).
+    def _norm(s):
+        return "".join(c for c in str(s or "").lower() if c.isalnum())
+
+    name_to_pos = {}
+    for fp_name, rec in players.items():
+        if not isinstance(rec, dict):
+            continue
+        pos = str(rec.get("pos", "")).upper().strip()
+        if pos:
+            name_to_pos[_norm(fp_name)] = pos
+
+    # Stable sort by (tier-index, original-csv-position) so records with the
+    # same tier keep their CSV row order.
+    indexed = list(enumerate(records))
+    indexed.sort(key=lambda iv: (POS_RANK_TIER_INDEX.get(iv[1].get("tier", ""), 99), iv[0]))
+
+    counters: dict[str, int] = {}
+    unresolved = 0
+    valid_pos = {"QB", "RB", "WR", "TE", "K"}
+    for _orig_idx, rec in indexed:
+        name = str(rec.get("name", "")).strip()
+        if not name:
+            continue
+        pos = name_to_pos.get(_norm(name), "")
+        if pos not in valid_pos:
+            unresolved += 1
+            continue
+        counters[pos] = counters.get(pos, 0) + 1
+        rec["posRank"] = f"{pos}{counters[pos]}"
+
+    summary = ", ".join(f"{p}1..{p}{counters[p]}" for p in sorted(counters))
+    note = f"  ({unresolved} player(s) had no FP position match — posRank blank for those)" if unresolved else ""
+    info(f"computed posRank from Sheet order: {summary}{note}")
 
 
 def render_block(records: list[dict], source_label: str = "Google Sheet") -> str:
@@ -453,6 +527,11 @@ def main() -> int:
         source_label = "Google Sheet"
 
     info(f"using {len(records)} player rows from {source_label}")
+
+    # Compute positional rank from Sheet order — walks records in tier order
+    # then CSV-row order, assigning "<POS><N>" per position. Sheet becomes
+    # the sole source of truth for both tier AND positional rank.
+    compute_pos_ranks(records)
 
     html = TIERS_HTML.read_text(encoding="utf-8")
     block = render_block(records, source_label=source_label)
