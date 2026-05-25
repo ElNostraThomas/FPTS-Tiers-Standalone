@@ -77,9 +77,81 @@
 
   function _formatMonthLabel(ym) {
     if (!ym || typeof ym !== 'string') return ym || '';
+    if (ym === 'L30') return 'Last 30 days';
     const m = ym.match(/^(\d{4})-(\d{2})$/);
     if (!m) return ym;
     return (MONTH_LABEL[parseInt(m[2], 10) - 1] || m[2]) + ' ' + m[1];
+  }
+
+  // Compute a synthetic "last 30 days" bucket by blending the current month
+  // and the previous month, weighted by today's day-of-month. If today is
+  // day N (out of ~30), the 30-day window covers (30-N) days of last month
+  // plus N days of this month. Per-player ADP is the weighted average; rank
+  // is recomputed from the blend. Falls back to the current month alone if
+  // the prior month has no data.
+  function _computeLast30Bucket() {
+    const allMonths = Object.keys(MONTH_INDEX).sort();
+    const nowMonth = allMonths.length ? allMonths[allMonths.length - 1] : null;
+    if (!nowMonth) return null;
+    const curBucket = MONTH_INDEX[nowMonth];
+    if (!curBucket) return null;
+
+    // Day-of-month → blend weights. 30-day window covers last (30-N) days
+    // of the prior month + first N days of this month.
+    const now = new Date();
+    const dayOfMonth = Math.max(1, Math.min(30, now.getDate()));
+    const wCur  = dayOfMonth / 30;
+    const wPrev = 1 - wCur;
+
+    // Compute previous month key (YYYY-MM) from nowMonth.
+    const parts = nowMonth.split('-');
+    let py = parseInt(parts[0], 10);
+    let pm = parseInt(parts[1], 10) - 1;
+    if (pm < 1) { pm = 12; py -= 1; }
+    const prevKey = py + '-' + String(pm).padStart(2, '0');
+    const prevBucket = MONTH_INDEX[prevKey];
+
+    // No prior-month data, or we're so far into the current month that the
+    // window is effectively current-month-only → just return current.
+    if (!prevBucket || wPrev < 0.05) return curBucket;
+
+    // Format buckets we need to blend (matches the rest of the picker's view).
+    const formats = ['startup_sf', 'startup_1qb', 'rookie_draft_sf', 'rookie_draft_1qb'];
+    const out = {};
+    formats.forEach(function (fmt) {
+      const curList  = curBucket[fmt]  || [];
+      const prevList = prevBucket[fmt] || [];
+      if (!curList.length && !prevList.length) { out[fmt] = []; return; }
+      // Index by player name (the rest of the codebase joins on name).
+      const byName = {};
+      curList.forEach(function (p) {
+        if (!p || !p.name) return;
+        byName[p.name] = { name: p.name, posRank: p.posRank, _cAdp: p.adp, _cD: p.drafts };
+      });
+      prevList.forEach(function (p) {
+        if (!p || !p.name) return;
+        const e = byName[p.name] || { name: p.name, posRank: p.posRank };
+        e._pAdp = p.adp; e._pD = p.drafts;
+        byName[p.name] = e;
+      });
+      const blended = Object.values(byName).map(function (e) {
+        let adp;
+        if (e._cAdp != null && e._pAdp != null) {
+          adp = e._cAdp * wCur + e._pAdp * wPrev;
+        } else if (e._cAdp != null) adp = e._cAdp;
+        else if (e._pAdp != null) adp = e._pAdp;
+        else return null;
+        return {
+          name: e.name,
+          posRank: e.posRank,
+          adp: Math.round(adp * 10) / 10,
+          drafts: (e._cD || 0) + (e._pD || 0),
+        };
+      }).filter(Boolean).sort(function (a, b) { return a.adp - b.adp; });
+      blended.forEach(function (p, i) { p.rank = i + 1; });
+      out[fmt] = blended;
+    });
+    return out;
   }
 
   function _seedCurrentYear() {
@@ -90,13 +162,15 @@
   }
 
   function _initCurrentMonthFromStorage() {
-    // Pick the saved month if it's still in MONTH_INDEX, else default to the
+    // Pick the saved month if it's still valid, else default to the
     // second-newest available (i.e. the most-recent prior month after
-    // dropping the "now" anchor).
+    // dropping the "now" anchor). 'L30' is always valid as a saved value
+    // since it's computed on the fly from current/prev month data.
     let saved = null;
     try { saved = localStorage.getItem(_storageKey); } catch (e) {}
     const months = Object.keys(MONTH_INDEX).sort().reverse();
     const compareOptions = months.slice(1);   // drop newest (that IS "current")
+    if (saved === 'L30') { _currentMonth = 'L30'; return; }
     if (!compareOptions.length) { _currentMonth = null; return; }
     _currentMonth = (saved && compareOptions.includes(saved))
       ? saved
@@ -139,7 +213,9 @@
   }
 
   function getMonthBucket(ym) {
-    return ym ? MONTH_INDEX[ym] : null;
+    if (!ym) return null;
+    if (ym === 'L30') return _computeLast30Bucket();
+    return MONTH_INDEX[ym];
   }
 
   function getCurrentMonth() {
@@ -189,7 +265,8 @@
     pop.className = 'adp-cmp-popup';
     pop.hidden = true;
     pop.innerHTML =
-        '<div class="adp-cmp-header">'
+        '<button type="button" class="adp-cmp-l30" id="adp-cmp-l30">Last 30 days</button>'
+      + '<div class="adp-cmp-header">'
       +   '<button type="button" class="adp-cmp-nav" id="adp-cmp-prev" aria-label="Previous year">◀</button>'
       +   '<span class="adp-cmp-year" id="adp-cmp-year-label">—</span>'
       +   '<button type="button" class="adp-cmp-nav" id="adp-cmp-next" aria-label="Next year">▶</button>'
@@ -200,6 +277,7 @@
 
     document.getElementById('adp-cmp-prev').addEventListener('click', () => _navYear(-1));
     document.getElementById('adp-cmp-next').addEventListener('click', () => _navYear( 1));
+    document.getElementById('adp-cmp-l30').addEventListener('click', () => _pickMonth('L30'));
 
     document.addEventListener('click', (e) => {
       if (pop.hidden) return;
@@ -256,7 +334,9 @@
     const label = document.getElementById('adp-cmp-year-label');
     const prev  = document.getElementById('adp-cmp-prev');
     const next  = document.getElementById('adp-cmp-next');
+    const l30   = document.getElementById('adp-cmp-l30');
     if (!grid || !label) return;
+    if (l30) l30.classList.toggle('active', _currentMonth === 'L30');
 
     const maxYear = _currentSeason();
     label.textContent = String(_viewYear);
@@ -368,6 +448,15 @@
       + '}'
       + '.adp-cmp-cell.disabled { opacity: .25; cursor: default; }'
       + '.adp-cmp-cell.no-data  { opacity: .45; cursor: default; color: var(--muted); }'
+      + '.adp-cmp-l30 {'
+      +   'display: block; width: 100%; margin-bottom: 6px;'
+      +   'background: var(--surface2); color: var(--white); border: 1px solid var(--border2);'
+      +   "font-family: 'Kanit', sans-serif; font-weight: 800; font-style: italic;"
+      +   'font-size: 11px; letter-spacing: .04em; text-transform: uppercase;'
+      +   'padding: 8px 10px; cursor: pointer; transition: all .15s;'
+      + '}'
+      + '.adp-cmp-l30:hover { border-color: var(--red); color: var(--red); }'
+      + '.adp-cmp-l30.active { background: var(--red); color: #111111; border-color: var(--red); }'
       + '.adp-cmp-status {'
       +   'padding: 8px; text-align: center; color: var(--muted); font-size: 11px;'
       + '}'
