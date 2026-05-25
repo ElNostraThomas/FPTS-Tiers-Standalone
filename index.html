@@ -3799,6 +3799,37 @@ document.addEventListener('fpts:tier-config-changed', () => {
   });
 })();
 
+// ── Drag auto-scroll ─────────────────────────────────────────────────────
+// HTML5 drag's built-in viewport auto-scroll is unreliable on long pages
+// (some browsers don't scroll at all, others do it in fits and starts).
+// This kicks in any time a drag is hovering near the top or bottom edge
+// of the viewport — accelerating toward the edge so the operator can
+// navigate from F- to S++ (or vice versa) without releasing the drag.
+(function () {
+  let curY = -1;
+  let raf  = null;
+  const EDGE_ZONE = 100;    // px from top/bottom edge where scroll engages
+  const MAX_SPEED = 26;     // px per frame at the very edge
+  function step() {
+    if (curY < 0) { raf = null; return; }
+    const vh = window.innerHeight;
+    let speed = 0;
+    if (curY < EDGE_ZONE) {
+      speed = -Math.ceil(((EDGE_ZONE - curY) / EDGE_ZONE) * MAX_SPEED);
+    } else if (curY > vh - EDGE_ZONE) {
+      speed = Math.ceil(((curY - (vh - EDGE_ZONE)) / EDGE_ZONE) * MAX_SPEED);
+    }
+    if (speed !== 0) window.scrollBy(0, speed);
+    raf = requestAnimationFrame(step);
+  }
+  document.addEventListener('dragover', (e) => {
+    curY = e.clientY;
+    if (!raf) raf = requestAnimationFrame(step);
+  });
+  document.addEventListener('dragend', () => { curY = -1; });
+  document.addEventListener('drop',    () => { curY = -1; });
+})();
+
 // Phase 5 — drag-and-drop reorder of tier SECTIONS. The .tier-group-header
 // is the drag handle when admin mode is on (see renderTiers). Drop position
 // is computed by mouse-Y vs the hovered header's midline. Source section
