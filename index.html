@@ -319,7 +319,7 @@
 <!-- Scoring overlay + normalize helpers used by the tier render path. -->
 <script src="assets/js/sleeper-helpers.js?v=1780800000"></script>
 <!-- ADP comparator — shared month-to-month picker module. -->
-<script src="assets/js/adp-comparator.js?v=1788000000"></script>
+<script src="assets/js/adp-comparator.js?v=1788100000"></script>
 </head>
 <body>
 
@@ -2929,8 +2929,15 @@ function applySleeperOverlay() {
     }
 
     if (adp && adp.byMonth && window.applySeasonBadge) window.applySeasonBadge(adp.season);
-    // CURRENT = byMonth.ALL of the current-year payload (the season aggregate).
-    _applyAdpOverlayFrom((adp && adp.byMonth) ? adp.byMonth.ALL : null, 'adp2026');
+    // CURRENT = trailing 30-day rolling window. AdpComparator blends the
+    // current month + previous month weighted by day-of-month so the headline
+    // ADP reflects what people are paying RIGHT NOW (not a season aggregate
+    // diluted by stale Jan/Feb data). Falls back to byMonth.ALL only if the
+    // comparator module hasn't loaded yet (first render before fpts:data-ready).
+    const l30Bucket = (window.AdpComparator && window.AdpComparator.getLast30Bucket)
+      ? window.AdpComparator.getLast30Bucket()
+      : null;
+    _applyAdpOverlayFrom(l30Bucket || ((adp && adp.byMonth) ? adp.byMonth.ALL : null), 'adp2026');
     // PREVIOUS = byMonth[tierCompareMonth] resolved through MONTH_INDEX.
     // Falls through to empty if the dropdown hasn't been populated yet (first
     // render before fpts:data-ready completes the year-payload merge).

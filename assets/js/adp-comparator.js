@@ -170,7 +170,6 @@
     try { saved = localStorage.getItem(_storageKey); } catch (e) {}
     const months = Object.keys(MONTH_INDEX).sort().reverse();
     const compareOptions = months.slice(1);   // drop newest (that IS "current")
-    if (saved === 'L30') { _currentMonth = 'L30'; return; }
     if (!compareOptions.length) { _currentMonth = null; return; }
     _currentMonth = (saved && compareOptions.includes(saved))
       ? saved
@@ -217,6 +216,10 @@
     if (ym === 'L30') return _computeLast30Bucket();
     return MONTH_INDEX[ym];
   }
+
+  // Public accessor so the host page can use the trailing-30-day bucket
+  // for its primary "ADP" column (in place of the season aggregate).
+  function getLast30Bucket() { return _computeLast30Bucket(); }
 
   function getCurrentMonth() {
     return _currentMonth;
@@ -265,7 +268,7 @@
     pop.className = 'adp-cmp-popup';
     pop.hidden = true;
     pop.innerHTML =
-        '<button type="button" class="adp-cmp-l30" id="adp-cmp-l30">Last 30 days</button>'
+        '<div class="adp-cmp-hint">Compare current 30-day ADP vs:</div>'
       + '<div class="adp-cmp-header">'
       +   '<button type="button" class="adp-cmp-nav" id="adp-cmp-prev" aria-label="Previous year">◀</button>'
       +   '<span class="adp-cmp-year" id="adp-cmp-year-label">—</span>'
@@ -277,7 +280,6 @@
 
     document.getElementById('adp-cmp-prev').addEventListener('click', () => _navYear(-1));
     document.getElementById('adp-cmp-next').addEventListener('click', () => _navYear( 1));
-    document.getElementById('adp-cmp-l30').addEventListener('click', () => _pickMonth('L30'));
 
     document.addEventListener('click', (e) => {
       if (pop.hidden) return;
@@ -334,9 +336,7 @@
     const label = document.getElementById('adp-cmp-year-label');
     const prev  = document.getElementById('adp-cmp-prev');
     const next  = document.getElementById('adp-cmp-next');
-    const l30   = document.getElementById('adp-cmp-l30');
     if (!grid || !label) return;
-    if (l30) l30.classList.toggle('active', _currentMonth === 'L30');
 
     const maxYear = _currentSeason();
     label.textContent = String(_viewYear);
@@ -448,15 +448,11 @@
       + '}'
       + '.adp-cmp-cell.disabled { opacity: .25; cursor: default; }'
       + '.adp-cmp-cell.no-data  { opacity: .45; cursor: default; color: var(--muted); }'
-      + '.adp-cmp-l30 {'
-      +   'display: block; width: 100%; margin-bottom: 6px;'
-      +   'background: var(--surface2); color: var(--white); border: 1px solid var(--border2);'
-      +   "font-family: 'Kanit', sans-serif; font-weight: 800; font-style: italic;"
-      +   'font-size: 11px; letter-spacing: .04em; text-transform: uppercase;'
-      +   'padding: 8px 10px; cursor: pointer; transition: all .15s;'
+      + '.adp-cmp-hint {'
+      +   'font-family: "Mulish", sans-serif; font-size: 10px;'
+      +   'color: var(--muted); text-align: center; padding: 0 4px 6px;'
+      +   'text-transform: uppercase; letter-spacing: .06em;'
       + '}'
-      + '.adp-cmp-l30:hover { border-color: var(--red); color: var(--red); }'
-      + '.adp-cmp-l30.active { background: var(--red); color: #111111; border-color: var(--red); }'
       + '.adp-cmp-status {'
       +   'padding: 8px; text-align: center; color: var(--muted); font-size: 11px;'
       + '}'
@@ -502,6 +498,7 @@
     buildMonthIndex: buildMonthIndex,
     ensureYearLoaded: ensureYearLoaded,
     getMonthBucket: getMonthBucket,
+    getLast30Bucket: getLast30Bucket,
     getCurrentMonth: getCurrentMonth,
     setCurrentMonth: setCurrentMonth,
     renderTriggerHtml: renderTriggerHtml,
