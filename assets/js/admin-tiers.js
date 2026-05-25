@@ -898,7 +898,7 @@
         return r.json().then(function (j) {
           var msg = (j && j.message) ? j.message : r.statusText;
           if (r.status === 401) msg = 'Invalid PAT (401). Re-paste your token in Settings.';
-          else if (r.status === 403) msg = 'PAT missing Contents: write permission (403). Regenerate with fine-grained scope on this repo.';
+          else if (r.status === 403) msg = 'PUT 403: ' + msg + ' (likely: PAT missing Contents: write on this repo, OR branch protection / SAML / org policy blocking the write)';
           else if (r.status === 404) msg = 'Repo or file path not found (404). Check Settings.';
           else if (r.status === 409) msg = 'File changed on server (409). Reload page to fetch the latest, then re-publish.';
           else if (r.status === 422) msg = 'GitHub rejected the PUT (422): ' + msg;
