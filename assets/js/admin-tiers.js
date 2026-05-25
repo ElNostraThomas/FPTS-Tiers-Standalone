@@ -864,9 +864,12 @@
   }
   // Fetch current file → returns { sha, content } or throws with a
   // human-readable error keyed off the HTTP status.
+  // cache:'no-store' prevents the browser from serving a stale prior
+  // response — without it the diff preview can use stale CSV state and
+  // mis-report "nothing to commit" when an override IS a real change.
   function _ghGetFile(s) {
-    var url = 'https://api.github.com/repos/' + s.repo + '/contents/' + encodeURI(s.path) + '?ref=' + encodeURIComponent(s.branch);
-    return fetch(url, { headers: _ghHeaders(s.token) }).then(function (r) {
+    var url = 'https://api.github.com/repos/' + s.repo + '/contents/' + encodeURI(s.path) + '?ref=' + encodeURIComponent(s.branch) + '&_=' + Date.now();
+    return fetch(url, { headers: _ghHeaders(s.token), cache: 'no-store' }).then(function (r) {
       if (r.status === 404) {
         // File doesn't exist yet — PUT will create it. Return null SHA.
         return { sha: null, content: '' };
