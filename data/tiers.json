@@ -1,9 +1,9 @@
 {
-  "version": "2026-05-25T03:39:46+00:00",
+  "version": "2026-05-25T05:27:04+00:00",
   "source": "Google Sheet via sync-tiers.py",
   "playerCount": 200,
   "players": {
-    "Josh Allen": {
+    "Bijan Robinson": {
       "tier": "S++",
       "trending": "",
       "buySell": "",
@@ -11,7 +11,7 @@
       "contender": "",
       "notes": ""
     },
-    "Bijan Robinson": {
+    "Brock Bowers": {
       "tier": "S++",
       "trending": "",
       "buySell": "",
@@ -51,7 +51,7 @@
       "contender": "",
       "notes": ""
     },
-    "Brock Bowers": {
+    "Josh Allen": {
       "tier": "S++",
       "trending": "",
       "buySell": "",
@@ -76,14 +76,6 @@
       "notes": ""
     },
     "Jayden Daniels": {
-      "tier": "S+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": ""
-    },
-    "Jeremiyah Love": {
       "tier": "S+",
       "trending": "",
       "buySell": "",
@@ -140,6 +132,14 @@
       "notes": ""
     },
     "Jalen Hurts": {
+      "tier": "S",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": ""
+    },
+    "Jeremiyah Love": {
       "tier": "S",
       "trending": "",
       "buySell": "",
