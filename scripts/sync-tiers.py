@@ -9,8 +9,8 @@ Data source priority:
      (fallback when the CSV doesn't exist)
 
 Recommended workflow (CSV mode):
-  - Paste TAT CSV into your Google Sheet, hand-edit ADP/Auction/PPG/Notes,
-    File -> Download -> CSV, save to data/source/tiers/tiers.csv.
+  - Drop the latest analyst rankings CSV at data/source/tiers/tiers.csv
+    (or paste into your Google Sheet, hand-edit, File -> Download -> CSV).
   - push.bat runs sync-tiers.py which reads the CSV, regenerates tiers.html
     + data/tiers.json, then git commits + pushes. No API auth needed.
   - The committed CSV gives you a versioned audit trail of every tier change.
@@ -137,16 +137,14 @@ def load_cfg() -> dict:
 
 
 # ──────────────────────────────────────────────────────────────────────────
-# TAT-format parser (auto-detected from data/source/tiers/tiers.csv)
+# Value-divider parser (auto-detected from data/source/tiers/tiers.csv)
 # ──────────────────────────────────────────────────────────────────────────
-# The user's TAT analyst CSV uses tier-divider rows like
+# The analyst rankings CSV uses tier-divider rows like
 #     "VALUE = 3 BASE 1s (+/-)"
 # in column A, followed by numbered player rows (Rank,Player,Position,Team,
 # Recent Movement). We map each divider to a tier code and emit FIELDS-
 # shaped records so the rest of the pipeline is unchanged.
-# Mirrors the parser in import-tat.py — that script merges TAT INTO the
-# Google Sheet, this one bypasses the Sheet entirely.
-TAT_VALUE_TO_TIER = {
+VALUE_DIVIDER_TO_TIER = {
     "VALUE = 3 BASE 1s (+/-)":                            "S++",
     "VALUE = 2.5 BASE 1s (+/-)":                          "S+",
     "VALUE = 2 BASE 1s (+/-)":                            "S",
@@ -160,33 +158,32 @@ TAT_VALUE_TO_TIER = {
     'VALUE = "EARLY" 3 (+/-)':                            "C",
     'VALUE = "BASE" 3 (+/-)':                             "C-",
 }
-_TAT_NORM_VALUE_MAP = {" ".join(k.split()): v for k, v in TAT_VALUE_TO_TIER.items()}
+_VALUE_DIVIDER_NORMALIZED = {" ".join(k.split()): v for k, v in VALUE_DIVIDER_TO_TIER.items()}
 
 
-def _looks_like_tat_csv(rows: list[list[str]]) -> bool:
-    """Sniff the first ~10 rows for a TAT-style 'VALUE = X BASE' divider."""
+def _looks_like_value_divider_csv(rows: list[list[str]]) -> bool:
+    """Sniff the first ~10 rows for a 'VALUE = X BASE' tier-divider row."""
     for row in rows[:10]:
         for cell in (row or []):
             c = " ".join(str(cell).split()).strip()
-            if c in _TAT_NORM_VALUE_MAP:
+            if c in _VALUE_DIVIDER_NORMALIZED:
                 return True
     return False
 
 
-def parse_tat_rows(rows: list[list[str]]) -> list[dict]:
-    """Parse TAT-format rows -> FIELDS-shaped records. Tier comes from the
-    most recently-seen VALUE divider; trending comes from the Recent
-    Movement column (typically col 4). The buySell/priority/contender/
-    notes fields are left empty so the admin scratchpad can layer
-    overrides on top."""
+def parse_value_divider_rows(rows: list[list[str]]) -> list[dict]:
+    """Parse value-divider rows -> FIELDS-shaped records. Tier comes from
+    the most recently-seen VALUE divider. The trending / buySell / priority
+    / contender / notes fields are left empty so the admin scratchpad can
+    layer overrides on top."""
     out = []
     current_tier = None
     for row in rows:
         if not row:
             continue
         c1 = " ".join(str(row[0]).split()).strip()
-        if c1 in _TAT_NORM_VALUE_MAP:
-            current_tier = _TAT_NORM_VALUE_MAP[c1]
+        if c1 in _VALUE_DIVIDER_NORMALIZED:
+            current_tier = _VALUE_DIVIDER_NORMALIZED[c1]
             continue
         # Need: column 0 is a numeric rank, current_tier is set, column 1 has a name
         if not c1.isdigit() or current_tier is None:
@@ -194,8 +191,8 @@ def parse_tat_rows(rows: list[list[str]]) -> list[dict]:
         name = (str(row[1]).strip() if len(row) > 1 else "")
         if not name:
             continue
-        # Per project decision (2026-05-27): ignore TAT's Recent Movement
-        # column. Trending arrows are reserved for manual admin entry.
+        # Recent Movement column (col 4) is ignored — trending arrows are
+        # reserved for manual admin entry.
         out.append({
             "tier":      current_tier,
             "name":      name,
@@ -205,9 +202,9 @@ def parse_tat_rows(rows: list[list[str]]) -> list[dict]:
             "contender": "",
             "notes":     "",
         })
-    info(f"parsed {len(out)} TAT-format player rows")
+    info(f"parsed {len(out)} value-divider player rows")
     if len(out) < MIN_ROWS_SANITY:
-        die(f"only {len(out)} rows parsed from TAT CSV -- refusing to overwrite tiers.html. "
+        die(f"only {len(out)} rows parsed -- refusing to overwrite tiers.html. "
             f"Check that the CSV has 'VALUE = X BASE' divider rows + numbered player rows.")
     return out
 
@@ -509,14 +506,14 @@ def main() -> int:
     # compat for setups that haven't migrated yet).
     if TIERS_CSV.exists():
         rows = fetch_rows_from_csv(TIERS_CSV)
-        # Auto-detect TAT format (VALUE = X BASE divider rows). The user's
-        # simplest workflow is "drop TAT CSV here -> push.bat". When the
-        # CSV is in Sheet-format (Tier/Player headers), fall through to
-        # map_rows() unchanged.
-        if _looks_like_tat_csv(rows):
-            info("TAT-format CSV detected (VALUE = X BASE dividers found)")
-            records = parse_tat_rows(rows)
-            source_label = f"data/source/tiers/{TIERS_CSV.name} (TAT format)"
+        # Auto-detect value-divider format (VALUE = X BASE divider rows).
+        # The simplest workflow is "drop rankings CSV here -> push.bat".
+        # When the CSV is in Sheet-format (Tier/Player headers), fall
+        # through to map_rows() unchanged.
+        if _looks_like_value_divider_csv(rows):
+            info("value-divider CSV detected (VALUE = X BASE dividers found)")
+            records = parse_value_divider_rows(rows)
+            source_label = f"data/source/tiers/{TIERS_CSV.name} (value-divider format)"
         else:
             info("Sheet-format CSV detected (header row parsing)")
             records = map_rows(rows)

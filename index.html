@@ -418,7 +418,7 @@ const TIER_DESCRIPTIONS = {
   "C-":  '"Base" 3 (+/-)'
 };
 
-// TIERS:START -- DO NOT EDIT BY HAND. Regenerated from data/source/tiers/tiers.csv (TAT format) by sync-tiers.py
+// TIERS:START -- DO NOT EDIT BY HAND. Regenerated from data/source/tiers/tiers.csv (value-divider format) by sync-tiers.py
 const TIER_PLAYERS = [
   {
     "tier": "S++",
@@ -2531,7 +2531,7 @@ function fmtNumeric(v) {
 
 // Render the manual Trending indicator next to the player name. Codes
 // 'up' / 'down' come from admin-tiers.js TRENDINGS. Legacy values from
-// older TAT imports (📈, 📉, ↑, ▼) also map correctly. Anything else
+// older imports (📈, 📉, ↑, ▼) also map correctly. Anything else
 // returns empty string -- no icon, no whitespace, byte-identical row
 // to a player without trending data.
 function _fptsTrendingIconHtml(val) {

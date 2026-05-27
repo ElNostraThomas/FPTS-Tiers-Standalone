@@ -88,7 +88,7 @@
   // Trending field: 3 states (none / up / down). Saved as codes 'up'/'down'
   // so the renderer can swap between the avatar PNG (up) and a CSS chevron
   // (down) without parsing emoji. Legacy values (📈/📉/Rookie/etc. from
-  // TAT imports) auto-map to up/down/empty at read time — see
+  // older imports) auto-map to up/down/empty at read time — see
   // _trendingNormalize().
   var TRENDINGS = ['', 'up', 'down'];
   var TRENDING_LABELS = { '': '— none —', 'up': 'Trending Up ↑', 'down': 'Trending Down ▼' };
@@ -1326,7 +1326,7 @@
     document.getElementById('fpts-admin-banner-add').addEventListener('click', _openAddPlayerModal);
 
     // "Clear all" — wipes overrides AND auto-reloads so the user sees the
-    // restored TAT-default tiers immediately. The prior "reload required"
+    // restored published tiers immediately. The prior "reload required"
     // warning text was confusing (the action was incomplete-feeling without
     // a manual reload).
     document.getElementById('fpts-admin-banner-clear').addEventListener('click', function () {
@@ -1335,7 +1335,7 @@
       if (confirm('Clear all ' + n + ' tier override' + (n === 1 ? '' : 's') +
                   ' on this device?\n\n' +
                   'This reloads the page so every player snaps back to the ' +
-                  'TAT-default tier. Admin mode stays ON.')) {
+                  'published tier. Admin mode stays ON.')) {
         clearAllOverrides();
         window.location.reload();
       }
@@ -1346,8 +1346,8 @@
     //   - keep overrides: your tier edits stay live on this device; only
     //     the editor UI hides. Use this if you're done editing for now
     //     but want your changes to still show on the page.
-    //   - clear overrides: full revert. Page snaps back to TAT-default for
-    //     everyone (on this device). Most common "I'm done" path.
+    //   - clear overrides: full revert. Page snaps back to published tiers
+    //     (on this device). Most common "I'm done" path.
     document.getElementById('fpts-admin-banner-disable').addEventListener('click', function () {
       var n = _overrideCount();
       if (!confirm('Disable admin mode on this device?')) return;
@@ -1356,7 +1356,7 @@
         clearToo = confirm(
           'You have ' + n + ' saved tier override' + (n === 1 ? '' : 's') +
           ' on this device.\n\n' +
-          'OK = clear them too (page reverts to TAT-default tiers)\n' +
+          'OK = clear them too (page reverts to published tiers)\n' +
           'Cancel = keep them saved (your edits stay applied; only the ' +
           'editor UI hides)'
         );
