@@ -70,8 +70,8 @@ FIELDS = [
 # Canonical tier hierarchy for stable cross-tier ordering when computing
 # posRank. Tiers not in this list sort to the end (rank 99).
 POS_RANK_TIER_ORDER = [
-    'S++', 'S+', 'S', 'A+', 'A', 'A-', 'B+', 'B', 'B-',
-    'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E+', 'E', 'E-', 'F+', 'F', 'F-',
+    '3 1s', '2.5 1s', '2 1s', '1.5 1s', '1.25 1s', '1 1',
+    'Late 1', 'Early 2', 'Base 2', 'Late 2', 'Early 3', 'Base 3',
 ]
 POS_RANK_TIER_INDEX = {t: i for i, t in enumerate(POS_RANK_TIER_ORDER)}
 
@@ -95,13 +95,8 @@ HEADER_ALIASES = {
 # Canonical tier codes — rows whose "tier" cell isn't one of these are treated
 # as decorative dividers and skipped.
 VALID_TIERS = {
-    "S++", "S+", "S",
-    "A+", "A", "A-",
-    "B+", "B", "B-",
-    "C+", "C", "C-",
-    "D+", "D", "D-",
-    "E+", "E", "E-",
-    "F+", "F", "F-",
+    "3 1s", "2.5 1s", "2 1s", "1.5 1s", "1.25 1s", "1 1",
+    "Late 1", "Early 2", "Base 2", "Late 2", "Early 3", "Base 3",
 }
 
 START_MARKER = "// TIERS:START"
@@ -150,18 +145,18 @@ def load_cfg() -> dict:
 # Mirrors the parser in import-tat.py — that script merges TAT INTO the
 # Google Sheet, this one bypasses the Sheet entirely.
 TAT_VALUE_TO_TIER = {
-    "VALUE = 3 BASE 1s (+/-)":                            "S++",
-    "VALUE = 2.5 BASE 1s (+/-)":                          "S+",
-    "VALUE = 2 BASE 1s (+/-)":                            "S",
-    "VALUE = 1.5 BASE 1s (+/-)":                          "A+",
-    "VALUE = 1.25 BASE 1s (+/-)":                         "A",
-    "VALUE = 1 BASE 1 (+/-)":                             "A-",
-    'VALUE = "LATE" 1 (+/-) // 0.75 BASE 1s (+/-)':       "B+",
-    'VALUE = "EARLY" 2 (+/-) // 0.5 BASE 1s (+/-)':       "B",
-    'VALUE = "BASE" 2 // 0.33 BASE 1s (+/-)':             "B-",
-    'VALUE = "LATE" 2 (+/-)':                             "C+",
-    'VALUE = "EARLY" 3 (+/-)':                            "C",
-    'VALUE = "BASE" 3 (+/-)':                             "C-",
+    "VALUE = 3 BASE 1s (+/-)":                            "3 1s",
+    "VALUE = 2.5 BASE 1s (+/-)":                          "2.5 1s",
+    "VALUE = 2 BASE 1s (+/-)":                            "2 1s",
+    "VALUE = 1.5 BASE 1s (+/-)":                          "1.5 1s",
+    "VALUE = 1.25 BASE 1s (+/-)":                         "1.25 1s",
+    "VALUE = 1 BASE 1 (+/-)":                             "1 1",
+    'VALUE = "LATE" 1 (+/-) // 0.75 BASE 1s (+/-)':       "Late 1",
+    'VALUE = "EARLY" 2 (+/-) // 0.5 BASE 1s (+/-)':       "Early 2",
+    'VALUE = "BASE" 2 // 0.33 BASE 1s (+/-)':             "Base 2",
+    'VALUE = "LATE" 2 (+/-)':                             "Late 2",
+    'VALUE = "EARLY" 3 (+/-)':                            "Early 3",
+    'VALUE = "BASE" 3 (+/-)':                             "Base 3",
 }
 _TAT_NORM_VALUE_MAP = {" ".join(k.split()): v for k, v in TAT_VALUE_TO_TIER.items()}
 
@@ -197,11 +192,12 @@ def parse_tat_rows(rows: list[list[str]]) -> list[dict]:
         name = (str(row[1]).strip() if len(row) > 1 else "")
         if not name:
             continue
-        movement = (str(row[4]).strip() if len(row) > 4 else "")
+        # Per project decision (2026-05-27): ignore TAT's Recent Movement
+        # column. Trending arrows are reserved for manual admin entry.
         out.append({
             "tier":      current_tier,
             "name":      name,
-            "trending":  movement,
+            "trending":  "",
             "buySell":   "",
             "priority":  "",
             "contender": "",

@@ -1,90 +1,18 @@
 {
   "version": "2026-05-27",
-  "source": "Published via admin scratchpad (admin-tiers.js)",
+  "source": "TAT 2026 Dynasty Rankings (POST NFL DRAFT)",
   "tiers": [
-    {
-      "code": "S++",
-      "title": "Cornerstone Players (3-4 Base 1sts)"
-    },
-    {
-      "code": "S+",
-      "title": "Elite + (2.5-3 Base 1sts)"
-    },
-    {
-      "code": "S",
-      "title": "Elite (2+ Base 1sts)"
-    },
-    {
-      "code": "A+",
-      "title": "Elite Lite (2 Base 1sts)"
-    },
-    {
-      "code": "A",
-      "title": "Knocking On The Door (1.75 - 2 base 1sts)"
-    },
-    {
-      "code": "A-",
-      "title": "Tweener Tier (1.5-2 Base 1sts)"
-    },
-    {
-      "code": "B+",
-      "title": "High Risk Upside (1.25-1.5 + Base 1sts)"
-    },
-    {
-      "code": "B",
-      "title": "Upside But Safer (1.25 - 1.5 base 1sts)"
-    },
-    {
-      "code": "B-",
-      "title": "Interesting Values (1 - 1.25 Base 1sts)"
-    },
-    {
-      "code": "C+",
-      "title": "Good Players Not Really Values (1 Base 1st)"
-    },
-    {
-      "code": "C",
-      "title": "Risky and Probably More Expensive Than I Want For 1 Late First"
-    },
-    {
-      "code": "C-",
-      "title": "Late Firsts I Want To Pay 1 Late First"
-    },
-    {
-      "code": "D+",
-      "title": "Risky Late First With Upside"
-    },
-    {
-      "code": "D",
-      "title": "Veterans Worth The Early 2"
-    },
-    {
-      "code": "D-",
-      "title": "Mid 2nd Veterans"
-    },
-    {
-      "code": "E+",
-      "title": "Upside Mid 2nd Value With Risk"
-    },
-    {
-      "code": "E",
-      "title": "Mid 2nd Safety Players"
-    },
-    {
-      "code": "E-",
-      "title": "Late 2nd Players"
-    },
-    {
-      "code": "F+",
-      "title": "Early 3rd Players"
-    },
-    {
-      "code": "F",
-      "title": "Mid 3rd Players"
-    },
-    {
-      "code": "F-",
-      "title": "Late 3rd"
-    }
+    { "code": "3 1s",    "title": "3 Base 1sts (+/-)" },
+    { "code": "2.5 1s",  "title": "2.5 Base 1sts (+/-)" },
+    { "code": "2 1s",    "title": "2 Base 1sts (+/-)" },
+    { "code": "1.5 1s",  "title": "1.5 Base 1sts (+/-)" },
+    { "code": "1.25 1s", "title": "1.25 Base 1sts (+/-)" },
+    { "code": "1 1",     "title": "1 Base 1 (+/-)" },
+    { "code": "Late 1",  "title": "\"Late\" 1 (+/-) // 0.75 Base 1sts (+/-)" },
+    { "code": "Early 2", "title": "\"Early\" 2 (+/-) // 0.5 Base 1sts (+/-)" },
+    { "code": "Base 2",  "title": "\"Base\" 2 // 0.33 Base 1sts (+/-)" },
+    { "code": "Late 2",  "title": "\"Late\" 2 (+/-)" },
+    { "code": "Early 3", "title": "\"Early\" 3 (+/-)" },
+    { "code": "Base 3",  "title": "\"Base\" 3 (+/-)" }
   ]
 }
