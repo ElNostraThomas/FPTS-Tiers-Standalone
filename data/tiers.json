@@ -1,7 +1,7 @@
 {
-  "version": "2026-05-27T18:43:22+00:00",
+  "version": "2026-05-27T20:36:58+00:00",
   "source": "Google Sheet via sync-tiers.py",
-  "playerCount": 252,
+  "playerCount": 250,
   "players": {
     "Bijan Robinson": {
       "tier": "S++",
@@ -210,15 +210,6 @@
       "notes": "",
       "posRank": "QB9"
     },
-    "Tetairoa McMillan": {
-      "tier": "S",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "WR9"
-    },
     "Trey McBride": {
       "tier": "S",
       "trending": "",
@@ -235,7 +226,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR10"
+      "posRank": "WR9"
     },
     "De'Von Achane": {
       "tier": "A+",
@@ -245,6 +236,15 @@
       "contender": "",
       "notes": "",
       "posRank": "RB5"
+    },
+    "Tetairoa McMillan": {
+      "tier": "A+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "WR10"
     },
     "Garrett Wilson": {
       "tier": "A+",
@@ -273,7 +273,7 @@
       "notes": "",
       "posRank": "QB10"
     },
-    "Jonathan Taylor": {
+    "James Cook": {
       "tier": "A+",
       "trending": "",
       "buySell": "",
@@ -282,23 +282,14 @@
       "notes": "",
       "posRank": "RB6"
     },
-    "Luther Burden III": {
+    "Jonathan Taylor": {
       "tier": "A+",
       "trending": "",
       "buySell": "",
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR13"
-    },
-    "Nico Collins": {
-      "tier": "A+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "WR14"
+      "posRank": "RB7"
     },
     "Omarion Hampton": {
       "tier": "A+",
@@ -307,7 +298,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB7"
+      "posRank": "RB8"
     },
     "Trevor Lawrence": {
       "tier": "A+",
@@ -327,34 +318,7 @@
       "notes": "",
       "posRank": "QB12"
     },
-    "Carnell Tate": {
-      "tier": "A",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "WR15"
-    },
-    "Christian McCaffrey": {
-      "tier": "A",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "RB8"
-    },
-    "James Cook": {
-      "tier": "A",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "RB9"
-    },
-    "Jordan Love": {
+    "Bo Nix": {
       "tier": "A",
       "trending": "",
       "buySell": "",
@@ -363,14 +327,41 @@
       "notes": "",
       "posRank": "QB13"
     },
-    "Jordyn Tyson": {
+    "Nico Collins": {
       "tier": "A",
       "trending": "",
       "buySell": "",
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR16"
+      "posRank": "WR13"
+    },
+    "Carnell Tate": {
+      "tier": "A",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "WR14"
+    },
+    "Christian McCaffrey": {
+      "tier": "A",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "RB9"
+    },
+    "Luther Burden III": {
+      "tier": "A",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "WR15"
     },
     "Kenneth Walker": {
       "tier": "A",
@@ -390,7 +381,7 @@
       "notes": "",
       "posRank": "TE4"
     },
-    "Bo Nix": {
+    "Jordan Love": {
       "tier": "A-",
       "trending": "",
       "buySell": "",
@@ -408,15 +399,6 @@
       "notes": "",
       "posRank": "RB11"
     },
-    "Dak Prescott": {
-      "tier": "A-",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "QB15"
-    },
     "Emeka Egbuka": {
       "tier": "A-",
       "trending": "",
@@ -424,7 +406,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR17"
+      "posRank": "WR16"
     },
     "Fernando Mendoza": {
       "tier": "A-",
@@ -433,7 +415,16 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB16"
+      "posRank": "QB15"
+    },
+    "Jordyn Tyson": {
+      "tier": "A-",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "WR17"
     },
     "Makai Lemon": {
       "tier": "A-",
@@ -453,8 +444,17 @@
       "notes": "",
       "posRank": "RB12"
     },
-    "Rashee Rice": {
-      "tier": "A-",
+    "Dak Prescott": {
+      "tier": "B+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "QB16"
+    },
+    "Zay Flowers": {
+      "tier": "B+",
       "trending": "",
       "buySell": "",
       "priority": "",
@@ -463,31 +463,13 @@
       "posRank": "WR19"
     },
     "Tee Higgins": {
-      "tier": "A-",
+      "tier": "B+",
       "trending": "",
       "buySell": "",
       "priority": "",
       "contender": "",
       "notes": "",
       "posRank": "WR20"
-    },
-    "Tucker Kraft": {
-      "tier": "A-",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "TE5"
-    },
-    "Zay Flowers": {
-      "tier": "A-",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "WR21"
     },
     "Brian Thomas Jr.": {
       "tier": "B+",
@@ -496,16 +478,16 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR22"
+      "posRank": "WR21"
     },
-    "Cam Ward": {
+    "Rashee Rice": {
       "tier": "B+",
       "trending": "",
       "buySell": "",
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB17"
+      "posRank": "WR22"
     },
     "Harold Fannin Jr.": {
       "tier": "B+",
@@ -514,16 +496,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE6"
-    },
-    "Oronde Gadsden": {
-      "tier": "B+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "TE7"
+      "posRank": "TE5"
     },
     "Jadarian Price": {
       "tier": "B+",
@@ -570,6 +543,24 @@
       "notes": "",
       "posRank": "WR25"
     },
+    "Oronde Gadsden II": {
+      "tier": "B+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "TE6"
+    },
+    "Tucker Kraft": {
+      "tier": "B+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "TE7"
+    },
     "Rome Odunze": {
       "tier": "B+",
       "trending": "",
@@ -588,7 +579,7 @@
       "notes": "",
       "posRank": "RB15"
     },
-    "Bucky Irving": {
+    "Travis Etienne Jr.": {
       "tier": "B+",
       "trending": "",
       "buySell": "",
@@ -597,7 +588,7 @@
       "notes": "",
       "posRank": "RB16"
     },
-    "Travis Etienne Jr.": {
+    "TreVeyon Henderson": {
       "tier": "B+",
       "trending": "",
       "buySell": "",
@@ -606,7 +597,7 @@
       "notes": "",
       "posRank": "RB17"
     },
-    "TreVeyon Henderson": {
+    "Bucky Irving": {
       "tier": "B+",
       "trending": "",
       "buySell": "",
@@ -642,24 +633,6 @@
       "notes": "",
       "posRank": "WR29"
     },
-    "Oronde Gadsden II": {
-      "tier": "B",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "TE8"
-    },
-    "Ty Simpson": {
-      "tier": "B",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "QB18"
-    },
     "Jared Goff": {
       "tier": "B-",
       "trending": "",
@@ -667,7 +640,16 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB19"
+      "posRank": "QB17"
+    },
+    "Cam Ward": {
+      "tier": "B-",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "QB18"
     },
     "Brian Thomas": {
       "tier": "B-",
@@ -712,7 +694,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB20"
+      "posRank": "QB19"
     },
     "Cam Skattebo": {
       "tier": "C+",
@@ -723,6 +705,15 @@
       "notes": "",
       "posRank": "RB21"
     },
+    "RJ Harvey": {
+      "tier": "C+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "RB22"
+    },
     "Eli Raridon": {
       "tier": "C+",
       "trending": "",
@@ -730,7 +721,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE9"
+      "posRank": "TE8"
     },
     "Eli Stowers": {
       "tier": "C+",
@@ -739,7 +730,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE10"
+      "posRank": "TE9"
     },
     "Germie Bernard": {
       "tier": "C+",
@@ -766,34 +757,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB21"
-    },
-    "Michael Pittman Jr.": {
-      "tier": "C+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "WR34"
-    },
-    "Nicholas Singleton": {
-      "tier": "C+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "RB22"
-    },
-    "Tyler Shough": {
-      "tier": "C+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "QB22"
+      "posRank": "QB20"
     },
     "Marvin Harrison Jr.": {
       "tier": "C+",
@@ -802,16 +766,25 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR35"
+      "posRank": "WR34"
     },
-    "Aaron Jones": {
-      "tier": "C",
+    "Michael Pittman Jr.": {
+      "tier": "C+",
       "trending": "",
       "buySell": "",
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB23"
+      "posRank": "WR35"
+    },
+    "Tyler Shough": {
+      "tier": "C+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "QB21"
     },
     "Carson Beck": {
       "tier": "C",
@@ -820,7 +793,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB23"
+      "posRank": "QB22"
     },
     "Elijah Sarratt": {
       "tier": "C",
@@ -831,24 +804,6 @@
       "notes": "",
       "posRank": "WR36"
     },
-    "Gunnar Helm": {
-      "tier": "C",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "TE11"
-    },
-    "Kaytron Allen": {
-      "tier": "C",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "RB24"
-    },
     "Mac Jones": {
       "tier": "C",
       "trending": "",
@@ -856,34 +811,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB24"
-    },
-    "Marvin Harrison": {
-      "tier": "C",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "WR37"
-    },
-    "Max Klare": {
-      "tier": "C",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "TE12"
-    },
-    "RJ Harvey": {
-      "tier": "C",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "RB25"
+      "posRank": "QB23"
     },
     "Rookie Pick 1.08": {
       "tier": "C",
@@ -901,16 +829,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB25"
-    },
-    "Jonathon Brooks": {
-      "tier": "C",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "RB26"
+      "posRank": "QB24"
     },
     "C.J. Stroud": {
       "tier": "C-",
@@ -919,7 +838,34 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB26"
+      "posRank": "QB25"
+    },
+    "Derrick Henry": {
+      "tier": "C-",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "RB23"
+    },
+    "DJ Moore": {
+      "tier": "C-",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "WR37"
+    },
+    "Terry McLaurin": {
+      "tier": "C-",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "WR38"
     },
     "Rookie Pick 1.09": {
       "tier": "C-",
@@ -946,16 +892,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE13"
-    },
-    "Derrick Henry": {
-      "tier": "C-",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "RB27"
+      "posRank": "TE10"
     },
     "Travis Etienne": {
       "tier": "C-",
@@ -964,27 +901,18 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB28"
+      "posRank": "RB24"
     },
-    "DJ Moore": {
+    "Jonathon Brooks": {
       "tier": "C-",
       "trending": "",
       "buySell": "",
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR38"
+      "posRank": "RB25"
     },
-    "Josh Jacobs": {
-      "tier": "D+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "RB29"
-    },
-    "Jordan Addison": {
+    "Alec Pierce": {
       "tier": "D+",
       "trending": "",
       "buySell": "",
@@ -1002,7 +930,7 @@
       "notes": "",
       "posRank": "WR40"
     },
-    "Travis Hunter": {
+    "Jordan Addison": {
       "tier": "D+",
       "trending": "",
       "buySell": "",
@@ -1011,7 +939,25 @@
       "notes": "",
       "posRank": "WR41"
     },
+    "Josh Jacobs": {
+      "tier": "D+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "RB26"
+    },
     "Malik Willis": {
+      "tier": "D+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "QB26"
+    },
+    "Ty Simpson": {
       "tier": "D+",
       "trending": "",
       "buySell": "",
@@ -1047,7 +993,7 @@
       "notes": "",
       "posRank": ""
     },
-    "Alec Pierce": {
+    "Travis Hunter": {
       "tier": "D+",
       "trending": "",
       "buySell": "",
@@ -1063,7 +1009,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB30"
+      "posRank": "RB27"
     },
     "Bryce Young": {
       "tier": "D",
@@ -1081,25 +1027,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB31"
-    },
-    "Kenyon Sadiq": {
-      "tier": "D",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "TE14"
-    },
-    "George Kittle": {
-      "tier": "D",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "TE15"
+      "posRank": "RB28"
     },
     "Dalton Kincaid": {
       "tier": "D",
@@ -1108,7 +1036,16 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE16"
+      "posRank": "TE11"
+    },
+    "Kyle Pitts": {
+      "tier": "D",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "TE12"
     },
     "Daniel Jones": {
       "tier": "D",
@@ -1128,6 +1065,15 @@
       "notes": "",
       "posRank": "WR44"
     },
+    "Jayden Higgins": {
+      "tier": "D",
+      "trending": "up",
+      "buySell": "buying",
+      "priority": "Top Target",
+      "contender": "Tweener",
+      "notes": "",
+      "posRank": "WR45"
+    },
     "DK Metcalf": {
       "tier": "D",
       "trending": "",
@@ -1135,7 +1081,16 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR45"
+      "posRank": "WR46"
+    },
+    "George Kittle": {
+      "tier": "D",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "TE13"
     },
     "Javonte Williams": {
       "tier": "D",
@@ -1144,16 +1099,16 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB32"
+      "posRank": "RB29"
     },
-    "Kyle Pitts": {
+    "Kenyon Sadiq": {
       "tier": "D",
       "trending": "",
       "buySell": "",
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE17"
+      "posRank": "TE14"
     },
     "Matthew Stafford": {
       "tier": "D",
@@ -1171,7 +1126,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR46"
+      "posRank": "WR47"
     },
     "Rhamondre Stevenson": {
       "tier": "D",
@@ -1180,7 +1135,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB33"
+      "posRank": "RB30"
     },
     "Rookie Pick 2.01": {
       "tier": "D",
@@ -1217,15 +1172,6 @@
       "contender": "",
       "notes": "",
       "posRank": ""
-    },
-    "Jalen McMillan": {
-      "tier": "D-",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "WR47"
     },
     "Jayden Reed": {
       "tier": "D-",
@@ -1272,12 +1218,12 @@
       "notes": "",
       "posRank": ""
     },
-    "Jayden Higgins": {
-      "tier": "D-",
-      "trending": "up",
-      "buySell": "buying",
-      "priority": "Top Target",
-      "contender": "Tweener",
+    "Antonio Williams": {
+      "tier": "E+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
       "notes": "",
       "posRank": "WR51"
     },
@@ -1288,7 +1234,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE18"
+      "posRank": "TE15"
     },
     "Jalen Coker": {
       "tier": "E+",
@@ -1317,16 +1263,7 @@
       "notes": "",
       "posRank": "WR54"
     },
-    "Tyrone Tracy Jr.": {
-      "tier": "E+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "RB34"
-    },
-    "Antonio Williams": {
+    "Quentin Johnston": {
       "tier": "E+",
       "trending": "",
       "buySell": "",
@@ -1360,7 +1297,25 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE19"
+      "posRank": "TE16"
+    },
+    "Tyrone Tracy Jr.": {
+      "tier": "E+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "RB31"
+    },
+    "Nicholas Singleton": {
+      "tier": "E+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "RB32"
     },
     "Xavier Worthy": {
       "tier": "E+",
@@ -1371,14 +1326,14 @@
       "notes": "",
       "posRank": "WR56"
     },
-    "Quentin Johnston": {
-      "tier": "E+",
+    "Blake Corum": {
+      "tier": "E",
       "trending": "",
       "buySell": "",
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR57"
+      "posRank": "RB33"
     },
     "Chuba Hubbard": {
       "tier": "E",
@@ -1387,16 +1342,16 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB35"
+      "posRank": "RB34"
     },
-    "Jaylen Warren": {
+    "Isaiah Likely": {
       "tier": "E",
       "trending": "",
       "buySell": "",
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB36"
+      "posRank": "TE17"
     },
     "Jake Ferguson": {
       "tier": "E",
@@ -1405,7 +1360,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE20"
+      "posRank": "TE18"
     },
     "Jakobi Meyers": {
       "tier": "E",
@@ -1414,7 +1369,16 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR58"
+      "posRank": "WR57"
+    },
+    "Jaylen Warren": {
+      "tier": "E",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "RB35"
     },
     "Khalil Shakir": {
       "tier": "E",
@@ -1423,7 +1387,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR59"
+      "posRank": "WR58"
     },
     "Michael Penix": {
       "tier": "E",
@@ -1434,15 +1398,6 @@
       "notes": "",
       "posRank": "QB31"
     },
-    "Terry McLaurin": {
-      "tier": "E",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "WR60"
-    },
     "Wan'Dale Robinson": {
       "tier": "E",
       "trending": "",
@@ -1450,43 +1405,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR61"
-    },
-    "Blake Corum": {
-      "tier": "E",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "RB37"
-    },
-    "Isaiah Likely": {
-      "tier": "E",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "TE21"
-    },
-    "Chris Godwin": {
-      "tier": "E-",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "WR62"
-    },
-    "Courtland Sutton": {
-      "tier": "E-",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "WR63"
+      "posRank": "WR59"
     },
     "Brandon Aiyuk": {
       "tier": "E-",
@@ -1495,16 +1414,52 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR64"
+      "posRank": "WR60"
     },
-    "Mark Andrews": {
+    "Jalen McMillan": {
       "tier": "E-",
       "trending": "",
       "buySell": "",
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE22"
+      "posRank": "WR61"
+    },
+    "Chris Bell": {
+      "tier": "E-",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "WR62"
+    },
+    "Chris Godwin": {
+      "tier": "E-",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "WR63"
+    },
+    "Courtland Sutton": {
+      "tier": "E-",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "WR64"
+    },
+    "Dallas Goedert": {
+      "tier": "E-",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "TE19"
     },
     "David Montgomery": {
       "tier": "E-",
@@ -1513,9 +1468,45 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB38"
+      "posRank": "RB36"
+    },
+    "De'Zhaun Stribling": {
+      "tier": "E-",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "WR65"
+    },
+    "Dylan Sampson": {
+      "tier": "E-",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "RB37"
+    },
+    "J.J. McCarthy": {
+      "tier": "E-",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "QB32"
     },
     "Jacory Croskey-Merritt": {
+      "tier": "E-",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "RB38"
+    },
+    "Tony Pollard": {
       "tier": "E-",
       "trending": "",
       "buySell": "",
@@ -1540,7 +1531,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE23"
+      "posRank": "TE20"
     },
     "Kyle Monangai": {
       "tier": "E-",
@@ -1551,16 +1542,16 @@
       "notes": "",
       "posRank": "RB41"
     },
-    "Mike Evans": {
+    "Mark Andrews": {
       "tier": "E-",
       "trending": "",
       "buySell": "",
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR65"
+      "posRank": "TE21"
     },
-    "Romeo Doubs": {
+    "Mike Evans": {
       "tier": "E-",
       "trending": "",
       "buySell": "",
@@ -1578,15 +1569,6 @@
       "notes": "",
       "posRank": "WR67"
     },
-    "Chris Bell": {
-      "tier": "E-",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "WR68"
-    },
     "Rico Dowdle": {
       "tier": "E-",
       "trending": "",
@@ -1595,6 +1577,15 @@
       "contender": "",
       "notes": "",
       "posRank": "RB42"
+    },
+    "Romeo Doubs": {
+      "tier": "E-",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "WR68"
     },
     "Rookie Pick 2.09": {
       "tier": "E-",
@@ -1632,33 +1623,6 @@
       "notes": "",
       "posRank": ""
     },
-    "Dallas Goedert": {
-      "tier": "E-",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "TE24"
-    },
-    "Dylan Sampson": {
-      "tier": "E-",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "RB43"
-    },
-    "J.J. McCarthy": {
-      "tier": "E-",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "QB32"
-    },
     "Ted Hurst": {
       "tier": "E-",
       "trending": "",
@@ -1675,10 +1639,37 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE25"
+      "posRank": "TE22"
     },
-    "De'Zhaun Stribling": {
+    "Aaron Jones": {
       "tier": "E-",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "RB43"
+    },
+    "Kaytron Allen": {
+      "tier": "E-",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "RB44"
+    },
+    "Max Klare": {
+      "tier": "E-",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "TE23"
+    },
+    "Brenen Thompson": {
+      "tier": "F+",
       "trending": "",
       "buySell": "",
       "priority": "",
@@ -1686,16 +1677,7 @@
       "notes": "",
       "posRank": "WR70"
     },
-    "Shedeur Sanders": {
-      "tier": "F+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "QB33"
-    },
-    "Jerry Jeudy": {
+    "Chris Brazzell II": {
       "tier": "F+",
       "trending": "",
       "buySell": "",
@@ -1704,52 +1686,7 @@
       "notes": "",
       "posRank": "WR71"
     },
-    "Jauan Jennings": {
-      "tier": "F+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "WR72"
-    },
-    "Justin Fields": {
-      "tier": "F+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "QB34"
-    },
-    "Kirk Cousins": {
-      "tier": "F+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "QB35"
-    },
-    "Pat Bryant": {
-      "tier": "F+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "WR73"
-    },
-    "Mike Washington Jr.": {
-      "tier": "F+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "RB44"
-    },
-    "Jordan Mason": {
+    "Chris Rodriguez Jr.": {
       "tier": "F+",
       "trending": "",
       "buySell": "",
@@ -1758,7 +1695,25 @@
       "notes": "",
       "posRank": "RB45"
     },
-    "Stefon Diggs": {
+    "Deebo Samuel": {
+      "tier": "F+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "WR72"
+    },
+    "Jauan Jennings": {
+      "tier": "F+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "WR73"
+    },
+    "Jerry Jeudy": {
       "tier": "F+",
       "trending": "",
       "buySell": "",
@@ -1766,6 +1721,87 @@
       "contender": "",
       "notes": "",
       "posRank": "WR74"
+    },
+    "Jordan Mason": {
+      "tier": "F+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "RB46"
+    },
+    "Justin Fields": {
+      "tier": "F+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "QB33"
+    },
+    "Justin Joly": {
+      "tier": "F+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "TE24"
+    },
+    "Kayshon Boutte": {
+      "tier": "F+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "WR75"
+    },
+    "Keaton Mitchell": {
+      "tier": "F+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "RB47"
+    },
+    "Kirk Cousins": {
+      "tier": "F+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "QB34"
+    },
+    "Mike Washington Jr.": {
+      "tier": "F+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "RB48"
+    },
+    "Oscar Delp": {
+      "tier": "F+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "TE25"
+    },
+    "Pat Bryant": {
+      "tier": "F+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "WR76"
     },
     "Rookie Pick 3.01": {
       "tier": "F+",
@@ -1803,6 +1839,24 @@
       "notes": "",
       "posRank": ""
     },
+    "Shedeur Sanders": {
+      "tier": "F+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "QB35"
+    },
+    "Stefon Diggs": {
+      "tier": "F+",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "WR77"
+    },
     "Tre Harris": {
       "tier": "F+",
       "trending": "",
@@ -1810,16 +1864,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR75"
-    },
-    "Woody Marks": {
-      "tier": "F+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "RB46"
+      "posRank": "WR78"
     },
     "Trey Benson": {
       "tier": "F+",
@@ -1828,7 +1873,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB47"
+      "posRank": "RB49"
     },
     "Tua Tagovailoa": {
       "tier": "F+",
@@ -1846,25 +1891,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB48"
-    },
-    "Keaton Mitchell": {
-      "tier": "F+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "RB49"
-    },
-    "Deebo Samuel": {
-      "tier": "F+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "WR76"
+      "posRank": "RB50"
     },
     "Tyler Allgeier": {
       "tier": "F+",
@@ -1873,18 +1900,9 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB50"
-    },
-    "Tony Pollard": {
-      "tier": "F+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
       "posRank": "RB51"
     },
-    "Chris Rodriguez Jr.": {
+    "Woody Marks": {
       "tier": "F+",
       "trending": "",
       "buySell": "",
@@ -1893,43 +1911,7 @@
       "notes": "",
       "posRank": "RB52"
     },
-    "Oscar Delp": {
-      "tier": "F+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "TE26"
-    },
-    "Justin Joly": {
-      "tier": "F+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "TE27"
-    },
-    "Kayshon Boutte": {
-      "tier": "F+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "WR77"
-    },
-    "Brenen Thompson": {
-      "tier": "F+",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "WR78"
-    },
-    "Chris Brazzell II": {
+    "Zachariah Branch": {
       "tier": "F+",
       "trending": "",
       "buySell": "",
@@ -1938,14 +1920,14 @@
       "notes": "",
       "posRank": "WR79"
     },
-    "Zachariah Branch": {
+    "Gunnar Helm": {
       "tier": "F+",
       "trending": "",
       "buySell": "",
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR80"
+      "posRank": "TE26"
     },
     "Aaron Rodgers": {
       "tier": "F",
@@ -1963,25 +1945,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR81"
-    },
-    "Jalen Nailor": {
-      "tier": "F",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "WR82"
-    },
-    "Ollie Gordon": {
-      "tier": "F",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "RB53"
+      "posRank": "WR80"
     },
     "Braelon Allen": {
       "tier": "F",
@@ -1990,7 +1954,16 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB54"
+      "posRank": "RB53"
+    },
+    "Chig Okonkwo": {
+      "tier": "F",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "TE27"
     },
     "Deshaun Watson": {
       "tier": "F",
@@ -2000,6 +1973,15 @@
       "contender": "",
       "notes": "",
       "posRank": "QB38"
+    },
+    "Devin Neal": {
+      "tier": "F",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "RB54"
     },
     "Emmett Johnson": {
       "tier": "F",
@@ -2028,14 +2010,23 @@
       "notes": "",
       "posRank": "RB56"
     },
-    "Devin Neal": {
+    "Jack Bech": {
       "tier": "F",
       "trending": "",
       "buySell": "",
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB57"
+      "posRank": "WR81"
+    },
+    "Jacoby Brissett": {
+      "tier": "F",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "QB40"
     },
     "Jake Tonges": {
       "tier": "F",
@@ -2046,34 +2037,25 @@
       "notes": "",
       "posRank": "TE28"
     },
-    "Chig Okonkwo": {
+    "Jalen Nailor": {
       "tier": "F",
       "trending": "",
       "buySell": "",
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE29"
-    },
-    "Tank Dell": {
-      "tier": "F",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "WR83"
-    },
-    "Tyreek Hill": {
-      "tier": "F",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "WR84"
+      "posRank": "WR82"
     },
     "Kaelon Black": {
+      "tier": "F",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "RB57"
+    },
+    "Kaleb Johnson": {
       "tier": "F",
       "trending": "",
       "buySell": "",
@@ -2091,7 +2073,7 @@
       "notes": "",
       "posRank": "RB59"
     },
-    "Rachaad White": {
+    "Ollie Gordon": {
       "tier": "F",
       "trending": "",
       "buySell": "",
@@ -2099,6 +2081,15 @@
       "contender": "",
       "notes": "",
       "posRank": "RB60"
+    },
+    "Rachaad White": {
+      "tier": "F",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "RB61"
     },
     "Rookie Pick 3.05": {
       "tier": "F",
@@ -2125,9 +2116,27 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB61"
+      "posRank": "RB62"
+    },
+    "Tank Dell": {
+      "tier": "F",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "WR83"
     },
     "Tory Horton": {
+      "tier": "F",
+      "trending": "",
+      "buySell": "",
+      "priority": "",
+      "contender": "",
+      "notes": "",
+      "posRank": "WR84"
+    },
+    "Tyreek Hill": {
       "tier": "F",
       "trending": "",
       "buySell": "",
@@ -2137,33 +2146,6 @@
       "posRank": "WR85"
     },
     "Tyrone Tracy": {
-      "tier": "F",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "RB62"
-    },
-    "Jacoby Brissett": {
-      "tier": "F",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "QB40"
-    },
-    "Jack Bech": {
-      "tier": "F",
-      "trending": "",
-      "buySell": "",
-      "priority": "",
-      "contender": "",
-      "notes": "",
-      "posRank": "WR86"
-    },
-    "Kaleb Johnson": {
       "tier": "F",
       "trending": "",
       "buySell": "",
@@ -2188,7 +2170,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE30"
+      "posRank": "TE29"
     },
     "Jalen Milroe": {
       "tier": "F-",
@@ -2206,7 +2188,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE31"
+      "posRank": "TE30"
     },
     "Rookie Pick 3.07": {
       "tier": "F-",
