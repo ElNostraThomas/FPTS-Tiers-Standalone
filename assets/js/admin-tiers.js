@@ -75,7 +75,7 @@
   var STORAGE_KEY_PLAYER_ORDER = 'fpts-player-order-overrides';
   var DEFAULT_GH_CONFIG_PATH  = 'data/source/tiers/tier-config.json';
 
-  var TIERS = ['3 1s','2.5 1s','2 1s','1.5 1s','1.25 1s','1 1','Late 1','Early 2','Base 2','Late 2','Early 3','Base 3'];
+  var TIERS = ['S++','S+','S','A+','A','A-','B+','B','B-','C+','C','C-'];
   // 5 + empty for Buy/Sell/Hold (mirrors bshChipHtml in tiers.html)
   var BSHS  = ['', 'buying', 'checking', 'selling', 'shopping', 'hold'];
   // 5 priority levels — Top Target = active acquire, Avoid = active divest.

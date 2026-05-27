@@ -2,17 +2,17 @@
   "version": "2026-05-27",
   "source": "TAT 2026 Dynasty Rankings (POST NFL DRAFT)",
   "tiers": [
-    { "code": "3 1s",    "title": "3 Base 1sts (+/-)" },
-    { "code": "2.5 1s",  "title": "2.5 Base 1sts (+/-)" },
-    { "code": "2 1s",    "title": "2 Base 1sts (+/-)" },
-    { "code": "1.5 1s",  "title": "1.5 Base 1sts (+/-)" },
-    { "code": "1.25 1s", "title": "1.25 Base 1sts (+/-)" },
-    { "code": "1 1",     "title": "1 Base 1 (+/-)" },
-    { "code": "Late 1",  "title": "\"Late\" 1 (+/-) // 0.75 Base 1sts (+/-)" },
-    { "code": "Early 2", "title": "\"Early\" 2 (+/-) // 0.5 Base 1sts (+/-)" },
-    { "code": "Base 2",  "title": "\"Base\" 2 // 0.33 Base 1sts (+/-)" },
-    { "code": "Late 2",  "title": "\"Late\" 2 (+/-)" },
-    { "code": "Early 3", "title": "\"Early\" 3 (+/-)" },
-    { "code": "Base 3",  "title": "\"Base\" 3 (+/-)" }
+    { "code": "S++", "title": "3 Base 1sts (+/-)" },
+    { "code": "S+",  "title": "2.5 Base 1sts (+/-)" },
+    { "code": "S",   "title": "2 Base 1sts (+/-)" },
+    { "code": "A+",  "title": "1.5 Base 1sts (+/-)" },
+    { "code": "A",   "title": "1.25 Base 1sts (+/-)" },
+    { "code": "A-",  "title": "1 Base 1 (+/-)" },
+    { "code": "B+",  "title": "\"Late\" 1 (+/-) // 0.75 Base 1sts (+/-)" },
+    { "code": "B",   "title": "\"Early\" 2 (+/-) // 0.5 Base 1sts (+/-)" },
+    { "code": "B-",  "title": "\"Base\" 2 // 0.33 Base 1sts (+/-)" },
+    { "code": "C+",  "title": "\"Late\" 2 (+/-)" },
+    { "code": "C",   "title": "\"Early\" 3 (+/-)" },
+    { "code": "C-",  "title": "\"Base\" 3 (+/-)" }
   ]
 }
