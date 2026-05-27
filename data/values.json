@@ -1,5 +1,5 @@
 {
-  "version": "2026-05-27T16:24:12.796943+00:00",
+  "version": "2026-05-27T17:18:04.397095+00:00",
   "players": {
     "Bijan Robinson": {
       "rank": 1,
@@ -6258,7 +6258,7 @@
       "rank": 482,
       "posRank": "WR159",
       "pos": "WR",
-      "team": "NYJ",
+      "team": "SEA",
       "age": 29.1,
       "ppg": null,
       "ppgPrior": 0.2,
@@ -6275,7 +6275,7 @@
       "age": 25.4,
       "ppg": null,
       "ppgPrior": 2.8,
-      "injury": "Questionable",
+      "injury": null,
       "sleeperId": "11581",
       "trend": -90,
       "tier": 16
@@ -7276,7 +7276,7 @@
       "age": 24.1,
       "ppg": 3.3,
       "ppgPrior": null,
-      "injury": "Questionable",
+      "injury": null,
       "sleeperId": "12641",
       "trend": -118,
       "tier": 16
@@ -8498,7 +8498,7 @@
       "age": 25.1,
       "ppg": 5.7,
       "ppgPrior": 2.0,
-      "injury": "Questionable",
+      "injury": null,
       "sleeperId": "11650",
       "trend": -122,
       "tier": 16
@@ -10487,7 +10487,7 @@
       "age": 23.7,
       "ppg": null,
       "ppgPrior": null,
-      "injury": "Questionable",
+      "injury": null,
       "sleeperId": "12656",
       "trend": -441,
       "tier": 18
