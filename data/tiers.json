@@ -1,5 +1,5 @@
 {
-  "version": "2026-05-25T19:51:06+00:00",
+  "version": "2026-05-25T19:56:19+00:00",
   "source": "Google Sheet via sync-tiers.py",
   "playerCount": 252,
   "players": {
@@ -1891,7 +1891,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": ""
+      "posRank": "WR81"
     },
     "Rookie Pick 3.01": {
       "tier": "F+",
@@ -1945,7 +1945,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR81"
+      "posRank": "WR82"
     },
     "Trey Benson": {
       "tier": "F+",
@@ -1981,7 +1981,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR82"
+      "posRank": "WR83"
     },
     "Tyler Allgeier": {
       "tier": "F+",
@@ -2017,7 +2017,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR83"
+      "posRank": "WR84"
     },
     "Braelon Allen": {
       "tier": "F",
@@ -2080,7 +2080,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR84"
+      "posRank": "WR85"
     },
     "Kaelon Black": {
       "tier": "F",
@@ -2143,7 +2143,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR85"
+      "posRank": "WR86"
     },
     "Tyrone Tracy": {
       "tier": "F",
