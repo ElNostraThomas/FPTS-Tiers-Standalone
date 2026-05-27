@@ -1,5 +1,5 @@
 {
-  "version": "2026-05-27T20:36:57.829946+00:00",
+  "version": "2026-05-27T20:51:04.025864+00:00",
   "players": {
     "Bijan Robinson": {
       "rank": 1,
@@ -3155,7 +3155,7 @@
       "age": 23.2,
       "ppg": 4.2,
       "ppgPrior": 4.6,
-      "injury": "Questionable",
+      "injury": null,
       "sleeperId": "11600",
       "trend": -1,
       "tier": 8
