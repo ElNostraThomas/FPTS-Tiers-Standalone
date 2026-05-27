@@ -1,5 +1,5 @@
 {
-  "version": "2026-05-27T17:47:40.115628+00:00",
+  "version": "2026-05-27T18:43:21.799453+00:00",
   "players": {
     "Bijan Robinson": {
       "rank": 1,
@@ -9834,7 +9834,7 @@
       "posRank": "WR264",
       "pos": "WR",
       "team": "SF",
-      "age": null,
+      "age": 23.2,
       "ppg": null,
       "ppgPrior": null,
       "injury": null,
@@ -10851,7 +10851,7 @@
       "age": 24.5,
       "ppg": 2.1,
       "ppgPrior": null,
-      "injury": "Questionable",
+      "injury": null,
       "sleeperId": "12482",
       "trend": -441,
       "tier": 16
