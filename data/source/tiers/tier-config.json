@@ -1,18 +1,54 @@
 {
-  "version": "2026-05-27",
-  "source": "2026 Dynasty Rankings (Post NFL Draft)",
+  "version": "2026-05-28",
+  "source": "Published via admin scratchpad (admin-tiers.js)",
   "tiers": [
-    { "code": "S++", "title": "3 Base 1sts (+/-)" },
-    { "code": "S+",  "title": "2.5 Base 1sts (+/-)" },
-    { "code": "S",   "title": "2 Base 1sts (+/-)" },
-    { "code": "A+",  "title": "1.5 Base 1sts (+/-)" },
-    { "code": "A",   "title": "1.25 Base 1sts (+/-)" },
-    { "code": "A-",  "title": "1 Base 1 (+/-)" },
-    { "code": "B+",  "title": "\"Late\" 1 (+/-) // 0.75 Base 1sts (+/-)" },
-    { "code": "B",   "title": "\"Early\" 2 (+/-) // 0.5 Base 1sts (+/-)" },
-    { "code": "B-",  "title": "\"Base\" 2 // 0.33 Base 1sts (+/-)" },
-    { "code": "C+",  "title": "\"Late\" 2 (+/-)" },
-    { "code": "C",   "title": "\"Early\" 3 (+/-)" },
-    { "code": "C-",  "title": "\"Base\" 3 (+/-)" }
+    {
+      "code": "S++",
+      "title": "Cornerstone 3 Base 1sts (+/-)"
+    },
+    {
+      "code": "S+",
+      "title": "Elites 2.5 Base 1sts (+/-)"
+    },
+    {
+      "code": "S",
+      "title": "Elite Lite 2 Base 1sts (+/-)"
+    },
+    {
+      "code": "A+",
+      "title": "Really Good 1.5 Base 1sts (+/-)"
+    },
+    {
+      "code": "A",
+      "title": "Underrated Points + Upside 1.25 Base 1sts (+/-)"
+    },
+    {
+      "code": "A-",
+      "title": "Situation Heavy 1 Base 1 (+/-)"
+    },
+    {
+      "code": "B+",
+      "title": "\"Late\" 1 (+/-) // 0.75 Base 1sts (+/-)"
+    },
+    {
+      "code": "B",
+      "title": "\"Early\" 2 (+/-) // 0.5 Base 1sts (+/-)"
+    },
+    {
+      "code": "B-",
+      "title": "\"Base\" 2 // 0.33 Base 1sts (+/-)"
+    },
+    {
+      "code": "C+",
+      "title": "\"Late\" 2 (+/-)"
+    },
+    {
+      "code": "C",
+      "title": "\"Early\" 3 (+/-)"
+    },
+    {
+      "code": "C-",
+      "title": "\"Base\" 3 (+/-)"
+    }
   ]
 }
