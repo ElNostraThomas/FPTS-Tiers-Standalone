@@ -1,5 +1,5 @@
 {
-  "version": "2026-05-27T22:51:18+00:00",
+  "version": "2026-05-28T00:36:42+00:00",
   "source": "Google Sheet via sync-tiers.py",
   "playerCount": 200,
   "players": {
@@ -28,7 +28,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR1"
+      "posRank": "WR3"
     },
     "Ja'Marr Chase": {
       "tier": "S++",
@@ -37,7 +37,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR2"
+      "posRank": "WR1"
     },
     "Bijan Robinson": {
       "tier": "S++",
@@ -64,7 +64,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR3"
+      "posRank": "WR2"
     },
     "Jayden Daniels": {
       "tier": "S+",
@@ -73,7 +73,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB3"
+      "posRank": "QB4"
     },
     "Malik Nabers": {
       "tier": "S+",
@@ -82,7 +82,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR4"
+      "posRank": "WR5"
     },
     "Ashton Jeanty": {
       "tier": "S+",
@@ -100,7 +100,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB4"
+      "posRank": "QB8"
     },
     "Lamar Jackson": {
       "tier": "S+",
@@ -145,7 +145,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB6"
+      "posRank": "QB3"
     },
     "Drake London": {
       "tier": "S",
@@ -154,7 +154,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR5"
+      "posRank": "WR8"
     },
     "Justin Jefferson": {
       "tier": "S",
@@ -181,7 +181,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR8"
+      "posRank": "WR4"
     },
     "Justin Herbert": {
       "tier": "S",
@@ -190,7 +190,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB7"
+      "posRank": "QB9"
     },
     "Patrick Mahomes": {
       "tier": "S",
@@ -199,7 +199,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB8"
+      "posRank": "QB7"
     },
     "Tetairoa McMillan": {
       "tier": "S",
@@ -226,7 +226,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB9"
+      "posRank": "QB6"
     },
     "Omarion Hampton": {
       "tier": "A+",
@@ -235,7 +235,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB5"
+      "posRank": "RB6"
     },
     "Garrett Wilson": {
       "tier": "A+",
@@ -244,7 +244,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR10"
+      "posRank": "WR14"
     },
     "Nico Collins": {
       "tier": "A+",
@@ -271,7 +271,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB6"
+      "posRank": "RB5"
     },
     "George Pickens": {
       "tier": "A+",
@@ -280,7 +280,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR13"
+      "posRank": "WR10"
     },
     "Jonathan Taylor": {
       "tier": "A+",
@@ -298,7 +298,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB10"
+      "posRank": "QB12"
     },
     "Jaxson Dart": {
       "tier": "A+",
@@ -307,7 +307,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB11"
+      "posRank": "QB10"
     },
     "Luther Burden III": {
       "tier": "A+",
@@ -316,7 +316,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR14"
+      "posRank": "WR18"
     },
     "Jordan Love": {
       "tier": "A",
@@ -325,7 +325,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB12"
+      "posRank": "QB19"
     },
     "Jordyn Tyson": {
       "tier": "A",
@@ -334,7 +334,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR15"
+      "posRank": "WR20"
     },
     "Carnell Tate": {
       "tier": "A",
@@ -361,7 +361,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB9"
+      "posRank": "RB12"
     },
     "Christian McCaffrey": {
       "tier": "A",
@@ -370,7 +370,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB10"
+      "posRank": "RB11"
     },
     "Tyler Warren": {
       "tier": "A",
@@ -397,7 +397,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB14"
+      "posRank": "QB15"
     },
     "Breece Hall": {
       "tier": "A-",
@@ -406,7 +406,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB11"
+      "posRank": "RB13"
     },
     "Makai Lemon": {
       "tier": "A-",
@@ -415,7 +415,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR17"
+      "posRank": "WR26"
     },
     "DeVonta Smith": {
       "tier": "A-",
@@ -424,7 +424,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR18"
+      "posRank": "WR28"
     },
     "Zay Flowers": {
       "tier": "A-",
@@ -433,7 +433,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR19"
+      "posRank": "WR25"
     },
     "Tee Higgins": {
       "tier": "A-",
@@ -442,7 +442,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR20"
+      "posRank": "WR23"
     },
     "A.J. Brown": {
       "tier": "A-",
@@ -451,7 +451,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR21"
+      "posRank": "WR22"
     },
     "Chase Brown": {
       "tier": "A-",
@@ -460,7 +460,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB12"
+      "posRank": "RB9"
     },
     "Quinshon Judkins": {
       "tier": "A-",
@@ -469,7 +469,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB13"
+      "posRank": "RB15"
     },
     "TreVeyon Henderson": {
       "tier": "A-",
@@ -478,7 +478,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB14"
+      "posRank": "RB10"
     },
     "Rashee Rice": {
       "tier": "A-",
@@ -487,7 +487,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR22"
+      "posRank": "WR17"
     },
     "Tucker Kraft": {
       "tier": "A-",
@@ -496,7 +496,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE5"
+      "posRank": "TE6"
     },
     "Emeka Egbuka": {
       "tier": "A-",
@@ -505,7 +505,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR23"
+      "posRank": "WR13"
     },
     "Bo Nix": {
       "tier": "A-",
@@ -514,7 +514,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB15"
+      "posRank": "QB11"
     },
     "Dak Prescott": {
       "tier": "A-",
@@ -532,7 +532,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB15"
+      "posRank": "RB21"
     },
     "Ladd McConkey": {
       "tier": "B+",
@@ -541,7 +541,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR24"
+      "posRank": "WR15"
     },
     "Marvin Harrison Jr.": {
       "tier": "B+",
@@ -550,7 +550,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR25"
+      "posRank": "WR21"
     },
     "Saquon Barkley": {
       "tier": "B+",
@@ -568,7 +568,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR26"
+      "posRank": "WR29"
     },
     "KC Concepcion": {
       "tier": "B+",
@@ -577,7 +577,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR27"
+      "posRank": "WR30"
     },
     "Cam Ward": {
       "tier": "B+",
@@ -586,7 +586,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB17"
+      "posRank": "QB29"
     },
     "Jameson Williams": {
       "tier": "B+",
@@ -595,7 +595,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR28"
+      "posRank": "WR27"
     },
     "Brian Thomas Jr.": {
       "tier": "B+",
@@ -604,7 +604,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR29"
+      "posRank": "WR24"
     },
     "Bucky Irving": {
       "tier": "B+",
@@ -613,7 +613,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB17"
+      "posRank": "RB14"
     },
     "Sam LaPorta": {
       "tier": "B+",
@@ -622,7 +622,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE6"
+      "posRank": "TE7"
     },
     "Harold Fannin Jr.": {
       "tier": "B+",
@@ -631,7 +631,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE7"
+      "posRank": "TE5"
     },
     "Rome Odunze": {
       "tier": "B+",
@@ -640,7 +640,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR30"
+      "posRank": "WR19"
     },
     "Tyler Shough": {
       "tier": "B+",
@@ -649,7 +649,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB18"
+      "posRank": "QB33"
     },
     "Jared Goff": {
       "tier": "B+",
@@ -658,7 +658,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB19"
+      "posRank": "QB20"
     },
     "Baker Mayfield": {
       "tier": "B+",
@@ -667,7 +667,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB20"
+      "posRank": "QB14"
     },
     "Kyren Williams": {
       "tier": "B+",
@@ -676,7 +676,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB18"
+      "posRank": "RB17"
     },
     "Josh Jacobs": {
       "tier": "B+",
@@ -703,7 +703,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB21"
+      "posRank": "QB28"
     },
     "Bhayshul Tuten": {
       "tier": "B+",
@@ -712,7 +712,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB21"
+      "posRank": "RB25"
     },
     "Jadarian Price": {
       "tier": "B+",
@@ -730,7 +730,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB22"
+      "posRank": "QB24"
     },
     "Christian Watson": {
       "tier": "B",
@@ -739,7 +739,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR31"
+      "posRank": "WR35"
     },
     "Kenyon Sadiq": {
       "tier": "B",
@@ -748,7 +748,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE8"
+      "posRank": "TE11"
     },
     "Jordan Addison": {
       "tier": "B",
@@ -757,7 +757,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR32"
+      "posRank": "WR34"
     },
     "Javonte Williams": {
       "tier": "B",
@@ -766,7 +766,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB23"
+      "posRank": "RB18"
     },
     "Derrick Henry": {
       "tier": "B",
@@ -784,7 +784,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB23"
+      "posRank": "QB17"
     },
     "Omar Cooper Jr.": {
       "tier": "B",
@@ -811,7 +811,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR34"
+      "posRank": "WR38"
     },
     "Daniel Jones": {
       "tier": "B",
@@ -820,7 +820,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB24"
+      "posRank": "QB21"
     },
     "Bryce Young": {
       "tier": "B",
@@ -838,7 +838,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB26"
+      "posRank": "QB23"
     },
     "Malik Willis": {
       "tier": "B",
@@ -847,7 +847,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB27"
+      "posRank": "QB49"
     },
     "Ricky Pearsall": {
       "tier": "B",
@@ -856,7 +856,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR35"
+      "posRank": "WR37"
     },
     "D'Andre Swift": {
       "tier": "B-",
@@ -865,7 +865,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB25"
+      "posRank": "RB26"
     },
     "David Montgomery": {
       "tier": "B-",
@@ -874,7 +874,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB26"
+      "posRank": "RB28"
     },
     "Matthew Golden": {
       "tier": "B-",
@@ -883,7 +883,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR36"
+      "posRank": "WR50"
     },
     "Parker Washington": {
       "tier": "B-",
@@ -892,7 +892,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR37"
+      "posRank": "WR41"
     },
     "Jayden Reed": {
       "tier": "B-",
@@ -901,7 +901,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR38"
+      "posRank": "WR56"
     },
     "Josh Downs": {
       "tier": "B-",
@@ -910,7 +910,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR39"
+      "posRank": "WR58"
     },
     "Kyle Pitts": {
       "tier": "B-",
@@ -919,7 +919,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE10"
+      "posRank": "TE8"
     },
     "Denzel Boston": {
       "tier": "B-",
@@ -928,7 +928,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR40"
+      "posRank": "WR43"
     },
     "Travis Hunter": {
       "tier": "B-",
@@ -937,7 +937,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR41"
+      "posRank": "WR42"
     },
     "RJ Harvey": {
       "tier": "B-",
@@ -946,7 +946,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB27"
+      "posRank": "RB23"
     },
     "DK Metcalf": {
       "tier": "B-",
@@ -955,7 +955,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR42"
+      "posRank": "WR45"
     },
     "Davante Adams": {
       "tier": "B-",
@@ -964,7 +964,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR43"
+      "posRank": "WR39"
     },
     "Mike Evans": {
       "tier": "B-",
@@ -973,7 +973,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR44"
+      "posRank": "WR47"
     },
     "Matthew Stafford": {
       "tier": "B-",
@@ -982,7 +982,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB28"
+      "posRank": "QB22"
     },
     "Michael Wilson": {
       "tier": "B-",
@@ -991,7 +991,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR45"
+      "posRank": "WR32"
     },
     "Jayden Higgins": {
       "tier": "B-",
@@ -1000,7 +1000,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR46"
+      "posRank": "WR44"
     },
     "Jonah Coleman": {
       "tier": "B-",
@@ -1009,7 +1009,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB28"
+      "posRank": "RB36"
     },
     "George Kittle": {
       "tier": "B-",
@@ -1018,7 +1018,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE11"
+      "posRank": "TE14"
     },
     "Rhamondre Stevenson": {
       "tier": "B-",
@@ -1027,7 +1027,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB29"
+      "posRank": "RB35"
     },
     "Alec Pierce": {
       "tier": "B-",
@@ -1036,7 +1036,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR47"
+      "posRank": "WR31"
     },
     "Xavier Worthy": {
       "tier": "B-",
@@ -1045,7 +1045,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR48"
+      "posRank": "WR52"
     },
     "Terry McLaurin": {
       "tier": "C+",
@@ -1054,7 +1054,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR49"
+      "posRank": "WR40"
     },
     "Jonathon Brooks": {
       "tier": "C+",
@@ -1063,7 +1063,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB30"
+      "posRank": "RB41"
     },
     "Eli Stowers": {
       "tier": "C+",
@@ -1072,7 +1072,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE12"
+      "posRank": "TE11"
     },
     "Dalton Kincaid": {
       "tier": "C+",
@@ -1081,7 +1081,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE13"
+      "posRank": "TE10"
     },
     "Jalen Coker": {
       "tier": "C+",
@@ -1090,7 +1090,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR50"
+      "posRank": "WR57"
     },
     "Jacory Croskey-Merritt": {
       "tier": "C+",
@@ -1099,7 +1099,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB31"
+      "posRank": "RB40"
     },
     "Kyle Monangai": {
       "tier": "C+",
@@ -1108,7 +1108,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB32"
+      "posRank": "RB27"
     },
     "Jakobi Meyers": {
       "tier": "C+",
@@ -1126,7 +1126,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR52"
+      "posRank": "WR60"
     },
     "Germie Bernard": {
       "tier": "C+",
@@ -1135,7 +1135,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR53"
+      "posRank": "WR55"
     },
     "Antonio Williams": {
       "tier": "C+",
@@ -1144,7 +1144,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR54"
+      "posRank": "WR73"
     },
     "Michael Pittman Jr.": {
       "tier": "C+",
@@ -1153,7 +1153,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR55"
+      "posRank": "WR46"
     },
     "Jake Ferguson": {
       "tier": "C+",
@@ -1162,7 +1162,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE14"
+      "posRank": "TE12"
     },
     "Courtland Sutton": {
       "tier": "C+",
@@ -1171,7 +1171,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR56"
+      "posRank": "WR49"
     },
     "Jaylen Warren": {
       "tier": "C+",
@@ -1180,7 +1180,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB33"
+      "posRank": "RB30"
     },
     "Rico Dowdle": {
       "tier": "C+",
@@ -1198,7 +1198,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR57"
+      "posRank": "WR68"
     },
     "Chuba Hubbard": {
       "tier": "C+",
@@ -1207,7 +1207,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB35"
+      "posRank": "RB31"
     },
     "Nicholas Singleton": {
       "tier": "C+",
@@ -1216,7 +1216,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB36"
+      "posRank": "RB49"
     },
     "Eli Raridon": {
       "tier": "C+",
@@ -1225,7 +1225,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE15"
+      "posRank": "TE64"
     },
     "Brenton Strange": {
       "tier": "C",
@@ -1234,7 +1234,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE16"
+      "posRank": "TE13"
     },
     "Chris Bell": {
       "tier": "C",
@@ -1243,7 +1243,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR58"
+      "posRank": "WR53"
     },
     "Tony Pollard": {
       "tier": "C",
@@ -1252,7 +1252,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB37"
+      "posRank": "RB44"
     },
     "Rachaad White": {
       "tier": "C",
@@ -1261,7 +1261,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB38"
+      "posRank": "RB47"
     },
     "Khalil Shakir": {
       "tier": "C",
@@ -1270,7 +1270,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR59"
+      "posRank": "WR61"
     },
     "Wan'Dale Robinson": {
       "tier": "C",
@@ -1279,7 +1279,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR60"
+      "posRank": "WR36"
     },
     "Elijah Sarratt": {
       "tier": "C",
@@ -1288,7 +1288,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR61"
+      "posRank": "WR63"
     },
     "Zachariah Branch": {
       "tier": "C",
@@ -1297,7 +1297,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR62"
+      "posRank": "WR65"
     },
     "Isaiah Likely": {
       "tier": "C",
@@ -1306,7 +1306,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE17"
+      "posRank": "TE15"
     },
     "Brandon Aiyuk": {
       "tier": "C",
@@ -1315,7 +1315,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR63"
+      "posRank": "WR64"
     },
     "Jordan Mason": {
       "tier": "C",
@@ -1324,7 +1324,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB39"
+      "posRank": "RB45"
     },
     "Mac Jones": {
       "tier": "C",
@@ -1333,7 +1333,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB29"
+      "posRank": "QB52"
     },
     "JK Dobbins": {
       "tier": "C",
@@ -1342,7 +1342,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB40"
+      "posRank": "RB38"
     },
     "Tyjae Spears": {
       "tier": "C",
@@ -1351,7 +1351,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB41"
+      "posRank": "RB50"
     },
     "Romeo Doubs": {
       "tier": "C",
@@ -1360,7 +1360,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR64"
+      "posRank": "WR54"
     },
     "Quentin Johnston": {
       "tier": "C",
@@ -1369,7 +1369,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR65"
+      "posRank": "WR48"
     },
     "Chig Okonkwo": {
       "tier": "C",
@@ -1378,7 +1378,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE18"
+      "posRank": "TE28"
     },
     "Michael Penix": {
       "tier": "C",
@@ -1387,7 +1387,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB30"
+      "posRank": "QB18"
     },
     "Tua Tagovailoa": {
       "tier": "C",
@@ -1396,7 +1396,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB31"
+      "posRank": "QB47"
     },
     "Max Klare": {
       "tier": "C",
@@ -1405,7 +1405,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE19"
+      "posRank": "TE35"
     },
     "Oscar Delp": {
       "tier": "C",
@@ -1414,7 +1414,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE20"
+      "posRank": "TE39"
     },
     "Tyrone Tracy Jr.": {
       "tier": "C",
@@ -1423,7 +1423,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB42"
+      "posRank": "RB46"
     },
     "Blake Corum": {
       "tier": "C",
@@ -1432,7 +1432,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB43"
+      "posRank": "RB33"
     },
     "Tank Dell": {
       "tier": "C",
@@ -1441,7 +1441,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR66"
+      "posRank": "WR83"
     },
     "Aaron Jones": {
       "tier": "C",
@@ -1450,7 +1450,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB44"
+      "posRank": "RB55"
     },
     "Geno Smith": {
       "tier": "C",
@@ -1459,7 +1459,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB32"
+      "posRank": "QB48"
     },
     "J.J. McCarthy": {
       "tier": "C",
@@ -1468,7 +1468,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB33"
+      "posRank": "QB30"
     },
     "Aaron Rodgers": {
       "tier": "C",
@@ -1477,7 +1477,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB34"
+      "posRank": "QB27"
     },
     "Mark Andrews": {
       "tier": "C",
@@ -1486,7 +1486,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE21"
+      "posRank": "TE19"
     },
     "TJ Hockenson": {
       "tier": "C",
@@ -1495,7 +1495,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE22"
+      "posRank": "TE21"
     },
     "Juwan Johnson": {
       "tier": "C",
@@ -1504,7 +1504,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE23"
+      "posRank": "TE17"
     },
     "Dallas Goedert": {
       "tier": "C",
@@ -1513,7 +1513,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE24"
+      "posRank": "TE20"
     },
     "Kenneth Gainwell": {
       "tier": "C",
@@ -1522,7 +1522,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB45"
+      "posRank": "RB39"
     },
     "Zach Charbonnet": {
       "tier": "C",
@@ -1531,7 +1531,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB46"
+      "posRank": "RB29"
     },
     "Emmett Johnson": {
       "tier": "C",
@@ -1540,7 +1540,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB47"
+      "posRank": "RB43"
     },
     "Dylan Sampson": {
       "tier": "C",
@@ -1549,7 +1549,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB48"
+      "posRank": "RB51"
     },
     "Chris Rodriguez Jr.": {
       "tier": "C",
@@ -1558,7 +1558,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB49"
+      "posRank": "RB63"
     },
     "Chris Brazzell II": {
       "tier": "C",
@@ -1567,7 +1567,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR67"
+      "posRank": "WR59"
     },
     "Kaytron Allen": {
       "tier": "C",
@@ -1576,7 +1576,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB50"
+      "posRank": "RB71"
     },
     "Gunnar Helm": {
       "tier": "C",
@@ -1585,7 +1585,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE25"
+      "posRank": "TE23"
     },
     "Terrance Ferguson": {
       "tier": "C",
@@ -1594,7 +1594,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE26"
+      "posRank": "TE22"
     },
     "Carson Beck": {
       "tier": "C",
@@ -1603,7 +1603,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB35"
+      "posRank": "QB34"
     },
     "Deebo Samuel": {
       "tier": "C",
@@ -1612,7 +1612,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR68"
+      "posRank": "WR77"
     },
     "Jauan Jennings": {
       "tier": "C",
@@ -1621,7 +1621,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR69"
+      "posRank": "WR66"
     },
     "Pat Bryant": {
       "tier": "C",
@@ -1630,7 +1630,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR70"
+      "posRank": "WR69"
     },
     "Mike Washington Jr.": {
       "tier": "C",
@@ -1639,7 +1639,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB51"
+      "posRank": "RB64"
     },
     "Tre Harris": {
       "tier": "C",
@@ -1648,7 +1648,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR71"
+      "posRank": "WR67"
     },
     "De'Zhaun Stribling": {
       "tier": "C",
@@ -1657,7 +1657,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR72"
+      "posRank": "WR78"
     },
     "Jack Bech": {
       "tier": "C-",
@@ -1666,7 +1666,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR73"
+      "posRank": "WR88"
     },
     "Jalen Nailor": {
       "tier": "C-",
@@ -1675,7 +1675,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR74"
+      "posRank": "WR87"
     },
     "Sean Tucker": {
       "tier": "C-",
@@ -1684,7 +1684,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB52"
+      "posRank": "RB66"
     },
     "Keaton Mitchell": {
       "tier": "C-",
@@ -1693,7 +1693,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB53"
+      "posRank": "RB59"
     },
     "Woody Marks": {
       "tier": "C-",
@@ -1702,7 +1702,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB54"
+      "posRank": "RB37"
     },
     "Braelon Allen": {
       "tier": "C-",
@@ -1711,7 +1711,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB55"
+      "posRank": "RB48"
     },
     "Ollie Gordon": {
       "tier": "C-",
@@ -1720,7 +1720,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB56"
+      "posRank": "RB65"
     },
     "Tyreek Hill": {
       "tier": "C-",
@@ -1729,7 +1729,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR75"
+      "posRank": "WR109"
     },
     "Ted Hurst": {
       "tier": "C-",
@@ -1738,7 +1738,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR76"
+      "posRank": "WR80"
     },
     "Jalen McMillan": {
       "tier": "C-",
@@ -1747,7 +1747,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR77"
+      "posRank": "WR62"
     },
     "Justin Joly": {
       "tier": "C-",
@@ -1756,7 +1756,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE27"
+      "posRank": "TE47"
     },
     "Brenen Thompson": {
       "tier": "C-",
@@ -1765,7 +1765,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "WR78"
+      "posRank": "WR89"
     },
     "Shedeur Sanders": {
       "tier": "C-",
@@ -1774,7 +1774,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB36"
+      "posRank": "QB37"
     },
     "Deshaun Watson": {
       "tier": "C-",
@@ -1783,7 +1783,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB37"
+      "posRank": "QB36"
     },
     "Kaelon Black": {
       "tier": "C-",
@@ -1792,7 +1792,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "RB57"
+      "posRank": "RB79"
     },
     "Jacoby Brissett": {
       "tier": "C-",
@@ -1801,7 +1801,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "QB38"
+      "posRank": "QB51"
     }
   }
 }

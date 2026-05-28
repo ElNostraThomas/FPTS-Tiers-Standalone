@@ -67,14 +67,6 @@ FIELDS = [
     "posRank",
 ]
 
-# Canonical tier hierarchy for stable cross-tier ordering when computing
-# posRank. Tiers not in this list sort to the end (rank 99).
-POS_RANK_TIER_ORDER = [
-    'S++', 'S+', 'S', 'A+', 'A', 'A-',
-    'B+', 'B', 'B-', 'C+', 'C', 'C-',
-]
-POS_RANK_TIER_INDEX = {t: i for i, t in enumerate(POS_RANK_TIER_ORDER)}
-
 # Maps normalized sheet header text -> internal field key.
 # Aliases cover the FPTS sheet's descriptive column names.
 HEADER_ALIASES = {
@@ -340,16 +332,17 @@ def map_rows(rows: list[list[str]]) -> list[dict]:
 
 
 def compute_pos_ranks(records: list[dict]) -> None:
-    """Assign posRank to each record by walking tier-then-CSV-row order with
-    per-position counters. Reads each player's position (QB/RB/WR/TE/K) from
-    data/values.json (sync-fp.py output). Mutates `records` in place.
+    """Copy each player's posRank verbatim from data/values.json (FP's
+    published positional rankings). Mutates `records` in place.
 
-    Tier order: POS_RANK_TIER_ORDER (S++ → F-). Within a tier: input order.
-    So the FIRST WR in your highest tier becomes WR1, the SECOND becomes WR2,
-    etc., regardless of which tier each is in. Sheet/CSV = source of truth.
+    FP's posRank is the source of truth so the PRK column matches what
+    every fantasy outlet shows (Chase=WR1, Burrow=QB3, etc.) rather than
+    re-deriving from the analyst CSV's row order (which reflects analyst
+    opinion, not industry consensus).
 
-    If values.json is missing or a player's position can't be resolved, that
-    player's posRank stays blank (page falls back to position pill only)."""
+    If values.json is missing or a player's posRank can't be resolved,
+    that player's posRank stays blank (page falls back to position pill
+    only)."""
     values_path = REPO_ROOT / "data" / "values.json"
     if not values_path.exists():
         info(f"WARN: no {values_path.relative_to(REPO_ROOT)} found -- posRank left blank "
@@ -362,46 +355,45 @@ def compute_pos_ranks(records: list[dict]) -> None:
         info(f"WARN: failed to parse values.json ({e}) -- posRank left blank")
         return
 
-    # Build a case/punctuation-tolerant name → pos lookup. FP's values.json
-    # strips Jr/Sr/II/III/IV/V suffixes from names ("Brian Thomas Jr." →
-    # "Brian Thomas"), so we strip those here before alphanum-collapsing
-    # to match. Mirrors the JS _normNameTiers in index.html.
+    # Build a case/punctuation-tolerant name → (pos, posRank) lookup. FP's
+    # values.json strips Jr/Sr/II/III/IV/V suffixes from names ("Brian
+    # Thomas Jr." → "Brian Thomas"), so we strip those here before
+    # alphanum-collapsing to match. Mirrors _normNameTiers in index.html.
     _suffix_pat = re.compile(r"\b(jr|sr|ii|iii|iv|v)\.?\b")
     def _norm(s):
         s = str(s or "").lower()
         s = _suffix_pat.sub("", s)
         return "".join(c for c in s if c.isalnum())
 
-    name_to_pos = {}
+    name_to_rec = {}
     for fp_name, rec in players.items():
         if not isinstance(rec, dict):
             continue
-        pos = str(rec.get("pos", "")).upper().strip()
-        if pos:
-            name_to_pos[_norm(fp_name)] = pos
-
-    # Stable sort by (tier-index, original-csv-position) so records with the
-    # same tier keep their CSV row order.
-    indexed = list(enumerate(records))
-    indexed.sort(key=lambda iv: (POS_RANK_TIER_INDEX.get(iv[1].get("tier", ""), 99), iv[0]))
+        name_to_rec[_norm(fp_name)] = rec
 
     counters: dict[str, int] = {}
     unresolved = 0
     valid_pos = {"QB", "RB", "WR", "TE", "K"}
-    for _orig_idx, rec in indexed:
+    for rec in records:
         name = str(rec.get("name", "")).strip()
         if not name:
             continue
-        pos = name_to_pos.get(_norm(name), "")
-        if pos not in valid_pos:
+        fp_rec = name_to_rec.get(_norm(name))
+        if not fp_rec:
             unresolved += 1
             continue
-        counters[pos] = counters.get(pos, 0) + 1
-        rec["posRank"] = f"{pos}{counters[pos]}"
+        pos = str(fp_rec.get("pos", "")).upper().strip()
+        fp_pos_rank = str(fp_rec.get("posRank", "")).strip()
+        if pos in valid_pos:
+            counters[pos] = counters.get(pos, 0) + 1
+        if fp_pos_rank:
+            rec["posRank"] = fp_pos_rank
+        else:
+            unresolved += 1
 
-    summary = ", ".join(f"{p}1..{p}{counters[p]}" for p in sorted(counters))
-    note = f"  ({unresolved} player(s) had no FP position match — posRank blank for those)" if unresolved else ""
-    info(f"computed posRank from Sheet order: {summary}{note}")
+    summary = ", ".join(f"{counters[p]} {p}s" for p in sorted(counters))
+    note = f"  ({unresolved} player(s) had no FP posRank — left blank)" if unresolved else ""
+    info(f"posRank copied from values.json: {summary}{note}")
 
 
 def render_block(records: list[dict], source_label: str = "Google Sheet") -> str:
