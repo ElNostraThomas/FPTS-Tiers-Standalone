@@ -4,6 +4,13 @@ A single-page tier viewer forked off the Fantasy Points Front Office multi-page
 project at `C:\Users\deons\Desktop\05_11_26 dynasty Tool\FPTS-Trade_Database`.
 Deployable to GitHub Pages from `main` as a static site (entry: `index.html`).
 
+> **This repo is the canonical source of truth for tier data.** As of 2026-05-29,
+> the parent project mirrors this repo's `data/source/tiers/tiers.csv` +
+> `tier-config.json` on every deploy (its `push.bat` `[3a]` step pulls + copies
+> them, then auto-detects the TAT value-divider format), so both sites stay in
+> sync. **Make all tier edits here** — CSV drop or the admin scratchpad — because
+> tier edits made directly on the parent get overwritten on its next deploy.
+
 ## Scope
 
 - One page: `index.html` (was `tiers.html` in the parent project).
