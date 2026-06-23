@@ -1,5 +1,5 @@
 {
-  "version": "2026-05-28T00:36:42+00:00",
+  "version": "2026-06-23T20:13:18+00:00",
   "source": "Google Sheet via sync-tiers.py",
   "playerCount": 200,
   "players": {
@@ -1225,7 +1225,7 @@
       "priority": "",
       "contender": "",
       "notes": "",
-      "posRank": "TE64"
+      "posRank": "TE63"
     },
     "Brenton Strange": {
       "tier": "C",
