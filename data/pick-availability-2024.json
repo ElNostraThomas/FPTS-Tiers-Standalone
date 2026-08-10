@@ -1,5 +1,5 @@
 {
-  "version": "2026-06-23T20:09:54.865192+00:00",
+  "version": "2026-08-10T17:55:18.141164+00:00",
   "season": 2024,
   "teamCount": 12,
   "topN": 300,
@@ -40409,7 +40409,7 @@
       "slots": 12
     },
     "7567": {
-      "name": "Kenneth Gainwell",
+      "name": "Kenny Gainwell",
       "position": "RB",
       "draftsSampled": 4682,
       "expectedPick": 250.13,
